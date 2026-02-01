@@ -23,7 +23,11 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 
 export function initUserModel(sequelize: Sequelize) {
   User.init({
-    id: { type: DataTypes.UUID, primaryKey: true },
+    id: { 
+      type: DataTypes.UUID, 
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true 
+    },
     username: DataTypes.STRING,
     email: DataTypes.STRING,
     passwordHash: DataTypes.STRING,

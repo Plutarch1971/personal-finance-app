@@ -12,9 +12,6 @@ async function startServer() {
     await initializeModels();
     console.log('Models initialized with associations');
 
-    // Uncomment in development to auto-sync schema (use migrations in production)
-    // await sequelize.sync({ alter: process.env.NODE_ENV === 'development' });
-
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
   } catch (error) {
     console.error('Failed to start server:', error);

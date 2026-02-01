@@ -17,6 +17,8 @@
     /* Type Safety */
     "strict": true,
     "noImplicitAny": false,
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+
 
     /* Useful for Sequelize & Node */
     "skipLibCheck": true,
