@@ -1,7 +1,13 @@
 import { Router } from 'express';
+import { 
+    createTransaction, 
+    getTransactions 
+} from '../controllers/transaction.controller';
+import { authenticateToken } from '../middleware/auth';
 
 const router = Router();
 
-// Transactioin routes will go here
+router.post('/', authenticateToken, createTransaction );
+router.get('/', authenticateToken,getTransactions);
 
 export default router;

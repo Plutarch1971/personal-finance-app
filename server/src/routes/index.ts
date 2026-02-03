@@ -9,10 +9,10 @@ import authRoutes from './auth.routes';
 const router = Router();
 // Add routes here
 router.use('/users', userRoutes);
-router.use('/accountRoutes', accountRoutes);
-router.use('/categoryRoutes', categoryRoutes);
-router.use('/transactionRoutes', transactionRoutes);
-router.use('/reportRoutes', reportRoutes);
-router.use('/authRoutes', authRoutes);
+router.use('/accounts', accountRoutes);
+router.use('/categories', categoryRoutes);
+router.use('/transactions', transactionRoutes);
+router.use('/reports', reportRoutes);
+router.use('/auth', authRoutes);
 
 export default router;

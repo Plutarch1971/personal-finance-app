@@ -45,6 +45,7 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     await queryInterface.removeIndex('Categories', ['parentId']);
     await queryInterface.dropTable('Categories');
+    
 
     await queryInterface.sequelize.query(`
       DO $$

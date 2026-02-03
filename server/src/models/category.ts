@@ -1,11 +1,11 @@
 // src/models/Category.ts
-
 import { Sequelize, DataTypes, Optional, Model } from 'sequelize';
 
 interface CategoryAttributes {
   id: string;
+  userId: string;
   name: string;
-  type: 'Expense' | 'Income';
+  type: 'income' | 'expense';
   parentId?: string | null;
   createdAt?: Date;
   updatedAt?: Date;
@@ -19,14 +19,16 @@ export class Category
   implements CategoryAttributes
 {
   public id!: string;
+  public userId!: string; 
   public name!: string;
-  public type!: 'Expense' | 'Income';
+  public type!: 'income' | 'expense';
   public parentId?: string | null;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
   static associate(models: any) {
+    Category.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
     Category.hasMany(models.Category, { foreignKey: 'parentId', as: 'children' });
     Category.belongsTo(models.Category, { foreignKey: 'parentId', as: 'parent' });
   }
@@ -40,12 +42,16 @@ export function initCategoryModel(sequelize: Sequelize) {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
       name: {
         type: DataTypes.STRING(255),
         allowNull: false,
       },
       type: {
-        type: DataTypes.ENUM('Expense', 'Income'),
+        type: DataTypes.ENUM('income', 'expense'),
         allowNull: false,
       },
       parentId: {
