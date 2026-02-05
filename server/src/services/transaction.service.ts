@@ -21,7 +21,7 @@ export async function createTransaction(data: CreateTransactioinInput) {
             });
             if(!category) throw new Error('Category not found');
 
-            if(category.type === 'Expense') {
+            if(category.type === 'expense') {
                 signedAmount = -Math.abs(data.amount);
             }
         }
