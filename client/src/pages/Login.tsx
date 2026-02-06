@@ -18,10 +18,10 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await api.post('api/users/login', { email, password });
+      const res = await api.post('/users/login', { email, password });
       if (auth?.login){
       auth.login(res.data.token);
-      navigate('/');
+      navigate('/dashboard');
       }
     } catch (err: any) {
       setError(err.response?.data?.error || 'Invalid credentials');
