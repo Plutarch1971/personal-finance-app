@@ -37,3 +37,21 @@ export async function getTransactions(req: Request, res: Response){
         res.status(400).json( { error: error.message });
     }
 }
+
+export async function deleteTransaction(req: Request, res: Response) {
+       try {
+        const userId = req.user!.id;
+        const id = req.params.id as string;
+        console.log('Deleting ID:', id);
+
+        if(!id) {
+            return res.status(400).json({ error: 'Transaction ID is required'})
+        }
+
+        await transactionService.deleteTransaction(id, userId);
+        res.json({ message: 'Transaction deleted successfully'});
+        } catch (error: any) {
+            res.status(400).json({ error: error.message});
+        }
+    
+}

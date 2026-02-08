@@ -3,6 +3,8 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 // import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import AddTransaction from './pages/AddTransaction';
+import Transactions from './pages/Transactions';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -19,6 +21,24 @@ function App() {
         </ProtectedRoute>
       }
       />
+      <Route 
+        path="/transactions/new"  
+        element={
+        <ProtectedRoute>
+          <AddTransaction />
+        </ProtectedRoute>
+      }
+      />
+      {/**To add a new transaction */}
+      <Route
+        path="/transactions" 
+        element={
+        <ProtectedRoute>
+        <Transactions />
+        </ProtectedRoute>
+      }
+      />
+      {/* To view all the transactions*/}
     </Routes>
     </BrowserRouter>
   </AuthProvider>

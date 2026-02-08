@@ -10,7 +10,7 @@ api.interceptors.request.use((config) => {
         config.headers.Authorization = `Bearer ${token}`;
     }
     // Disable caching
-    config.headers['Cache-Control'] = 'no-cache';
+    //config.headers['Cache-Control'] = 'no-cache';
     return config;
 });
 

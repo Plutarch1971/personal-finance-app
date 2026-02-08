@@ -3,6 +3,9 @@ import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import SummaryCards from '../components/SummaryCards';
 import AccountTable from '../components/AccountTable';
+//import Transaction from '../pages/AddTransaction';
+import { useNavigate  }from 'react-router-dom';
+//import { Transactions } from '../pages/Transactions';
 
 export default function Dashboard(){
     const auth = useAuth();
@@ -16,6 +19,7 @@ export default function Dashboard(){
     });
     const [accounts, setAccounts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function load(){
@@ -45,6 +49,19 @@ export default function Dashboard(){
         <div className="container mt-4">
          <div className="d-flex justify-content-between align-items-center mb-4">
             <h2>Dashboard</h2>
+            <button
+            className="btn btn-primary"
+            onClick={() => navigate('/transactions/new')}
+            >
+                Add Transaction
+            </button>
+            
+            <button
+            className="btn btn-primary"
+            onClick={() => navigate('/transactions')}
+            >
+                View Transactions
+            </button>
             <button className="btn btn-outline-danger" onClick={logout}>
                 Logout
             </button>
