@@ -1,11 +1,3 @@
-<div>
-                {transactions.length > 0 ? (
-                    <ul>
-                        {transactions.map((transaction, index) => (
-                            <li key={index}>{JSON.stringify(transaction)}</li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No transactions found</p>
-                )}
-            </div>
+SELECT id, name, type, "parentId"
+FROM "Categories"
+WHERE name = 'Salary';

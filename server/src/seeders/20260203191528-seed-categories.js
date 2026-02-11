@@ -64,6 +64,33 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        id: uuidv4(),
+        userId: john.id,
+        name: 'Bonus',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: uuidv4(),
+        userId: john.id,
+        name: 'Interest',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: uuidv4(),
+        userId: john.id,
+        name: 'Other',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
       // Jane's Expense Categories
       {
         id: uuidv4(),
@@ -102,6 +129,33 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        id: uuidv4(),
+        userId: jane.id,
+        name: 'Bonus',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: uuidv4(),
+        userId: jane.id,
+        name: 'Interest',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: uuidv4(),
+        userId: jane.id,
+        name: 'Other',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
       // Bob's Expense Categories
       {
         id: uuidv4(),
@@ -134,6 +188,15 @@ module.exports = {
       {
         id: uuidv4(),
         userId: bob.id,
+        name: 'Salary',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: uuidv4(),
+        userId: bob.id,
         name: 'Business Revenue',
         type: 'income',
         parentId: null,
@@ -144,6 +207,33 @@ module.exports = {
         id: uuidv4(),
         userId: bob.id,
         name: 'Investments',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: uuidv4(),
+        userId: bob.id,
+        name: 'Bonus',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: uuidv4(),
+        userId: bob.id,
+        name: 'Interest',
+        type: 'income',
+        parentId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: uuidv4(),
+        userId: bob.id,
+        name: 'Other',
         type: 'income',
         parentId: null,
         createdAt: new Date(),

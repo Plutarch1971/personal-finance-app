@@ -16,9 +16,18 @@ export async function createCategory(data: CreateCategoryInput) {
         parentId: data.parentId ?? null,
     });
 }
-export async function getCategoriesByUser(userId: string){
+export async function getCategoriesByUser(
+    userId: string,
+    type?: 'income' | 'expense'
+){
+    const where: any = { userId };
+    
+    if(type) {
+        where.type = type;
+    }
+    
     return Category.findAll({
-        where: { userId },
+        where,
         order: [[ 'name', 'ASC']],
     });
 }
