@@ -4,9 +4,10 @@ import bcrypt from 'bcrypt';
 
 // Default accounts for new users
 const DEFAULT_ACCOUNTS = [
-  { name: 'Checking Account', type: 'checking', currency: 'USD', balance: 0 },
-  { name: 'Savings Account', type: 'savings', currency: 'USD', balance: 0 },
-  { name: 'Credit Card', type: 'credit', currency: 'USD', balance: 0 },
+  { name: 'Checking Account', type: 'checking', currency: 'CAD', balance: 0 },
+  { name: 'Savings Account', type: 'savings', currency: 'CAD', balance: 0 },
+  { name: 'Credit Card', type: 'credit', currency: 'CAD', balance: 0 },
+  { name: 'Investment', type: 'credit', currency: 'CAD', balance: 0 },
 ];
 
 // Default categories for new users with parent-child relationships

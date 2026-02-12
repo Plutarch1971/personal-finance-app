@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
-// import Register from './pages/Register';
+import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import AddTransaction from './pages/AddTransaction';
 import Transactions from './pages/Transactions';
@@ -14,7 +14,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Login/>} />
       <Route path="/login" element={<Login/>} />
-      {/* <Route path="/register" element={<Register/>} /> */}
+     <Route path="/register" element={<Register/>} />
+        
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <Dashboard />
