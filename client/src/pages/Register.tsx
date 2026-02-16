@@ -51,49 +51,62 @@ export default function Register(){
 
         }
         return (
-            <div className="container mb-4"style={{width:'30rem'}}>
-                <h2>Registration Form</h2>
-                 {error && <div className="alert alert-danger">{error}</div>}
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label className="form-label">Enter username:</label>
-                        <input type={username}
-                        className="form-control"
-                        value={username} 
-                        onChange={e =>setUsername(e.target.value)}/>
-                    </div>
-                    
-                    <div>
-                        <label className="form-lable">Enter email</label>
-                        <input type={email} 
-                        className="form-control"
-                        value={email} 
-                        onChange={e => setEmail(e.target.value)}/>
-                    </div>
-                    
-                    <div className="mb-3">
-                        <label className="form-label">Enter password</label>
-                        <input type="password" 
-                        className="form-control"
-                        value={password} 
-                        onChange={e => setPassword(e.target.value)}/>
-                    </div>
+            <div className="container-fluid vh-100 pt-5" style={{backgroundColor: "#b4cfe0"}}> 
+            <div className="row h-100"> 
 
-                    <div className="mb-3">
-                        <label className="form-label">Confirm password</label>
-                        <input type="password" 
-                        className="form-control"
-                        value={confirmPassword} 
-                        onChange={e => setConfirmPassword(e.target.value)}/>
+                 {/**Left 2/3 Section */}
+                 <div className="col-md-8 d-none d-md-flex justify-content-center align-items-center">
+                    <h2> Registratioin Page</h2>
+                     {/** Optioinal content here (image / branding /ect) */}
                     </div>
-                
-               
-                <button className="btn btn-primary w-100" disabled={loading}>
-                    {loading ? 'Creating account....': 'Register'}
-                </button>
-                 </form>
-                </div>
-            
+                     {/** Right 1/3 section */}
+                     <div className="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                    <div className="container mb-4"style={{width:'30rem'}}>
+                        <h2>Registration Form</h2>
+                        {error && <div className="alert alert-danger">{error}</div>}
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-3">
+                                <label className="form-label">Enter username:</label>
+                                <input type={username}
+                                className="form-control"
+                                value={username} 
+                                onChange={e =>setUsername(e.target.value)}/>
+                            </div>
+                            
+                            <div>
+                                <label className="form-lable">Enter email</label>
+                                <input type={email} 
+                                className="form-control"
+                                value={email} 
+                                onChange={e => setEmail(e.target.value)}/>
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label className="form-label">Enter password</label>
+                                <input type="password" 
+                                className="form-control"
+                                value={password} 
+                                onChange={e => setPassword(e.target.value)}/>
+                            </div>
+
+                            <div className="mb-3">
+                                <label className="form-label">Confirm password</label>
+                                <input type="password" 
+                                className="form-control"
+                                value={confirmPassword} 
+                                onChange={e => setConfirmPassword(e.target.value)}/>
+                            </div>
+                        
+                    
+                        <button className="btn btn-primary w-100" disabled={loading}>
+                            {loading ? 'Creating account....': 'Register'}
+                        </button>
+                        </form>
+                        </div>
+                    </div>
+                   </div>
+                  </div>
+                    
         );
    
 }

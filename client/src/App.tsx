@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import AddTransaction from './pages/AddTransaction';
 import Transactions from './pages/Transactions';
+import Report from './pages/Report';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -14,31 +15,35 @@ function App() {
     <Routes>
       <Route path="/" element={<Login/>} />
       <Route path="/login" element={<Login/>} />
-     <Route path="/register" element={<Register/>} />
+      <Route path="/register" element={<Register/>} />
+
+
+      <Route path="/report" element={
+        <ProtectedRoute>
+          <Report/>
+        </ProtectedRoute>
+      } />
         
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <Dashboard />
         </ProtectedRoute>
-      }
-      />
+      } />
       <Route 
         path="/transactions/new"  
         element={
-        <ProtectedRoute>
-          <AddTransaction />
-        </ProtectedRoute>
-      }
-      />
+          <ProtectedRoute>
+            <AddTransaction />
+          </ProtectedRoute>
+        } />
       {/**To add a new transaction */}
-      <Route
+      <Route 
         path="/transactions" 
         element={
         <ProtectedRoute>
         <Transactions />
         </ProtectedRoute>
-      }
-      />
+      } />
       {/* To view all the transactions*/}
     </Routes>
     </BrowserRouter>

@@ -62,6 +62,13 @@ export default function Dashboard(){
             >
                 View Transactions
             </button>
+
+            <button 
+            className="btn btn-primary"
+            onClick={() => navigate('/report')}
+            >
+                View Reports
+            </button>
             <button className="btn btn-outline-danger" onClick={logout}>
                 Logout
             </button>

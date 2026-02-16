@@ -31,9 +31,20 @@ export default function Login() {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-4">
+    <div className="container-fluid vh-100 pt-5" style={{ backgroundColor: "#b4cfe0" }}>
+    <div className="row h-100">
+      
+      {/**Left 2/3 Section */}
+      <div className="col-md-8 d-none d-md-flex justify-content-center align-items-center">
+       
+      <h1>My Personal Finance App</h1>
+        {/** Optioinal content here (image / branding /ect) */}
+      </div>
+      
+      {/** Ringt 1/3 Section */}
+      <div className="col-12 col-md-4 d-flex justify-content-center align-self-center">
+
+        <div className="w-100 px-4" style={{ maxWidth: "450px"}}>
           <div className="card shadow">
             <div className="card-body">
               <h3 className="card-title text-center mb-4">Login</h3>
@@ -83,6 +94,7 @@ export default function Login() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

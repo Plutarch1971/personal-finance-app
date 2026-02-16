@@ -29,6 +29,25 @@ export class Transaction
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  static association(models: any) {
+    Transaction.belongsTo(models.Category, { 
+      foreignKey: 'categoryId', 
+      as: 'category',
+     });
+
+     Transaction.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user',
+     });
+
+     Transaction.belongsTo(models.Account, {
+      foreignKey: 'accountId',
+      as: 'account',
+     })
+
+  }
+
 }
 
 export function initTransactionModel(sequelize: Sequelize) {

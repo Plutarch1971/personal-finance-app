@@ -31,6 +31,7 @@ export class Category
     Category.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
     Category.hasMany(models.Category, { foreignKey: 'parentId', as: 'children' });
     Category.belongsTo(models.Category, { foreignKey: 'parentId', as: 'parent' });
+    Category.hasMany(models.Transaction, { foreignKey: 'categoryId', as: 'transactioins',});
   }
 }
 

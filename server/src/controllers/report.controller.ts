@@ -4,7 +4,8 @@ import *  as reportService from '../services/report.service';
 export async function getMonthlySummary(req: Request, res: Response) {
     try {
         const userId = req.user!.id;
-        const { startDate, endDate } = req.query as any;
+        const startDate = req.query.startDate as string;
+        const endDate = req.query.endDate as string;
 
         if(!startDate || !endDate) {
             return res.status(400).json( { error: 'startDate and endDate required'});
@@ -24,8 +25,12 @@ export async function getMonthlySummary(req: Request, res: Response) {
 export async function getExpenseByCategory(req: Request, res: Response) {
     try {
         const userId = req.user!.id;
-        const { startDate, endDate } = req.query as any;
+        const startDate = req.query.startDate as string;
+        const endDate = req.query.endDate as string;
 
+        if(!startDate || !endDate) {
+            return res.status(400).json({error: "Start date and End date is required"});
+        }
         const data = await reportService.getExpenseByCategory(
             userId,
             startDate,
