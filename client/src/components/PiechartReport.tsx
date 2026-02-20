@@ -54,17 +54,20 @@ export default function PieChartReport() {
     }
     
     return (
-        <div className="d-flex justify-content-center" style={{ minWidth: '800px'}}>
-            <div className="card p-4" style={{ minWidth: '400px'}}>
+        <div className="d-flex flex-column justify-content-center" style={{ minWidth: '800px'}}>
+            <div className="row">
+                <div className="col-5">
+            <div className="card p-4 mt-5" style={{width:'500px'}}>
+            <h2 className="text-center">Expenses by Category</h2>
                 <div className="card-title">
-                    Expenses by Category
+                    <strong>Pie Chart</strong>
                 </div>
-            {/* <div className="w-100"> */}
-               <label>Enter start date:</label>
+            <div className="d-flex flex-column"> 
+               <label><strong>Enter start date:</strong></label>
                <input   type="date"
                         value={startDate} onChange={(e)=> setStartDate(e.target.value)} />
                 
-                <label>Enter end date:</label>
+                <label><strong>Enter end date:</strong></label>
                 <input  type="date"
                         value={endDate}
                         onChange={((e) => setEndDate(e.target.value))} />
@@ -77,10 +80,12 @@ export default function PieChartReport() {
                     {loading ? 'Loading...' : 'Generate Report'}
                 </button>
             </div>
+            </div>
+            </div>
                 {error && <div className="alert alert-danger">{error}</div>}
                 {!loading && data.length > 0 && (
-                    <div className="d-flex justify-content-center mt-4">
-                        <PieChart width={800} height={500}>
+                    <div className="col-7 d-flex justify-content-center mt-2">
+                        <PieChart width={700} height={500}>
                             <Pie
                                 data={data}
                                 dataKey="value"
@@ -95,9 +100,8 @@ export default function PieChartReport() {
                         </PieChart>
                     </div>
                 )}
-            </div>
-            // </div>
-      
+        </div>
+      </div>
     )
 }
 
