@@ -1,0 +1,11 @@
+{
+"name": "personal-finance-app",
+"private": true,
+"version": "1.0.0",
+"scripts": {
+"dev": "concurrently -k -n SERVER,CLIENT -c yellow,cyan \"npm --prefix server run dev\" \"npm --prefix client run dev -- --open\""
+},
+"devDependencies": {
+"concurrently": "^9.2.1"
+}
+}

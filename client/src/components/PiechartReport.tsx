@@ -21,7 +21,7 @@ interface CharData {
 }
 export default function PieChartReport() {
     const [ data, setData] = useState<CharData[]>([]);
-    const [ loading, setLoading] = useState(true);
+    const [ loading, setLoading] = useState(false);
     const [ error, setError] = useState('');
     const [startDate, setStartDate] = useState('');
     const [ endDate, setEndDate] = useState('');
@@ -31,13 +31,14 @@ export default function PieChartReport() {
     };
 
     async function loadReport() {
-        
+        setLoading(true);
         try {
         const res = await api.get('/reports/expenses-by-category', {
             params: { startDate, endDate }
         });
         if (!res.data) {
-            return setError('Failed to fetch data.')
+            setError('Failed to fetch data.');
+            return;
         }
         const formatted = res.data.map((row: any) => ({
             name: row['category.name'],
@@ -45,45 +46,57 @@ export default function PieChartReport() {
         }));
         setData(formatted);
         setError('');
-        setLoading(false);
         } catch (error) {
             setError("Error fetching data.");
+        } finally {
+            setTimeout(() => setLoading(false), 800); // 0.8s delay
         }
     }
     
     return (
-        
-        <div className="card p-4">
-            <div className="card-title">
-                Expenses by Category
-            </div>
+        <div className="d-flex justify-content-center" style={{ minWidth: '800px'}}>
+            <div className="card p-4" style={{ minWidth: '400px'}}>
+                <div className="card-title">
+                    Expenses by Category
+                </div>
+            {/* <div className="w-100"> */}
                <label>Enter start date:</label>
-               <input type="date"
-                value={startDate} onChange={(e)=> setStartDate(e.target.value)} />
+               <input   type="date"
+                        value={startDate} onChange={(e)=> setStartDate(e.target.value)} />
                 
                 <label>Enter end date:</label>
-                <input type="date"
+                <input  type="date"
                         value={endDate}
                         onChange={((e) => setEndDate(e.target.value))} />
                 
-                <button className="btn-primary" 
-                onClick={loadReport}>
-                { loading ? 'Loading...' : 'Generate Report'}
+                <button
+                    className="btn-primary"
+                    onClick={loadReport}
+                    disabled={loading}
+                >
+                    {loading ? 'Loading...' : 'Generate Report'}
                 </button>
-                {error && <div className="alert alert-danger">{error}</div>}
-                <PieChart width={800} height={500} style={{marginTop:'2rem', marginLeft:'2rem'}}>
-                    <Pie data={data}
-                    dataKey="value"
-                    nameKey="name"
-                    label={renderCustomLabel}
-                    outerRadius={200}
-                    >
-                        {data.map((_, index) => (
-                            <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                    </Pie>
-                </PieChart>
             </div>
+                {error && <div className="alert alert-danger">{error}</div>}
+                {!loading && data.length > 0 && (
+                    <div className="d-flex justify-content-center mt-4">
+                        <PieChart width={800} height={500}>
+                            <Pie
+                                data={data}
+                                dataKey="value"
+                                nameKey="name"
+                                label={renderCustomLabel}
+                                outerRadius={200}
+                            >
+                                {data.map((_, index) => (
+                                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                        </PieChart>
+                    </div>
+                )}
+            </div>
+            // </div>
       
     )
 }
