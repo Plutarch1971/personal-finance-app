@@ -9,9 +9,6 @@ export default function Report(){
     const [ activeView, setActiveView ] = useState<'summary' | 'table' | 'chart' | null>(null);
     const navigate = useNavigate();
 
-    
-
-    
      return (
         <div className="container-fluid  w-100 vh-100">
             <div className="row mt-5">
@@ -27,40 +24,38 @@ export default function Report(){
             </div>
             {/* {error && <div className="alert alert-danger">{error}</div>} */}
             <div className="row">
-                {/** Left Panel - Buttons */}
-                        <div className="col-2 p-4">
-                                <div className="d-grid gap-2">
-                                    <button
-                                        className="btn btn-primary"
-                                        onClick={() => setActiveView('summary')}
-                                    >
-                                        Monthly Summary
-                                    </button>
-                                    <button 
-                                        className="btn btn-primary"
-                                        onClick={() => setActiveView('table')}
-                                    >
-                                        Expenses Table
-                                    </button>
-                                    <button
-                                        className="btn btn-primary"
-                                        onClick={() => setActiveView('chart')}
-                                    >
-                                        Pie Chart
-                                    </button>
-                                </div>
-                        </div>
+                {/** Left Panel - Hide when chart view is active */}
+                <div className="col-2 p-4">
+                    <div className="d-grid gap-2">
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => setActiveView('summary')}
+                        >
+                            Monthly Summary
+                        </button>
+                        <button 
+                            className="btn btn-primary"
+                            onClick={() => setActiveView('table')}
+                        >
+                            Expenses Table
+                        </button>
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => setActiveView('chart')}
+                        >
+                            Pie Chart
+                        </button>
+                    </div>
+                </div>
+        
+                { /** Main Content Area */}
                 
-                
-                    { /** Main Content Area */}
-                    <div className="col-10 ps-0 pe-4 pb-4">
-                        {activeView === 'summary' && <MonthlySummaryCard />}
-                        {activeView === 'table' && <ExpensesByCategoryCard />}
-                        {activeView === 'chart' && <PieChartReport />}
-                     </div>       
+                <div className="col-10 ps-0 pe-4 pb-4">
+                    {activeView === 'summary' && <MonthlySummaryCard />}
+                    {activeView === 'table' && <ExpensesByCategoryCard />}
+                    {activeView === 'chart' && <PieChartReport />}
+                    </div>       
                 </div> {/** Row closes here now */}
             </div>
-        
      )
-    
 }

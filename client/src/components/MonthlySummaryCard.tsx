@@ -51,16 +51,19 @@ export default function MonthlySummaryCard() {
                         <input className="form-control" type="date"
                             value={endDate} onChange={(e) => setEndDate(e.target.value)}
                         />
+
+                         {error && <div className="alert alert-danger">{error}</div>}
+                        <div className="card-body">
+                            <p><strong>Income:</strong>${monthlySummary.income}</p>
+                            <p><strong>Expense:</strong> ${monthlySummary.expense}</p>
+                            <p><strong>Net:</strong> ${monthlySummary.net}</p>
+                        </div>
+                        
                         <button className="btn btn-primary" type="submit">
                             {loading ? 'Loading...' : 'Get Summary'}
                         </button>
                     </form>
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    <div className="card-body">
-                        <p><strong>Income:</strong>${monthlySummary.income}</p>
-                        <p><strong>Expense:</strong> ${monthlySummary.expense}</p>
-                        <p><strong>Net:</strong> ${monthlySummary.net}</p>
-                    </div>
+                   
                 </div>
             </div>
             </div>

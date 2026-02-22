@@ -18,7 +18,7 @@ const COLORS = [
 interface CharData {
     name: string;
     value: number;
-}
+} 
 export default function PieChartReport() {
     const [ data, setData] = useState<CharData[]>([]);
     const [ loading, setLoading] = useState(false);
@@ -26,14 +26,14 @@ export default function PieChartReport() {
     const [startDate, setStartDate] = useState('');
     const [ endDate, setEndDate] = useState('');
 
-    const renderCustomLabel = ({ name, percent }: any) => {
-    return `${name} ${(percent * 100).toFixed(1)}%`;
+    const renderCustomLabel = ({ name,percent }:any) =>  {
+        return `${name} ${(percent * 100).toFixed(1)}%`; 
     };
 
     async function loadReport() {
         setLoading(true);
         try {
-        const res = await api.get('/reports/expenses-by-category', {
+            const res = await api.get('/reports/expenses-by-category', {
             params: { startDate, endDate }
         });
         if (!res.data) {
@@ -52,56 +52,84 @@ export default function PieChartReport() {
             setTimeout(() => setLoading(false), 800); // 0.8s delay
         }
     }
-    
-    return (
-        <div className="d-flex flex-column justify-content-center" style={{ minWidth: '800px'}}>
-            <div className="row">
-                <div className="col-5">
-            <div className="card p-4 mt-5" style={{width:'500px'}}>
-            <h2 className="text-center">Expenses by Category</h2>
-                <div className="card-title">
-                    <strong>Pie Chart</strong>
-                </div>
-            <div className="d-flex flex-column"> 
-               <label><strong>Enter start date:</strong></label>
-               <input   type="date"
-                        value={startDate} onChange={(e)=> setStartDate(e.target.value)} />
-                
-                <label><strong>Enter end date:</strong></label>
-                <input  type="date"
-                        value={endDate}
-                        onChange={((e) => setEndDate(e.target.value))} />
-                
-                <button
-                    className="btn-primary"
-                    onClick={loadReport}
-                    disabled={loading}
+
+    const isChartVisible = data.length > 0 && !loading;
+
+    return ( 
+            <div className="container-fluid h-100">
+                <div className="row justify-content-center mt-5" 
+                     style={!isChartVisible ? { transform: 'translateX(-8.333%)'} : {}}
                 >
-                    {loading ? 'Loading...' : 'Generate Report'}
-                </button>
+                    <div className={
+                                isChartVisible
+                                ? "col-12 col-md-4" 
+                                : "col-12 col-md-6 col-xl-4"
+                    }>
+                        <div className="card shadow p-4 w-100">
+                            <h4 className="text-center mb-3">
+                                Expenses in Pie Chart
+                            </h4>
+                                
+                            <div className="mb-3">
+                                    <label className="form-label">
+                                        <strong>Enter start date:</strong>
+                                    </label>
+
+                                    <input  type="date"
+                                            className="form-control"
+                                            value={startDate} 
+                                            onChange={(e)=> 
+                                                setStartDate(e.target.value)} 
+                                    />
+                            
+                                    <label className="form-label">
+                                        <strong>Enter end date:</strong>
+                                    </label>
+                                        
+                                    <input  type="date"
+                                            className="form-control"
+                                            value={endDate}
+                                            onChange={(e) => 
+                                                setEndDate(e.target.value)} 
+                                    />
+                            
+                                    <button
+                                        className="btn btn-primary w-100"
+                                        onClick={loadReport}
+                                        disabled={loading}
+                                    >
+                                        {loading 
+                                        ? 'Generating...' 
+                                        : 'Generate Report'
+                                        }
+                                    </button>
+
+                                    {error && <div className="alert alert-danger">{error}</div>}
+                             </div>       
+                        </div>
+                    </div>    
+                    {isChartVisible && (        
+                        <div className="col-12 col-md-8 d-flex justify-content-center">
+                            <div className="card shadow p-3">
+                                <PieChart width={700} height={500} style={{ backgroundColor:'#f0f0f0'}}>
+                                    <Pie
+                                        data={data}
+                                        dataKey="value"
+                                        nameKey="name"
+                                        label={renderCustomLabel}
+                                        outerRadius={200}
+                                    >
+                                        {data.map((_, index) => (
+                                            <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                </PieChart>
+                            </div>
+                        </div>
+                    )}
+
             </div>
-            </div>
-            </div>
-                {error && <div className="alert alert-danger">{error}</div>}
-                {!loading && data.length > 0 && (
-                    <div className="col-7 d-flex justify-content-center mt-2">
-                        <PieChart width={700} height={500}>
-                            <Pie
-                                data={data}
-                                dataKey="value"
-                                nameKey="name"
-                                label={renderCustomLabel}
-                                outerRadius={200}
-                            >
-                                {data.map((_, index) => (
-                                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                        </PieChart>
-                    </div>
-                )}
-        </div>
-      </div>
+        </div>               
     )
 }
 

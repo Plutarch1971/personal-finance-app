@@ -17,7 +17,7 @@ export default function ExpensesByCategoryCar (){
     const [ startDate, setStartDate ] = useState('');
     const [ endDate, setEndDate ] = useState('');
     const [ expenseByCategory, setExpenseByCategory] = useState<ExpenseCategory[]>([]);
-    const [ loading, setLoading ] = useState(true);
+    const [ loading, setLoading ] = useState(false);
     const [ error, setError ] = useState('');
     
 
