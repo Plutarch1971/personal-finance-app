@@ -20,14 +20,14 @@ export default function EditTransaction(){
 
     useEffect(() => {
         async function load() {
-            const res = await api.get(`/transaction/${id}`);
+            const res = await api.get(`/transactions/${id}`);
             setInitialData(res.data);
         }
         load();
     },[id]);
 
     async function handleUpdate(data: any) {
-        await api.put(`/transaction/${id}`, data);
+        await api.put(`/transactions/${id}`, data);
         navigate('/transactions');
     }
 

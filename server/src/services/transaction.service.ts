@@ -84,13 +84,25 @@ export async function createTransaction(data: CreateTransactionInput) {
     updatePayload.description = data.description;
 
     if (data.transactionDate !== undefined)
-    updatePayload.transactionDate = new Date(data.transactionDate);
+    updatePayload.transactionDate = data.transactionDate;
 
     await transaction.update(updatePayload);
     
     return transaction;   
 
  }
+
+ export async function getTransactionById(id: string, userId: string) {
+  const transaction = await Transaction.findOne({
+    where: { id, userId },
+  });
+
+  if (!transaction) {
+    throw new Error('Transaction not found');
+  }
+
+  return transaction;
+}
 
  export async function deleteTransaction (id: string, userId: string) {
     return sequelize.transaction(async (t) => {

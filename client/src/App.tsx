@@ -47,7 +47,7 @@ function App() {
       } />
       {/* To view all the transactions*/}
       <Route
-        path="transaction/:id/edit"
+        path="transactions/:id/edit"
         element={
           <ProtectedRoute>
             <EditTransaction />

@@ -59,6 +59,21 @@ export async function updateTransaction(req: Request, res: Response) {
         
 }
 
+export async function getTransactionById(req: Request, res: Response) {
+  try {
+    const userId = req.user!.id;
+    const id = req.params.id as string;
+
+    if (!id) {
+      return res.status(400).json({ error: 'Transaction ID is required' });
+    }
+
+    const transaction = await transactionService.getTransactionById(id, userId);
+    res.json(transaction);
+  } catch (error: any) {
+    res.status(404).json({ error: error.message || 'Transaction not found' });
+  }
+}
 
 export async function deleteTransaction(req: Request, res: Response) {
        try {

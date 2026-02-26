@@ -57,7 +57,7 @@ export default function Transaction(){
     }   
         
     return (
-        <div className="container mt-4">
+        <div className="container mt-4 w-50">
         <div className="row">
          <div className="col-12 ps-4">
             <div className="card">
@@ -66,12 +66,12 @@ export default function Transaction(){
                 <div className="col-4 text-center">.     
                     <h2 className="text-center">Transactions</h2>
                 </div>
-                <div className="col-4 text-center" >       
-                <button className="btn btn-primary w-25 mt-4" 
-                        onClick={() => navigate('/dashboard')}
-                 >
-                Back
-                </button>
+                <div className="col-4 d-flex justify-content-end pe-4" >     
+                    <button className="btn btn-primary mt-4 px-3" 
+                            onClick={() => navigate('/dashboard')}
+                    >
+                    Back
+                    </button>
                 </div>
 
             <div className="mt-4" style={{ maxHeight: '400px', overflowY: 'auto'}}>
@@ -93,14 +93,22 @@ export default function Transaction(){
                                     <td className={`text-end ${Number(tx.amount) < 0 ? 'text-danger': 'text-success'}`}>
                                         ${Number(tx.amount).toFixed(2)}
                                     </td>
-                                
-                                    <td>
-                                        <button className="btn btn-sm btn-danger"
+                                    
+                                    <td className="text-end">
+                                        <div className="d-inline-flex justify-content-end gap-2">
+                                        <button
+                                            className="btn btn-sm btn-warning" style={{width:'80px'}}
+                                            onClick={() => navigate(`/transactions/${tx.id}/edit`)}
+                                            >
+                                            Edit
+                                            </button>
+                                            <button className="btn btn-sm btn-danger" style={{width:'80px'}}
                                         onClick={() => handleDelete(tx.id)}
                                         >
                                             Delete
                                         </button>
-                                    </td>
+                                        </div>
+                                    </td>  
                                 </tr>  
                             ))}
                         </tbody> 

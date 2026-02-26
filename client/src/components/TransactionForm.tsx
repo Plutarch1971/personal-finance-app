@@ -123,9 +123,6 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
     };       
         
     /** -------------------- LOADING -------------------------------- */
-    // <button>
-    //     {mode === 'create' ? 'Add Transaction' : 'Update Transaction'}
-    // </button>
     
     if (loading) {
         return <div className="container mt-5">Loading...</div>

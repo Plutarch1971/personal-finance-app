@@ -2,99 +2,145 @@ import { useEffect, useState } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import SummaryCards from '../components/SummaryCards';
-import { useNavigate  }from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+export default function Dashboard() {
+  const auth = useAuth();
+  if (!auth) return null;
+  const { logout } = auth;
 
-export default function Dashboard(){
-     const auth = useAuth();
-    if(!auth) return null;
-    const{ logout } = auth;
+  const [summary, setSummary] = useState({
+    income: 0,
+    expense: 0,
+    net: 0,
+  });
 
-    const [summary, setSummary] = useState({
-        income: 0,
-        expense: 0,
-        net: 0,
-    });
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
+  useEffect(() => {
+    async function load() {
+      const startDate = new Date();
+      startDate.setDate(1);
+      const endDate = new Date();
 
-    useEffect(() => {
-        async function load(){
-            const startDate = new Date();
-            startDate.setDate(1);
-            const endDate = new Date();
-            
-            const  [summaryRes] = await Promise.all([
-                api.get('/reports/summary', {
-                    params: {
-                        startDate: startDate.toISOString().slice(0,10),
-                        endDate: endDate.toISOString().slice(0,10),
-                    },
-                }),
-                // api.get('/accounts'),
-            ]);
-            setSummary(summaryRes.data);
-            // setAccounts(accountsRes.data);
-            setLoading(false);
-        }
-        load();
-    }, []);
-    if (loading) {
-        return <div className="container mt-5">Loading....</div>
+      const res = await api.get('/reports/summary', {
+        params: {
+          startDate: startDate.toISOString().slice(0, 10),
+          endDate: endDate.toISOString().slice(0, 10),
+        },
+      });
+
+      setSummary(res.data);
+      setLoading(false);
     }
-    return (
-        <div className="container mt-4">
-            <div className="row align-items-center mb-4">
-                <div className="col-12 text-center">
-                    <h2 className="mb-5 mt-5"><strong>Dashboard</strong></h2>
+    load();
+  }, []);
+
+  if (loading) {
+    return <div className="container mt-5">Loading...</div>;
+  }
+
+  return (
+    <div className="container-fluid py-4">
+      <div className="row">
+
+        {/* ================= SIDEBAR (Desktop Only) ================= */}
+        <aside className="col-12 col-lg-2 mb-4 mb-lg-0">
+          <div className="d-grid gap-3">
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate('/transactions/new')}
+            >
+              Add Transaction
+            </button>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate('/transactions')}
+            >
+              View Transactions
+            </button>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate('/report')}
+            >
+              View Reports
+            </button>
+
+            <button className="btn btn-danger mt-3" onClick={logout}>
+              Logout
+            </button>
+          </div>
+        </aside>
+
+        {/* ================= MAIN CONTENT ================= */}
+        <main className="col-12 col-lg-10">
+
+          {/* Title (Centered on Mobile) */}
+          <h2 className="text-center text-lg-start mb-4">
+            Dashboard
+          </h2>
+
+          {/* Summary Cards */}
+          <SummaryCards summary={summary} />
+
+          {/* ================= EXTRA INFO CARDS ================= */}
+          <div className="row mt-4 g-4">
+
+            <div className="col-12 col-md-4">
+              <div className="card shadow-sm h-100">
+                <img
+                  src="https://images.unsplash.com/photo-1554224155-6726b3ff858f"
+                  className="card-img-top"
+                  alt="Budget"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">Budget Planning</h5>
+                  <p className="card-text">
+                    Track and adjust your monthly spending to stay within your limits.
+                  </p>
                 </div>
+              </div>
             </div>
 
-            <div className="position-fixed" style={{ position: 'fixed', top: '50px', right: '70px' }}>
-                <button className="btn btn-danger text-white" onClick={logout}>
-                    <strong>
-                        Logout
-                    </strong>
-                </button>
+            <div className="col-12 col-md-4">
+              <div className="card shadow-sm h-100">
+                <img
+                  src="https://images.unsplash.com/photo-1565514020179-026b92b4a5b4"
+                  className="card-img-top"
+                  alt="Savings"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">Savings Goals</h5>
+                  <p className="card-text">
+                    Monitor progress toward your financial goals and milestones.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="row">
-                <div className="col-2">
-                    <div className="d-grid gap-3 mt-2">
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => navigate('/transactions/new')}
-                        >
-                            <strong>
-                            Add Transaction
-                            </strong>
-                        </button>
-
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => navigate('/transactions')}
-                        >
-                            <strong>
-                            View Transactions
-                            </strong>
-                        </button>
-
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => navigate('/report')}
-                        >
-                            <strong>
-                            View Reports
-                            </strong>
-                        </button>
-                    </div>
+            <div className="col-12 col-md-4">
+              <div className="card shadow-sm h-100">
+                <img
+                  src="https://images.unsplash.com/photo-1605902711622-cfb43c4437b1"
+                  className="card-img-top"
+                  alt="Investments"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">Investments</h5>
+                  <p className="card-text">
+                    Keep track of investment performance and growth.
+                  </p>
                 </div>
-
-                <div className="col-10 px-5 py-2">
-                    <SummaryCards summary={summary} />
-                </div>
+              </div>
             </div>
-        </div>
-    );
+
+          </div>
+
+        </main>
+      </div>
+    </div>
+  );
 }
