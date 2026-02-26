@@ -36,6 +36,7 @@ export default function Transaction(){
     };
 
 
+
     useEffect(() => {
         async function load(){
         try{
@@ -57,43 +58,59 @@ export default function Transaction(){
         
     return (
         <div className="container mt-4">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Transactions</h2>
-            <button className="btn btn-primary"
-            onClick={() => navigate('/dashboard')}
-            >Return to Dashboard</button>
+        <div className="row">
+         <div className="col-12 ps-4">
+            <div className="card">
+                <div className="row align-items-center mb-4 p-3">
+                <div className="col-4 mt-5 mb-5"></div> {/** col-first with empty div to place Transaction in Center */}
+                <div className="col-4 text-center">.     
+                    <h2 className="text-center">Transactions</h2>
+                </div>
+                <div className="col-4 text-center" >       
+                <button className="btn btn-primary w-25 mt-4" 
+                        onClick={() => navigate('/dashboard')}
+                 >
+                Back
+                </button>
+                </div>
+
+            <div className="mt-4" style={{ maxHeight: '400px', overflowY: 'auto'}}>
+                    <table className="table table-striped fs-6">
+                    <thead className="sticky-top bg-white">
+                        <tr>
+                            <th><strong>Date</strong></th>
+                            <th><strong>Description</strong></th>
+                            <th className="text-end"><strong>Amount</strong></th>
+                            <th></th>
+                        </tr>    
+                        </thead>
+                        <tbody>
+                            {/*rows go here*/ }
+                            {transactions.map(tx => (
+                                <tr key={tx.id}>
+                                    <td>{tx.transactionDate}</td>
+                                    <td>{tx.description ?? '-'}</td>
+                                    <td className={`text-end ${Number(tx.amount) < 0 ? 'text-danger': 'text-success'}`}>
+                                        ${Number(tx.amount).toFixed(2)}
+                                    </td>
+                                
+                                    <td>
+                                        <button className="btn btn-sm btn-danger"
+                                        onClick={() => handleDelete(tx.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>  
+                            ))}
+                        </tbody> 
+                    </table>
+                    </div>
+                </div>
+                </div>
             </div>
-        <table className="table table-striped">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th className="text-end">Amount</th>
-                    <th></th>
-                </tr>    
-                </thead>
-                <tbody>
-                    {/*rows go here*/ }
-                    {transactions.map(tx => (
-                        <tr key={tx.id}>
-                            <td>{tx.transactionDate}</td>
-                            <td>{tx.description ?? '-'}</td>
-                            <td className={`text-end ${Number(tx.amount) < 0 ? 'text-danger': 'text-success'}`}>
-                                ${Number(tx.amount).toFixed(2)}
-                            </td>
-                           
-                            <td>
-                                <button className="btn btn-sm btn-danger"
-                                onClick={() => handleDelete(tx.id)}
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>  
-                    ))}
-                </tbody> 
-        </table>
         </div>
+    </div>
     );
     
     

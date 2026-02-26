@@ -7,6 +7,7 @@ import AddTransaction from './pages/AddTransaction';
 import Transactions from './pages/Transactions';
 import Report from './pages/Report';
 import ProtectedRoute from './components/ProtectedRoute';
+import EditTransaction from './pages/EditTransaction';
 
 function App() {
   return (
@@ -45,6 +46,15 @@ function App() {
         </ProtectedRoute>
       } />
       {/* To view all the transactions*/}
+      <Route
+        path="transaction/:id/edit"
+        element={
+          <ProtectedRoute>
+            <EditTransaction />
+          </ProtectedRoute>
+        } 
+        />
+
     </Routes>
     </BrowserRouter>
   </AuthProvider>

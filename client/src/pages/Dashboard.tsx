@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import SummaryCards from '../components/SummaryCards';
-import AccountTable from '../components/AccountTable';
-//import Transaction from '../pages/AddTransaction';
 import { useNavigate  }from 'react-router-dom';
-//import { Transactions } from '../pages/Transactions';
+
 
 export default function Dashboard(){
-    const auth = useAuth();
+     const auth = useAuth();
     if(!auth) return null;
     const{ logout } = auth;
 
@@ -17,7 +15,7 @@ export default function Dashboard(){
         expense: 0,
         net: 0,
     });
-    const [accounts, setAccounts] = useState<any[]>([]);
+
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -27,17 +25,17 @@ export default function Dashboard(){
             startDate.setDate(1);
             const endDate = new Date();
             
-            const  [summaryRes, accountsRes] = await Promise.all([
+            const  [summaryRes] = await Promise.all([
                 api.get('/reports/summary', {
                     params: {
                         startDate: startDate.toISOString().slice(0,10),
                         endDate: endDate.toISOString().slice(0,10),
                     },
                 }),
-                api.get('/accounts'),
+                // api.get('/accounts'),
             ]);
             setSummary(summaryRes.data);
-            setAccounts(accountsRes.data);
+            // setAccounts(accountsRes.data);
             setLoading(false);
         }
         load();
@@ -95,7 +93,6 @@ export default function Dashboard(){
 
                 <div className="col-10 px-5 py-2">
                     <SummaryCards summary={summary} />
-                    <AccountTable accounts={accounts} />
                 </div>
             </div>
         </div>

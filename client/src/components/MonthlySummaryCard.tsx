@@ -7,7 +7,11 @@ interface monthlySummary {
     net: number;
 }
 
-export default function MonthlySummaryCard() {
+interface Props {
+    onClose: () => void;
+}
+
+export default function MonthlySummaryCard({onClose}: Props) {
     const [monthlySummary, setMonthlySummary] = useState<monthlySummary>({
         income: 0,
         expense: 0,
@@ -35,39 +39,51 @@ export default function MonthlySummaryCard() {
     };
 
     return (
-        <div className="col-10 mt-3">
-        <div className="d-flex justify-content-center">
-            <div style={{ width: '500px' }}>
-                <h3 className="text-center mb-3">Monthly Summary</h3>
-                <div className="card">
-                <div className="card-body">
-                    <div className="card-title"><strong>Select a Month</strong></div>
-                    <form onSubmit={handleSubmit}>
-                        <label className="form-control">Enter start date:</label>
-                        <input type="date"
-                            value={startDate} onChange={(e) => setStartDate(e.target.value)}
-                        />
-                        <label className="form-control">Enter end date:</label>
-                        <input className="form-control" type="date"
-                            value={endDate} onChange={(e) => setEndDate(e.target.value)}
-                        />
+        <>
+            <div className="col-10 mt-3">
+            <div className="d-flex justify-content-center">
+                <div style={{ width: '500px' }}>  
+                    <div className="card">
+                        <h3 className="text-center mt-4">Monthly Summary</h3>
+                    <div className="card-body ms-2">
+                        <div className="card-title"><strong>Select a Month</strong></div>
+                        <form onSubmit={handleSubmit}>
+                            <label className="form-control">Enter start date:</label>
+                            <input type="date"
+                                value={startDate} onChange={(e) => setStartDate(e.target.value)}
+                            />
+                            <label className="form-control">Enter end date:</label>
+                            <input className="form-control" type="date"
+                                value={endDate} onChange={(e) => setEndDate(e.target.value)}
+                            />
 
-                         {error && <div className="alert alert-danger">{error}</div>}
-                        <div className="card-body">
-                            <p><strong>Income:</strong>${monthlySummary.income}</p>
-                            <p><strong>Expense:</strong> ${monthlySummary.expense}</p>
-                            <p><strong>Net:</strong> ${monthlySummary.net}</p>
-                        </div>
-                        
-                        <button className="btn btn-primary" type="submit">
-                            {loading ? 'Loading...' : 'Get Summary'}
-                        </button>
-                    </form>
-                   
+                            {error && <div className="alert alert-danger">{error}</div>}
+                            <div className="card-body">
+                                <p><strong>Income:</strong>${monthlySummary.income}</p>
+                                <p><strong>Expense:</strong> ${monthlySummary.expense}</p>
+                                <p><strong>Net:</strong> ${monthlySummary.net}</p>
+                            </div>
+
+                            <div className="d-flex align-items-center justify-content-between">
+                            <button className="btn btn-primary" type="submit">
+                                {loading ? 'Loading...' : 'Get Summary'}
+                            </button>
+                            <button className="btn btn-danger w-25" 
+                                    type="button"
+                                    onClick={onClose}
+                                    
+                            >           
+                                    Close
+                            </button>
+                            </div>
+
+                        </form>
+                    
+                    </div>
+                </div>
                 </div>
             </div>
             </div>
-        </div>
-        </div>
+    </>
     );
 }

@@ -2,11 +2,12 @@ import { useState } from 'react';
 import ExpensesByCategoryCard from '../components/ExpensesByCategoryCard';
 import MonthlySummaryCard from '../components/MonthlySummaryCard';
 import PieChartReport from '../components/PiechartReport';
+import AccountTable from '../components/AccountTable';
 import { useNavigate } from 'react-router-dom';
 
 
 export default function Report(){
-    const [ activeView, setActiveView ] = useState<'summary' | 'table' | 'chart' | null>(null);
+    const [ activeView, setActiveView ] = useState<'summary' | 'table' | 'chart' |'account'| null>(null);
     const navigate = useNavigate();
 
      return (
@@ -22,10 +23,9 @@ export default function Report(){
                 </div>
                 
             </div>
-            {/* {error && <div className="alert alert-danger">{error}</div>} */}
+            {/* {error && <div className="alert alert-danger">{error}</div>}  */}
             <div className="row">
-                {/** Left Panel - Hide when chart view is active */}
-                <div className="col-2 p-4">
+                <div className="col-2 p-4 mt-4">
                     <div className="d-grid gap-2">
                         <button
                             className="btn btn-primary"
@@ -37,13 +37,18 @@ export default function Report(){
                             className="btn btn-primary"
                             onClick={() => setActiveView('table')}
                         >
-                            Expenses Table
+                            Expenses By Category
                         </button>
                         <button
                             className="btn btn-primary"
                             onClick={() => setActiveView('chart')}
                         >
-                            Pie Chart
+                            Expenses Pie Chart
+                        </button>
+                        <button className="btn btn-primary"
+                                onClick={() => setActiveView('account')}
+                        >
+                            Account Balance
                         </button>
                     </div>
                 </div>
@@ -51,10 +56,19 @@ export default function Report(){
                 { /** Main Content Area */}
                 
                 <div className="col-10 ps-0 pe-4 pb-4">
-                    {activeView === 'summary' && <MonthlySummaryCard />}
-                    {activeView === 'table' && <ExpensesByCategoryCard />}
-                    {activeView === 'chart' && <PieChartReport />}
-                    </div>       
+                    {activeView === 'summary' && (
+                        <MonthlySummaryCard onClose={() => setActiveView(null)}/>
+                    )}
+                    {activeView === 'table' && (
+                        <ExpensesByCategoryCard onClose={() => setActiveView(null)} />
+                    )}
+                    {activeView === 'chart' && (
+                        <PieChartReport onClose={() => setActiveView(null)}/>
+                    )}
+                    {activeView === 'account' && (
+                        <AccountTable onClose={() => setActiveView(null)}/>
+                    )}
+                </div>       
                 </div> {/** Row closes here now */}
             </div>
      )

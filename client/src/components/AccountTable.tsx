@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react';
+import api from '../api/axios';
+
 interface Account {
     id: string;
     name: string;
@@ -5,18 +8,57 @@ interface Account {
     balance: number;
 }
 
-export default function AccountTable ({ accounts }: { accounts: Account[]}) {
+interface Props {
+    onClose: () => void;
+}
+export default function AccountTable({onClose}: Props) {
+    const [accounts, setAccounts] = useState<Account[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        const fetchAccounts = async () => {
+            try {
+                const res = await api.get('/accounts');
+                setAccounts(res.data);
+                setError('');
+            } catch (err) {
+                setError('Failed to load accounts');
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchAccounts();
+    }, []);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div className="alert alert-danger">{error}</div>;
+
     return (
         <>
-        <div className="card">                                      {/* Card container */}
-            <div className='card-body'>                             {/* Card content area with padding  */}                         
-                <h5 className="card-title mb-3">Accounts</h5>       {/* Card title styling your table inside the card */}
-                <table className="table table-striped">             {/* Provides alternating light and grey colors for each row for readablity*/}
-                    <thead>                                         {/* Table head section containing the header row with column titles */}                                    
-                        <tr>                                        {/*Table row in the head section ?*/}
-                            <th>Name</th>                           {/*Column header 1*/}
-                            <th>Type</th>                           {/* Column header 2*/}
-                            <th className="text-end">Balance</th>   {/*  Column header 3*/}
+        <div className="container-fluid mt-5">
+         <div className="row justify-content-center">
+           <div className="col-12 col-md-6 d-flex justify-content-center">
+        <div className="card" style={{ width: '50vw', marginLeft: '-230px' }}>                                     
+            <div className="card-body">  
+                <div className="d-flex align-items-center position-relative">                          
+                    <h4 className="card-title mb-0 position-absolute start-50 translate-middle-x"
+                    >
+                            Your Accounts Balances
+                    </h4>   
+                    <button className="btn btn-danger ms-auto w-25" 
+                            type="button"
+                            onClick={onClose}
+                    >
+                        Close   
+                    </button>    
+                </div>
+                <table className="table table-striped">             
+                    <thead>                                         
+                        <tr>                                        
+                            <th>Name</th>                          
+                            <th>Type</th>                           
+                            <th className="text-end">Balance</th>  
                         </tr>
                     </thead>
                     <tbody>
@@ -31,8 +73,11 @@ export default function AccountTable ({ accounts }: { accounts: Account[]}) {
                         ))}
                     </tbody>
                 </table>
+                </div>
+            </div>
             </div>
         </div>
-        </>
-    );
+    </div>
+   </>
+  );
 }

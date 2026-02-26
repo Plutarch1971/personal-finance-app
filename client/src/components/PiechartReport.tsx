@@ -19,13 +19,17 @@ interface CharData {
     name: string;
     value: number;
 } 
-export default function PieChartReport() {
+
+interface Props {
+    onClose: () => void;
+}
+export default function PieChartReport({onClose}: Props) {
     const [ data, setData] = useState<CharData[]>([]);
     const [ loading, setLoading] = useState(false);
     const [ error, setError] = useState('');
     const [startDate, setStartDate] = useState('');
     const [ endDate, setEndDate] = useState('');
-
+   
     const renderCustomLabel = ({ name,percent }:any) =>  {
         return `${name} ${(percent * 100).toFixed(1)}%`; 
     };
@@ -56,6 +60,7 @@ export default function PieChartReport() {
     const isChartVisible = data.length > 0 && !loading;
 
     return ( 
+        <>
             <div className="container-fluid h-100">
                 <div className="row justify-content-center mt-5" 
                      style={!isChartVisible ? { transform: 'translateX(-8.333%)'} : {}}
@@ -66,11 +71,11 @@ export default function PieChartReport() {
                                 : "col-12 col-md-6 col-xl-4"
                     }>
                         <div className="card shadow p-4 w-100">
-                            <h4 className="text-center mb-3">
+                            <h3 className="text-center mb-3">
                                 Expenses in Pie Chart
-                            </h4>
+                            </h3>
                                 
-                            <div className="mb-3">
+                            <div className="mb-3 mt-4">
                                     <label className="form-label">
                                         <strong>Enter start date:</strong>
                                     </label>
@@ -92,9 +97,9 @@ export default function PieChartReport() {
                                             onChange={(e) => 
                                                 setEndDate(e.target.value)} 
                                     />
-                            
+                                <div className="d-flex align-items-center justify-content-between mt-4">
                                     <button
-                                        className="btn btn-primary w-100"
+                                        className="btn btn-primary w-50"
                                         onClick={loadReport}
                                         disabled={loading}
                                     >
@@ -103,6 +108,12 @@ export default function PieChartReport() {
                                         : 'Generate Report'
                                         }
                                     </button>
+                                    <button className="btn btn-danger w-25"                                             type="button"
+                                            onClick={onClose}
+                                    >
+                                        Close
+                                    </button>
+                                </div>
 
                                     {error && <div className="alert alert-danger">{error}</div>}
                              </div>       
@@ -129,7 +140,8 @@ export default function PieChartReport() {
                     )}
 
             </div>
-        </div>               
+        </div>  
+    </>             
     )
 }
 

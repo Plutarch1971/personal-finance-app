@@ -51,6 +51,47 @@ export async function createTransaction(data: CreateTransactionInput) {
     });
  }
 
+ export async function updateTransaction(
+    id: string, 
+    userId: string,
+    data: {
+        accountId?: string;
+        categoryId?: string;
+        amount?: number;
+        description?: string;
+        transactionDate?: string;
+    }
+){
+    const transaction = await Transaction.findOne({
+        where: { id, userId }
+    });
+
+    if(!transaction) {
+        throw new Error("Transaction not found");
+    }
+    const updatePayload: any = {};
+
+    if (data.accountId !== undefined)
+    updatePayload.accountId = data.accountId;
+
+    if (data.categoryId !== undefined)
+    updatePayload.categoryId = data.categoryId;
+
+    if (data.amount !== undefined)
+    updatePayload.amount = data.amount;
+
+    if (data.description !== undefined)
+    updatePayload.description = data.description;
+
+    if (data.transactionDate !== undefined)
+    updatePayload.transactionDate = new Date(data.transactionDate);
+
+    await transaction.update(updatePayload);
+    
+    return transaction;   
+
+ }
+
  export async function deleteTransaction (id: string, userId: string) {
     return sequelize.transaction(async (t) => {
         //Find the transaction first to get its details
