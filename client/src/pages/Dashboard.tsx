@@ -43,33 +43,33 @@ export default function Dashboard() {
 
   return (
     <div className="container-fluid py-4">
-      <div className="row">
+      <div className="row mt-4">
 
         {/* ================= SIDEBAR (Desktop Only) ================= */}
-        <aside className="col-12 col-lg-2 mb-4 mb-lg-0">
-          <div className="d-grid gap-3">
+        <aside className="col-12 col-lg-2 mb-4 mb-lg-0 mt-4">
+          <div className="d-grid gap-3 mt-lg-5">
             <button
-              className="btn btn-primary"
+              className="btn btn-primary py-2"
               onClick={() => navigate('/transactions/new')}
             >
               Add Transaction
             </button>
 
             <button
-              className="btn btn-primary"
+              className="btn btn-primary py-2"
               onClick={() => navigate('/transactions')}
             >
               View Transactions
             </button>
 
             <button
-              className="btn btn-primary"
+              className="btn btn-primary py-2"
               onClick={() => navigate('/report')}
             >
               View Reports
             </button>
 
-            <button className="btn btn-danger mt-3" onClick={logout}>
+            <button className="btn btn-danger mt-3 py-2" onClick={logout}>
               Logout
             </button>
           </div>
@@ -77,9 +77,8 @@ export default function Dashboard() {
 
         {/* ================= MAIN CONTENT ================= */}
         <main className="col-12 col-lg-10">
-
           {/* Title (Centered on Mobile) */}
-          <h2 className="text-center text-lg-start mb-4">
+          <h2 className="text-center fs-1 mb-4">
             Dashboard
           </h2>
 
@@ -89,7 +88,7 @@ export default function Dashboard() {
           {/* ================= EXTRA INFO CARDS ================= */}
           <div className="row mt-4 g-4">
 
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-lg-4">
               <div className="card shadow-sm h-100">
                 <img
                   src="https://images.unsplash.com/photo-1554224155-6726b3ff858f"
@@ -140,7 +139,7 @@ export default function Dashboard() {
           </div>
 
         </main>
+        </div>
       </div>
-    </div>
   );
 }

@@ -8,34 +8,33 @@ interface Props {
 
 export default function SummaryCards({ summary }: Props){
     return (
-        <div className="row gap-3">                                  {/*Creates horizontal row container that holds columns */} 
-            <div className="col-12 col-md-4">                              {/* Creates column 1: that takes up 4 out of 12 grid units (width: 33.33%)*/}  
-                <div className="card text-bg-success">
+        <div className="row g-2">     
+     {/*----------------------INCOME-------------------*/} 
+            <div className="col-12 col-lg-4">                              {/* Creates column 1: that takes up 4 out of 12 grid units (width: 33.33%)*/}  
+                <div className="card text-bg-success text-white shadow h-100">
                     <div className="card-body">
                         <h5 className="card-title">Income</h5>
-                        <p className="card-text fs-4">
-                            ${summary.income.toFixed(2)}
-                        </p>
+                        <h4>${summary.income.toFixed(2)}</h4>
                     </div>
                 </div>
             </div>
-            <div className="col-12 col-md-4">                              {/* Column 2: 4/12 width (33.33%), md = medium devices or larger*/} 
-                <div className="card text-bg-danger">
+
+    {/* --------------------- EXPENSE--------------------*/} 
+            <div className="col-12 col-lg-4">                              
+                <div className="card bg-danger text-white shadow h-100">
                     <div className="card-body">
                         <h5 className="card-title">Expenses</h5>
-                        <p className="card-text fs-4">
-                            ${summary.expense.toFixed(2)}
-                        </p>
+                        <h4>${summary.expense.toFixed(2)}</h4>                      
                     </div>
                 </div>
             </div>
-            <div className="col-12 col-md-4">                              {/* Column 3: 4/12 width (33.33%) */} 
-                <div className="card text-bg-primary">
+    {/*--------------------  NET. --------------------- */} 
+            <div className="col-12 col-lg-4">                              
+                <div className="card bg-primary text-white shadow h-100">
                     <div className="card-body">
                         <h5 className="card-title">Net</h5>
-                        <p className="card-text fs-4">
-                            ${summary.net.toFixed(2)}
-                        </p>
+                        <h4>${summary.net.toFixed(2)}</h4>
+                        
                     </div>
                 </div>
             </div>
