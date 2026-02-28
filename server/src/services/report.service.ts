@@ -59,10 +59,6 @@ export async function getMonthlySummary(
     };
 }
 
-/** Expense totals by category
- * 
- */
-
 export async function getExpenseByCategory(
     userId: string,
     startDate: string,
@@ -90,6 +86,36 @@ export async function getExpenseByCategory(
         raw: true,
     });
 }
+
+export async function getIncomeByCategory( userId: string) {
+    const end = new Date(); //today
+    const start = new Date(end);
+    start.setDate(end.getDate() -30);
+
+    const startDate= start.toISOString().slice(0, 10);  //YYYY-MM-DD
+    const endDate = end.toISOString().slice(0, 10);
+
+    return Transaction.findAll({
+        where: {
+            userId,
+            amount: { [Op.gt] : 0 }, // income only
+            transactionDate: {
+                [Op.between]: [startDate, endDate],
+            },
+        },
+         include: [
+            {
+                model: Category,
+                as: 'category',
+                attributes: ['name'],
+            },
+         ],
+         attributes: [[fn('SUM', col('amount')), 'total']],
+         group: ['category.id', 'category.name'],
+         raw: true,
+    });
+}
+
 
 export async function getAccountBalances(userId: string) {
     return Account.findAll({

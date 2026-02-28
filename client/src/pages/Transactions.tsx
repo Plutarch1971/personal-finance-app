@@ -57,16 +57,15 @@ export default function Transaction(){
     }   
         
     return (
-        <div className="container mt-4 w-50">
+        <div className="container-fluid px-2 px-md-3 mt-4">
         <div className="row">
-         <div className="col-12 ps-4">
+         <div className="col-12 px-0 px-md-3">
             <div className="card">
-                <div className="row align-items-center mb-4 p-3">
-                <div className="col-4 mt-5 mb-5"></div> {/** col-first with empty div to place Transaction in Center */}
-                <div className="col-4 text-center">.     
+                <div className="row g-2 align-items-center p-3">
+                <div className="col-12 col-md-6 col-lg-4 text-center text-md-start">     
                     <h2 className="text-center">Transactions</h2>
                 </div>
-                <div className="col-4 d-flex justify-content-end pe-4" >     
+                <div className="col-12 d-flex justify-content-md-end">     
                     <button className="btn btn-primary mt-4 px-3" 
                             onClick={() => navigate('/dashboard')}
                     >
@@ -74,11 +73,11 @@ export default function Transaction(){
                     </button>
                 </div>
 
-            <div className="mt-4" style={{ maxHeight: '400px', overflowY: 'auto'}}>
-                    <table className="table table-striped fs-6">
+            {/* <div className="mt-4" style={{ maxHeight: '400px', overflowY: 'auto'}}> */}
+                    <table className="table-responsive table-striped table-sm fs-6">
                     <thead className="sticky-top bg-white">
                         <tr>
-                            <th><strong>Date</strong></th>
+                            <th className="text-nowrap"><strong>Date</strong></th>
                             <th><strong>Description</strong></th>
                             <th className="text-end"><strong>Amount</strong></th>
                             <th></th>
@@ -88,7 +87,7 @@ export default function Transaction(){
                             {/*rows go here*/ }
                             {transactions.map(tx => (
                                 <tr key={tx.id}>
-                                    <td>{tx.transactionDate}</td>
+                                    <td className="text-nowrap">{tx.transactionDate}</td>
                                     <td>{tx.description ?? '-'}</td>
                                     <td className={`text-end ${Number(tx.amount) < 0 ? 'text-danger': 'text-success'}`}>
                                         ${Number(tx.amount).toFixed(2)}
@@ -97,12 +96,12 @@ export default function Transaction(){
                                     <td className="text-end">
                                         <div className="d-inline-flex justify-content-end gap-2">
                                         <button
-                                            className="btn btn-sm btn-warning" style={{width:'80px'}}
+                                            className="btn btn-sm btn-warning flex-column flex-sm-row" style={{width:'auto'}}
                                             onClick={() => navigate(`/transactions/${tx.id}/edit`)}
                                             >
                                             Edit
                                             </button>
-                                            <button className="btn btn-sm btn-danger" style={{width:'80px'}}
+                                            <button className="btn btn-sm btn-danger flex-column flex-sm-row" style={{width:'auto'}}
                                         onClick={() => handleDelete(tx.id)}
                                         >
                                             Delete
@@ -113,12 +112,12 @@ export default function Transaction(){
                             ))}
                         </tbody> 
                     </table>
+                   
                     </div>
                 </div>
                 </div>
             </div>
         </div>
-    </div>
     );
     
     

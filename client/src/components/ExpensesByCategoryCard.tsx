@@ -100,7 +100,6 @@ export default function ExpensesByCategoryCar ({onClose} : Props){
                                     <button className="btn btn-danger w-25" 
                                         type="button"
                                         onClick={onClose}
-                                
                                     >       
                                             Close
                                     </button>

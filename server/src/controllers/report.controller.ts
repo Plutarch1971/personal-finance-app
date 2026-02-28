@@ -42,6 +42,20 @@ export async function getExpenseByCategory(req: Request, res: Response) {
     }
 }
 
+export async function getIncomeByCategory(req: Request, res: Response){
+    try {
+    const userId = req.user!.id;
+
+    const data = await reportService.getIncomeByCategory(
+        userId
+    );
+    res.json(data);
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Internal server error';
+        res.status(500).json({ error: message});
+    }
+}
+
 export async function getAccountBalances( req: Request, res: Response) {
     try {
         const userId = req.user!.id;

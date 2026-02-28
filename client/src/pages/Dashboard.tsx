@@ -3,6 +3,7 @@ import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import SummaryCards from '../components/SummaryCards';
 import { useNavigate } from 'react-router-dom';
+import IncomePieChart from '../components/IncomePieChart';
 
 export default function Dashboard() {
   const auth = useAuth();
@@ -90,16 +91,12 @@ export default function Dashboard() {
 
             <div className="col-12 col-lg-4">
               <div className="card shadow-sm h-100">
-                <img
-                  src="https://images.unsplash.com/photo-1554224155-6726b3ff858f"
-                  className="card-img-top"
-                  alt="Budget"
-                />
-                <div className="card-body">
-                  <h5 className="card-title">Budget Planning</h5>
+               <div className="card-body">
+                  <h5 className="card-title">Income By Categories</h5>
                   <p className="card-text">
-                    Track and adjust your monthly spending to stay within your limits.
+                    For last 30 days.
                   </p>
+                  <IncomePieChart />
                 </div>
               </div>
             </div>
