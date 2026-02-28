@@ -45,10 +45,13 @@ export default function Dashboard() {
   return (
     <div className="container-fluid py-4">
       <div className="row mt-4">
+        <h2 className="text-center fs-1 mb-4">
+            Dashboard
+          </h2>
 
         {/* ================= SIDEBAR (Desktop Only) ================= */}
-        <aside className="col-12 col-lg-2 mb-4 mb-lg-0 mt-4">
-          <div className="d-grid gap-3 mt-lg-5">
+        <aside className="col-12 col-lg-2 mb-4 mb-lg-0">
+          <div className="d-grid gap-3">
             <button
               className="btn btn-primary py-2"
               onClick={() => navigate('/transactions/new')}
@@ -79,9 +82,9 @@ export default function Dashboard() {
         {/* ================= MAIN CONTENT ================= */}
         <main className="col-12 col-lg-10">
           {/* Title (Centered on Mobile) */}
-          <h2 className="text-center fs-1 mb-4">
+          {/* <h2 className="text-center fs-1 mb-4">
             Dashboard
-          </h2>
+          </h2> */}
 
           {/* Summary Cards */}
           <SummaryCards summary={summary} />

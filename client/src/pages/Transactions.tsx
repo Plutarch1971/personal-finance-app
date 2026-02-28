@@ -57,15 +57,15 @@ export default function Transaction(){
     }   
         
     return (
-        <div className="container-fluid px-2 px-md-3 mt-4">
+        <div className="container px-2 px-md-6 mt-5" style={{ maxWidth: '900px'}}>
         <div className="row">
          <div className="col-12 px-0 px-md-3">
             <div className="card">
                 <div className="row g-2 align-items-center p-3">
-                <div className="col-12 col-md-6 col-lg-4 text-center text-md-start">     
+                <div className="col-12 col-md-12 col-lg-12 d-flex justify-content-center mt-4">     
                     <h2 className="text-center">Transactions</h2>
                 </div>
-                <div className="col-12 d-flex justify-content-md-end">     
+                <div className="col-12 d-flex justify-content-end justify-content-md-end">     
                     <button className="btn btn-primary mt-4 px-3" 
                             onClick={() => navigate('/dashboard')}
                     >
@@ -73,8 +73,9 @@ export default function Transaction(){
                     </button>
                 </div>
 
-            {/* <div className="mt-4" style={{ maxHeight: '400px', overflowY: 'auto'}}> */}
-                    <table className="table-responsive table-striped table-sm fs-6">
+            <div className="mt-4" style={{ maxHeight: '400px', overflowY: 'auto'}}>
+                <div className="table-responsive" style={{ maxWidth: '900px', margin: '0 auto'}}>
+                    <table className="table table-striped table-sm fs-6">
                     <thead className="sticky-top bg-white">
                         <tr>
                             <th className="text-nowrap"><strong>Date</strong></th>
@@ -93,15 +94,15 @@ export default function Transaction(){
                                         ${Number(tx.amount).toFixed(2)}
                                     </td>
                                     
-                                    <td className="text-end">
-                                        <div className="d-inline-flex justify-content-end gap-2">
+                                    <td className="text-end text-no">
+                                        <div className="d-flex flex-sm-row gap-1 gap-sm-2 justify-content-end gap-2">
                                         <button
-                                            className="btn btn-sm btn-warning flex-column flex-sm-row" style={{width:'auto'}}
+                                            className="btn btn-sm btn-warning w-auto w-sm-auto" 
                                             onClick={() => navigate(`/transactions/${tx.id}/edit`)}
                                             >
                                             Edit
                                             </button>
-                                            <button className="btn btn-sm btn-danger flex-column flex-sm-row" style={{width:'auto'}}
+                                            <button className="btn btn-sm btn-danger w-auto w-sm-auto" 
                                         onClick={() => handleDelete(tx.id)}
                                         >
                                             Delete
@@ -112,13 +113,12 @@ export default function Transaction(){
                             ))}
                         </tbody> 
                     </table>
-                   
-                    </div>
                 </div>
                 </div>
-            </div>
+             </div>
+          </div>
         </div>
-    );
-    
-    
+     </div>
+    </div>
+    );        
 }
