@@ -125,3 +125,37 @@ export async function getAccountBalances(userId: string) {
     });
 }
 
+export async function getExpenseThirty(userId: string){
+    const end = new Date();
+     const start = new Date(end);
+    start.setDate(end.getDate() -30);
+
+    const startDate = start.toISOString().slice(0,10);
+    const endDate = end.toISOString().slice(0,10);
+
+    const result = await Transaction.findAll({
+        where: {
+            userId,
+            amount: { [Op.lt]: 0},
+            transactionDate: {
+                [Op.between]: [startDate, endDate]
+            },
+
+        },
+        include:[
+            {
+            model: Category,
+            as: 'category',
+            attributes:['id', 'name'],
+            },
+        ],
+        attributes: [
+           [fn('SUM', fn('ABS', col('amount'))), 'total'],
+        ],
+        group: ['category.id', 'category.name'],
+        order: [[fn('SUM', fn('ABS', col('amount'))), 'DESC']],
+            
+    });
+    return result;
+}
+

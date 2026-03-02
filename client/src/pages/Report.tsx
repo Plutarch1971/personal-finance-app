@@ -11,10 +11,10 @@ export default function Report(){
     const navigate = useNavigate();
 
      return (
-        <div className="container-fluid  w-100 vh-100">
+        <div className="container-fluid report-background w-100 vh-100" >
             <div className="row mt-5">
                 <div className="col-12">
-                    <h1 className="text-center"><strong>Financial Report</strong></h1>
+                    <h1 className="text-center"><strong>Welcome to Reporting</strong></h1>
                     <button className="btn btn-primary text-white" style={{ position: 'fixed', top: '50px', right: '70px' }} 
                         onClick={() => navigate('/dashboard')}
                     >
@@ -54,7 +54,6 @@ export default function Report(){
                 </div>
         
                 { /** Main Content Area */}
-                
                 <div className="col-10 ps-0 pe-4 pb-4">
                     {activeView === 'summary' && (
                         <MonthlySummaryCard onClose={() => setActiveView(null)}/>

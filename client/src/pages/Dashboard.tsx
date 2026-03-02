@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import SummaryCards from '../components/SummaryCards';
 import { useNavigate } from 'react-router-dom';
 import IncomePieChart from '../components/IncomePieChart';
+import ExpenseByThirtyCard from '../components/ExpenseByThirtyCard';
 
 export default function Dashboard() {
   const auth = useAuth();
@@ -106,16 +107,12 @@ export default function Dashboard() {
 
             <div className="col-12 col-md-4">
               <div className="card shadow-sm h-100">
-                <img
-                  src="https://images.unsplash.com/photo-1565514020179-026b92b4a5b4"
-                  className="card-img-top"
-                  alt="Savings"
-                />
                 <div className="card-body">
-                  <h5 className="card-title">Savings Goals</h5>
+                  <h5 className="card-title">Expense By Categories</h5>
                   <p className="card-text">
-                    Monitor progress toward your financial goals and milestones.
+                    For last 30 days.
                   </p>
+                  <ExpenseByThirtyCard />
                 </div>
               </div>
             </div>

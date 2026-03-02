@@ -15,7 +15,7 @@ interface Props {
         
     }
 
-export default function ExpensesByCategoryCar ({onClose} : Props){
+export default function ExpensesByCategoryCard({onClose} : Props){
 
     const [ startDate, setStartDate ] = useState('');
     const [ endDate, setEndDate ] = useState('');

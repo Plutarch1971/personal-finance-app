@@ -18,3 +18,9 @@
   display: grid;
   gap: 2rem;
 }
+.report-background {
+  background-image: url('/report-background-donut.png');
+}
+.login-pg-background {
+ background-image: url('login-background.png');
+}

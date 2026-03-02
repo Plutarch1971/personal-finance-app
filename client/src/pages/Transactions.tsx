@@ -55,70 +55,76 @@ export default function Transaction(){
         return <div>Loading.....</div>;
         
     }   
-        
-    return (
-        <div className="container px-2 px-md-6 mt-5" style={{ maxWidth: '900px'}}>
-        <div className="row">
-         <div className="col-12 px-0 px-md-3">
-            <div className="card">
-                <div className="row g-2 align-items-center p-3">
-                <div className="col-12 col-md-12 col-lg-12 d-flex justify-content-center mt-4">     
-                    <h2 className="text-center">Transactions</h2>
-                </div>
-                <div className="col-12 d-flex justify-content-end justify-content-md-end">     
-                    <button className="btn btn-primary mt-4 px-3" 
-                            onClick={() => navigate('/dashboard')}
-                    >
-                    Back
-                    </button>
-                </div>
+   return (
+  <div className="container mt-4">
+    <div className="row justify-content-center">
+      <div className="col-12 col-xl-10">
 
-            <div className="mt-4" style={{ maxHeight: '400px', overflowY: 'auto'}}>
-                <div className="table-responsive" style={{ maxWidth: '900px', margin: '0 auto'}}>
-                    <table className="table table-striped table-sm fs-6">
-                    <thead className="sticky-top bg-white">
-                        <tr>
-                            <th className="text-nowrap"><strong>Date</strong></th>
-                            <th><strong>Description</strong></th>
-                            <th className="text-end"><strong>Amount</strong></th>
-                            <th></th>
-                        </tr>    
-                        </thead>
-                        <tbody>
-                            {/*rows go here*/ }
-                            {transactions.map(tx => (
-                                <tr key={tx.id}>
-                                    <td className="text-nowrap">{tx.transactionDate}</td>
-                                    <td>{tx.description ?? '-'}</td>
-                                    <td className={`text-end ${Number(tx.amount) < 0 ? 'text-danger': 'text-success'}`}>
-                                        ${Number(tx.amount).toFixed(2)}
-                                    </td>
-                                    
-                                    <td className="text-end text-no">
-                                        <div className="d-flex flex-sm-row gap-1 gap-sm-2 justify-content-end gap-2">
-                                        <button
-                                            className="btn btn-sm btn-warning w-auto w-sm-auto" 
-                                            onClick={() => navigate(`/transactions/${tx.id}/edit`)}
-                                            >
-                                            Edit
-                                            </button>
-                                            <button className="btn btn-sm btn-danger w-auto w-sm-auto" 
-                                        onClick={() => handleDelete(tx.id)}
-                                        >
-                                            Delete
-                                        </button>
-                                        </div>
-                                    </td>  
-                                </tr>  
-                            ))}
-                        </tbody> 
-                    </table>
-                </div>
-                </div>
-             </div>
+        <div className="card shadow-sm" style={{ maxHeight:'600px', overflowY: 'auto'}}>
+          <div className="p-3 d-flex justify-content-between align-items-center">
+            <h2 className="mb-0">Transactions</h2>
+
+            <button
+              className="btn btn-secondary btn-sm"
+              onClick={() => navigate('/dashboard')}
+            >
+              Back
+            </button>
           </div>
+
+          <div className="table-responsive">
+            <table className="table table-striped align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th className="text-end">Amount</th>
+                  <th className="text-end">Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {transactions.map(tx => (
+                  <tr key={tx.id}>
+                    <td>{tx.transactionDate}</td>
+                    <td>{tx.description ?? '-'}</td>
+                    <td className={`text-end ${
+                      Number(tx.amount) < 0
+                        ? 'text-danger'
+                        : 'text-success'
+                    }`}>
+                      ${Number(tx.amount).toFixed(2)}
+                    </td>
+
+                    <td className="text-end">
+                      <div className="d-flex justify-content-end gap-2 flex-nowrap">
+                        <button
+                          className="btn btn-sm btn-outline-warning"
+                          onClick={() => navigate(`/transactions/${tx.id}/edit`)}
+                        >
+                          Edit
+                        </button>
+
+                        <button
+                          className="btn btn-sm btn-outline-danger"
+                          onClick={() => handleDelete(tx.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
         </div>
-     </div>
+
+      </div>
     </div>
-    );        
-}
+  </div>
+);  
+}   
+    
