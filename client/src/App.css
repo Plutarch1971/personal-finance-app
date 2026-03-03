@@ -4,9 +4,9 @@
 }
 
 /* Override Bootstrap card shadow */
-.card {
+/* .card {
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
+} */
 
 /* Custom loader animation */
 .loading-spinner {
@@ -18,9 +18,12 @@
   display: grid;
   gap: 2rem;
 }
-.report-background {
-  background-image: url('/report-background-donut.png');
-}
-.login-pg-background {
- background-image: url('login-background.png');
+
+/* .login-pg-background {
+ background: linear-gradient(135deg,#0d6efd, #1e3a8a);
+ min-height: 100vh;
+} */
+
+.bg-orange {
+  background-color: #FF8042
 }

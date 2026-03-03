@@ -30,7 +30,7 @@ export default function SummaryCards({ summary }: Props){
             </div>
     {/*--------------------  NET. --------------------- */} 
             <div className="col-12 col-lg-4">                              
-                <div className="card bg-primary text-white shadow h-100">
+                <div className="card bg-orange text-white shadow h-100">
                     <div className="card-body">
                         <h5 className="card-title">Net</h5>
                         <h4>${summary.net.toFixed(2)}</h4>

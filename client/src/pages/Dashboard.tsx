@@ -46,7 +46,7 @@ export default function Dashboard() {
   return (
     <div className="container-fluid py-4">
       <div className="row mt-4">
-        <h2 className="text-center fs-1 mb-4">
+        <h2 className="text-center text-white fs-1 mb-4">
             Dashboard
           </h2>
 
@@ -82,11 +82,6 @@ export default function Dashboard() {
 
         {/* ================= MAIN CONTENT ================= */}
         <main className="col-12 col-lg-10">
-          {/* Title (Centered on Mobile) */}
-          {/* <h2 className="text-center fs-1 mb-4">
-            Dashboard
-          </h2> */}
-
           {/* Summary Cards */}
           <SummaryCards summary={summary} />
 

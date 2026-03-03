@@ -4,9 +4,14 @@ import MonthlySummaryCard from '../components/MonthlySummaryCard';
 import PieChartReport from '../components/PiechartReport';
 import AccountTable from '../components/AccountTable';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; 
 
 
 export default function Report(){
+    const auth = useAuth();
+      if (!auth) return null;
+      const { logout } = auth;
+    
     const [ activeView, setActiveView ] = useState<'summary' | 'table' | 'chart' |'account'| null>(null);
     const navigate = useNavigate();
 
@@ -14,12 +19,20 @@ export default function Report(){
         <div className="container-fluid report-background w-100 vh-100" >
             <div className="row mt-5">
                 <div className="col-12">
-                    <h1 className="text-center"><strong>Welcome to Reporting</strong></h1>
-                    <button className="btn btn-primary text-white" style={{ position: 'fixed', top: '50px', right: '70px' }} 
+                    <h1 className="text-center text-white"><strong>Welcome to Reporting</strong></h1>
+                    <div className="d-flex align-items-center w-100">
+                    <button className="btn btn-primary text-white ms-3" style={{ minWidth: '235px'}}
                         onClick={() => navigate('/dashboard')}
                     >
                         <strong>Dashboard</strong>
                     </button>
+                    <button className="btn btn-danger fw-bold ms-auto me-3" 
+                            style={{ minWidth: '235px'}}
+                            onClick={logout}
+                            >
+                        Logout
+                    </button>
+                    </div>
                 </div>
                 
             </div>
