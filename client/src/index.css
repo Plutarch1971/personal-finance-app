@@ -1,11 +1,12 @@
 body {
-  background:linear-gradient(135deg, #1e3a8a, #0d6efd 50%,#3b82f6 100%); 
+ background: linear-gradient(90deg, #0061FF, #60EFFF);
+  /* background:linear-gradient(135deg, #1e3a8a, #0d6efd 50%,#3b82f6 100%);  */
   min-height: 100vh;
 }  
 
 /* button {
-  height: '200px';
-} */
+  background:"";
+}  */
  /* body{
  background: linear-gradient(135deg,#0d6efd, #1e3a8a);
  min-height: 100vh;

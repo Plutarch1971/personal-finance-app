@@ -21,7 +21,7 @@ export default function Report(){
                 <div className="col-12">
                     <h1 className="text-center text-white"><strong>Welcome to Reporting</strong></h1>
                     <div className="d-flex align-items-center w-100">
-                    <button className="btn btn-primary text-white ms-3" style={{ minWidth: '235px'}}
+                    <button className="btn btn-outline-light text-white ms-3" style={{ minWidth: '235px'}}
                         onClick={() => navigate('/dashboard')}
                     >
                         <strong>Dashboard</strong>
@@ -41,24 +41,24 @@ export default function Report(){
                 <div className="col-2 p-4 mt-4">
                     <div className="d-grid gap-2">
                         <button
-                            className="btn btn-primary"
+                            className="btn btn-outline-light"
                             onClick={() => setActiveView('summary')}
                         >
                             Monthly Summary
                         </button>
                         <button 
-                            className="btn btn-primary"
+                            className="btn btn-outline-light"
                             onClick={() => setActiveView('table')}
                         >
                             Expenses By Category
                         </button>
                         <button
-                            className="btn btn-primary"
+                            className="btn btn-outline-light"
                             onClick={() => setActiveView('chart')}
                         >
                             Expenses Pie Chart
                         </button>
-                        <button className="btn btn-primary"
+                        <button className="btn btn-outline-light"
                                 onClick={() => setActiveView('account')}
                         >
                             Account Balance

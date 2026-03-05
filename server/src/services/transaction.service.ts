@@ -3,7 +3,11 @@ import { Transaction, Account, Category } from '../models';
 
 interface CreateTransactionInput {
     userId: string;
+    type: 'income' |'expense' | 'transfer';
+
     accountId: string;
+    toAccountId?: string;
+
     categoryId?: string;
     amount: number;
     description?: string;
@@ -12,23 +16,32 @@ interface CreateTransactionInput {
 export async function createTransaction(data: CreateTransactionInput) {
     return sequelize.transaction(async (t) => {
         const account = await Account.findByPk(data.accountId,{ transaction: t});
+        
         if(!account) throw new Error('Account not found');
 
-        let signedAmount = data.amount;
-        if(data.categoryId) {
-            const category = await Category.findByPk(data.categoryId, {
-                transaction: t,
-            });
-            if(!category) throw new Error('Category not found');
-
-            if(category.type === 'expense') {
-                signedAmount = -Math.abs(data.amount);
+        if(data.type === 'transfer'){
+            if(!data.toAccountId){
+                throw new Error('Destination account required for transfer');
             }
+            if(data.accountId === data.toAccountId){
+                throw new Error('Cannot transfer to same account');
+            }
+        }
+
+        let signedAmount = data.amount;
+
+        if(data.type === 'expense') {
+            signedAmount = -Math.abs(data.amount);
+        }
+        if(data.type === 'income') {
+            signedAmount = Math.abs(data.amount);
         }
         const transaction = await Transaction.create( 
             {
                 userId: data.userId,
+                type: data.type,
                 accountId: data.accountId,
+                toAccountId: data.toAccountId || null,
                 categoryId: data.categoryId,
                 amount: signedAmount,
                 description: data.description,
@@ -36,14 +49,40 @@ export async function createTransaction(data: CreateTransactionInput) {
             },
             { transaction: t }
         );
-        await account.update(
-            { balance: Number(account.balance)+ signedAmount },
-            { transaction : t }
-        );
+
+        // TRANSFER
+        if(data.type === 'transfer'){
+
+            const destination = await Account.findByPk(data.toAccountId!,{
+                transaction: t
+            });
+            if(!destination) {
+                throw new Error('Destination account not found');
+            }
+
+            // subtract from source
+            await account.update(
+                { balance: Number(account.balance) -Math.abs(data.amount)},
+                { transaction: t}
+            );
+
+            // add to destination
+            await destination.update(
+                { balance: Number(destination.balance) + Math.abs(data.amount)},
+                { transaction: t}
+            );
+        }
+        else {
+            await account.update(
+                { balance: Number(account.balance)+ signedAmount },
+                { transaction : t }
+            );
+        }
         return transaction;
+        });
     }
   
-)};
+
  export async function getTransactionByUser(userId: string){
     return Transaction.findAll( {
         where: { userId },
@@ -125,10 +164,31 @@ export async function createTransaction(data: CreateTransactionInput) {
         }
 
         //Reverse the balance change (subtract the amount that was added)
+        if(transaction.type === 'transfer'){
+
+            const destination = await Account.findByPk(transaction.toAccountId!, {
+                transaction: t
+            });
+            if(!destination) {
+                throw new Error('Destination account not found');
+            }
+            // restore source account
+            await account.update(
+                { balance: Number(account.balance) + Math.abs(Number(transaction.amount))},
+                { transaction: t }
+            );
+
+            // remove from destination account
+            await destination.update(
+                { balance: Number(destination.balance) - Math.abs(Number(transaction.amount))},
+                { transaction: t}
+            );
+
+        } else {
         await account.update(
             { balance: Number(account.balance) - Number(transaction.amount)},
             { transaction: t}
-        );
+        )};
 
         //Delete the transaction
         await transaction.destroy({ transaction: t});

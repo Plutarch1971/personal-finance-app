@@ -54,21 +54,21 @@ export default function Dashboard() {
         <aside className="col-12 col-lg-2 mb-4 mb-lg-0">
           <div className="d-grid gap-3">
             <button
-              className="btn btn-primary py-2"
+              className="btn btn-outline-light py-2"
               onClick={() => navigate('/transactions/new')}
             >
               Add Transaction
             </button>
 
             <button
-              className="btn btn-primary py-2"
+              className="btn btn-outline-light py-2"
               onClick={() => navigate('/transactions')}
             >
               View Transactions
             </button>
 
             <button
-              className="btn btn-primary py-2"
+              className="btn btn-outline-light py-2"
               onClick={() => navigate('/report')}
             >
               View Reports
@@ -89,7 +89,7 @@ export default function Dashboard() {
           <div className="row mt-4 g-4">
 
             <div className="col-12 col-lg-4">
-              <div className="card shadow-sm h-100">
+              <div className="card shadow-sm h-100 rounded-4">
                <div className="card-body">
                   <h5 className="card-title">Income By Categories</h5>
                   <p className="card-text">
@@ -101,7 +101,7 @@ export default function Dashboard() {
             </div>
 
             <div className="col-12 col-md-4">
-              <div className="card shadow-sm h-100">
+              <div className="card shadow-sm h-100 rounded-4">
                 <div className="card-body">
                   <h5 className="card-title">Expense By Categories</h5>
                   <p className="card-text">
@@ -113,12 +113,7 @@ export default function Dashboard() {
             </div>
 
             <div className="col-12 col-md-4">
-              <div className="card shadow-sm h-100">
-                <img
-                  src="https://images.unsplash.com/photo-1605902711622-cfb43c4437b1"
-                  className="card-img-top"
-                  alt="Investments"
-                />
+              <div className="card shadow-sm h-100 rounded-4">
                 <div className="card-body">
                   <h5 className="card-title">Investments</h5>
                   <p className="card-text">

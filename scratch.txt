@@ -1,3 +1,11 @@
+ALTER TABLE "Transactions"
+ADD COLUMN "type" VARCHAR(10) NOT NULL DEFAULT 'expense';
+
+ALTER TABLE "Transactions"
+ADD COLUMN "toAccountId" UUID;
+
+
+
 Setting image in cards: 
 <div className="card shadow" style={{ height: "420px" }}>
   <div className="card-body p-0">

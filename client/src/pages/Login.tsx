@@ -39,9 +39,7 @@ export default function Login() {
       <div className="flex-grow-1 d-flex align-items-start pt-4">       
             <div className="row w-100 justify-content-center g-4 align-items-stretch">
                 <div className="col-12 col-md-4 col-lg-3">
-                      <div className="card h-100 rounded-4" 
-                            style={{ boxShadow:"0 10px 25px rgba(0,0,0,0.15"}}
-                      >
+                      <div className="card h-100 rounded-4">
                           <div className="card-body p-4 d-flex flex-column">
                             <h5 className="fw-bold mb-3 text-primary">
                               Track your expenses
