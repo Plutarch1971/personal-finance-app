@@ -5,17 +5,25 @@ export async function createTransaction(req: Request, res: Response){
     try {
         const userId = req.user!.id;
         const {
+            type,
             accountId,
+            toAccountId,
             categoryId,
             amount,
             description,
             transactionDate,
         } = req.body;
 
+        if (!type) {
+                return res.status(400).json({ error: "Transaction type required"});
+        }
+
         const transaction = await transactionService.createTransaction( 
             {
             userId,
+            type,
             accountId,
+            toAccountId,
             categoryId,
             amount,
             description,
@@ -50,7 +58,12 @@ export async function updateTransaction(req: Request, res: Response) {
         const updated = await transactionService.updateTransaction(
                 id, 
                 userId, 
-                req.body 
+                {
+                    ...req.body,
+                    transactionDate: req.body.transactionDate
+                    ? new Date(req.body.transactionDate)
+                    : undefined
+                } 
         )
         res.json(updated);
         } catch (error: any){

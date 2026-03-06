@@ -1,10 +1,12 @@
-ALTER TABLE "Transactions"
-ADD COLUMN "type" VARCHAR(10) NOT NULL DEFAULT 'expense';
-
-ALTER TABLE "Transactions"
-ADD COLUMN "toAccountId" UUID;
-
-
+INSERT INTO "Accounts" ("id","userId","name","type","balance","createdAt","updatedAt")
+VALUES
+(gen_random_uuid(),'2087a8ba-66a6-4d70-9c10-8f3b2f473056','RRSP','investment',0,now(),now()),
+(gen_random_uuid(),'2087a8ba-66a6-4d70-9c10-8f3b2f473056','TFSA','investment',0,now(),now()),
+(gen_random_uuid(),'2087a8ba-66a6-4d70-9c10-8f3b2f473056','RESP','investment',0,now(),now()),
+(gen_random_uuid(),'2087a8ba-66a6-4d70-9c10-8f3b2f473056','Stocks','investment',0,now(),now()),
+(gen_random_uuid(),'2087a8ba-66a6-4d70-9c10-8f3b2f473056','Bonds','investment',0,now(),now()),
+(gen_random_uuid(),'2087a8ba-66a6-4d70-9c10-8f3b2f473056','GIC','investment',0,now(),now()),
+(gen_random_uuid(),'2087a8ba-66a6-4d70-9c10-8f3b2f473056','Other Investments','investment',0,now(),now());
 
 Setting image in cards: 
 <div className="card shadow" style={{ height: "420px" }}>

@@ -14,7 +14,7 @@ interface Account {
     type: 'income' | 'expense';
     parentId?: string | null;
 }
- type TransactionType = 'income' | 'expense';
+ type TransactionType = 'income' | 'expense' | 'transfer';
  type Mode = 'create' |'edit';
 
  interface TransactionFormProps {
@@ -22,6 +22,8 @@ interface Account {
     initialData?: {
         id?: string;
         accountId: string;
+        toAccountId?: string;
+
         categoryId: string;
         amount: number;
         description?: string | null;
@@ -43,6 +45,8 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
     
 
     const [accountId, setAccountId] = useState('');
+    const [toAccountId, setToAccountId] = useState('');
+
     const [categoryId, setCategoryId] = useState('');
     const [amount, setAmount] = useState('');
     const [transactionDate, setTransactionDate] = useState('');
@@ -97,19 +101,38 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
     const handleSubmit = async (e:React.SyntheticEvent) => {
     e.preventDefault();
     
-    if (!accountId || !categoryId || !amount || !transactionDate) {
+    if (!accountId || !amount || !transactionDate) {
         alert('Please fill all required fields');
         return;
     }
 
-    const finalAmount = 
-                transactionType === 'expense'
-                ? -Math.abs(Number(amount))
-                : Math.abs(Number(amount));
+    if (transactionType !== 'transfer' && !categoryId) {
+        alert( 'Please select category');
+        return;
+    }
+
+    if (transactionType === 'transfer' && !toAccountId) {
+        alert('Please select destination account');
+        return;
+    }
+
+    let finalAmount = Number(amount);
+
+        if ( transactionType === 'expense' ) {
+            finalAmount = -Math.abs(Number(amount))
+        }
+         
+        if ( transactionType === 'income' ) {
+            finalAmount = Math.abs(Number(amount))
+        }
+          
+            
 
     const payload = {
+            type: transactionType,
             accountId,
-            categoryId: categoryId || null,
+            toAccountId:transactionType === 'transfer' ? toAccountId : null,
+            categoryId: transactionType === 'transfer' ? null : categoryId,
             amount: finalAmount,
             transactionDate,
             description: description || null,
@@ -153,33 +176,65 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                                 e.target.value as TransactionType
                             );
                             setCategoryId('');
+                            setToAccountId('');
                         }}
                         >
                             <option value="">Select type</option>
                             <option value="income">Income</option>
                             <option value="expense">Expense</option>
+                            <option value="transfer">Transfer</option>
                         </select>
                     </div>
 
         {/*--------------------ACCOUNT RENDERING--------------------------- */}
+        
                         <div className="mb-3">
                             <label className="form-label">Account</label>
                             <select
                                 className="form-select"
                                 value={accountId}
-                                onChange={(
-                                    e) => setAccountId(e.target.value)}
+                                onChange={(e) => {
+                                    setAccountId(e.target.value);
+                                    setToAccountId('');
+
+                                    }
+                                }
                                 >
-                                    <option value="">Select an account</option>
-                                    {accounts.map(a => (
-                                        <option key={a.id} value={a.id}>
-                                            {a.name}
-                                        </option>
-                                    ))}
+                                <option value="">Select an account</option>
+ 
+                                {accounts.map((a) => (
+                                <option key={a.id} value={a.id}>
+                                    {a.name}
+                                </option>
+                                ))}
                                 </select>
                         </div>
-                        {/*--------------------- CATEGORY -----------------*/}
+
+        
+        {/**----------------------- TRANSFER ------------------------------ */}
+
+                    {transactionType === 'transfer' && (
                         <div className="mb-3">
+                            <label className="form-label">To Account</label>
+                            <select 
+                              className="form-select"
+                              value={toAccountId}
+                              onChange={(e) => setToAccountId(e.target.value)}
+                            >
+                                <option value="">Select destination account</option>
+                                {accounts
+                                .filter(a => a.id !== accountId)
+                                .map(a => (
+                                    <option key={a.id} value={a.id}>
+                                        {a.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+
+        {/*------------------------ CATEGORY ------------------------------*/}
+                    {transactionType !== 'transfer' && (                        <div className="mb-3">
                             <label className="form-label">Category</label>
                             <select className="form-select"
                                     value={categoryId}
@@ -196,6 +251,8 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                                 ))}
                             </select>
                         </div>
+                    )}
+
 
                         {/*------------------------- AMOUNT ----------------------- */}
                         

@@ -14,15 +14,9 @@ export async function initializeModels() {
   initAccountModel(sequelize);
   initTransactionModel(sequelize);
   initCategoryModel(sequelize);
+  
+  // Set up associations
 
-  // 2. Set up associations
-  // const models = sequelize.models;
-
-  // Object.values(models).forEach((model: any) => {
-  //   if(model.associate) {
-  //     model.associate(models);
-  //   }
-  // })
   // User associations
   User.hasMany(Account, { foreignKey: 'userId', as: 'accounts' });
   User.hasMany(Transaction, { foreignKey: 'userId', as: 'transactions' });

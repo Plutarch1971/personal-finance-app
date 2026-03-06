@@ -6,7 +6,7 @@ export default function AddTransaction(){
     const navigate = useNavigate();
 
     async function handleCreate(data: any) {
-        await api.post('/transaction', data);
+        await api.post('/transactions', data);
         navigate('/transactions');
     }
     return (

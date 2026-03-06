@@ -53,9 +53,9 @@ export async function createTransaction(data: CreateTransactionInput) {
         // TRANSFER
         if(data.type === 'transfer'){
 
-            const destination = await Account.findByPk(data.toAccountId!,{
-                transaction: t
-            });
+            const destination = await Account.findByPk(data.toAccountId!,
+                { transaction: t}
+            );
             if(!destination) {
                 throw new Error('Destination account not found');
             }
@@ -90,110 +90,263 @@ export async function createTransaction(data: CreateTransactionInput) {
     });
  }
 
- export async function updateTransaction(
-    id: string, 
-    userId: string,
-    data: {
-        accountId?: string;
-        categoryId?: string;
-        amount?: number;
-        description?: string;
-        transactionDate?: string;
-    }
-){
-    const transaction = await Transaction.findOne({
-        where: { id, userId }
-    });
+//  export async function updateTransaction(
+//     id: string, 
+//     userId: string,
+//     data: {
+//         accountId?: string;
+//         categoryId?: string;
+//         amount?: number;
+//         description?: string;
+//         transactionDate?: string;
+//     }
+// ){
+//     return sequelize.transaction(async (t) => {
 
-    if(!transaction) {
-        throw new Error("Transaction not found");
-    }
-    const updatePayload: any = {};
+//         const transaction = await Transaction.findOne({
+//             where: { id, userId },
+//             transaction: t
+//         });
 
-    if (data.accountId !== undefined)
-    updatePayload.accountId = data.accountId;
+//         if(!transaction) {
+//             throw new Error("Transaction not found");
+//         }
 
-    if (data.categoryId !== undefined)
-    updatePayload.categoryId = data.categoryId;
+//         // Prevent changing account during edit
+//         if (data.accountId && data.accountId !== transaction.accountId) {
+//             throw new Error("Changing account during edit is not supported");
+//         }
+//         const account = await Account.findByPk(transaction.accountId, {
+//             transaction: t
+//         });
 
-    if (data.amount !== undefined)
-    updatePayload.amount = data.amount;
+//         if (!account) {
+//             throw new Error(" Account not found");
+//         }
 
-    if (data.description !== undefined)
-    updatePayload.description = data.description;
+//         // Reverse old amount
+//         await account.update(
+//             { balance: Number(account.balance) - Number(transaction.amount)
+//             },
+//             { transaction: t}
+//         );
 
-    if (data.transactionDate !== undefined)
-    updatePayload.transactionDate = data.transactionDate;
+//         const updatePayload: any = {};
 
-    await transaction.update(updatePayload);
-    
-    return transaction;   
+//         if (data.accountId !== undefined)
+//         updatePayload.accountId = data.accountId;
 
- }
+//         if (data.categoryId !== undefined)
+//         updatePayload.categoryId = data.categoryId;
 
- export async function getTransactionById(id: string, userId: string) {
-  const transaction = await Transaction.findOne({
-    where: { id, userId },
-  });
+//         if (data.amount !== undefined)
+//         updatePayload.amount = data.amount;
 
-  if (!transaction) {
-    throw new Error('Transaction not found');
+//         if (data.description !== undefined)
+//         updatePayload.description = data.description;
+
+//         if (data.transactionDate !== undefined)
+//         updatePayload.transactionDate = data.transactionDate;
+
+//         // STEP 2: Update Transaction
+
+//         await transaction.update(updatePayload, { transaction: t});
+        
+//         //STEP 3: Apply new amount
+//         const newAmount = updatePayload.amount ?? transaction.amount;
+
+//         await account.update(
+//             {
+//                 balance: Number(account.balance) + Number(newAmount)
+//             },
+//             { transaction: t }
+//         );
+//         return transaction;   
+//         });
+//  }
+export async function updateTransaction(
+  id: string,
+  userId: string,
+  data: {
+    accountId?: string;
+    toAccountId?: string | null;
+    type?: 'income' | 'expense' | 'transfer';
+    categoryId?: string;
+    amount?: number;
+    description?: string;
+    transactionDate?: Date; 
   }
-
-  return transaction;
-}
-
- export async function deleteTransaction (id: string, userId: string) {
+) {
+    
     return sequelize.transaction(async (t) => {
-        //Find the transaction first to get its details
+
         const transaction = await Transaction.findOne({
-            where: { id, userId},
-            transaction: t,
-        });
+        where: { id, userId },
+        transaction: t
+        })
 
-        if(!transaction) {
-            throw new Error('Transaction not found');
-        }
-        //Get the account to update balance
-        const account = await Account.findByPk(transaction.accountId, {
-            transaction: t,
-        });
-
-        if(!account){
-            throw new Error('Account not found');
+        if (!transaction) {
+        throw new Error("Transaction not found")
         }
 
-        //Reverse the balance change (subtract the amount that was added)
-        if(transaction.type === 'transfer'){
+        const account = await Account.findByPk(transaction.accountId, { transaction: t })
 
-            const destination = await Account.findByPk(transaction.toAccountId!, {
-                transaction: t
-            });
-            if(!destination) {
-                throw new Error('Destination account not found');
-            }
-            // restore source account
-            await account.update(
-                { balance: Number(account.balance) + Math.abs(Number(transaction.amount))},
-                { transaction: t }
-            );
+        if (!account) {
+        throw new Error("Account not found")
+        }
 
-            // remove from destination account
-            await destination.update(
-                { balance: Number(destination.balance) - Math.abs(Number(transaction.amount))},
-                { transaction: t}
-            );
+        // ---------- REVERSE OLD EFFECT ----------
+
+        if (transaction.type === 'transfer') {
+
+        const destination = await Account.findByPk(transaction.toAccountId!, { transaction: t });
+        if (!destination) {
+            throw new Error('Destination account not found');
+        }
+
+        await account.update(
+            { balance: Number(account.balance) + Math.abs(Number(transaction.amount)) },
+            { transaction: t }
+        )
+
+        await destination!.update(
+            { balance: Number(destination!.balance) - Math.abs(Number(transaction.amount)) },
+            { transaction: t }
+        )
 
         } else {
+
         await account.update(
-            { balance: Number(account.balance) - Number(transaction.amount)},
-            { transaction: t}
-        )};
+            { balance: Number(account.balance) - Number(transaction.amount) },
+            { transaction: t }
+        )
+        }
 
-        //Delete the transaction
-        await transaction.destroy({ transaction: t});
+        // ---------- UPDATE TRANSACTION ----------
+        const updatePayload: any = {};
 
-        return { message: 'Transaction deletd successfully'};
+        if (data.accountId !== undefined)
+        updatePayload.accountId = data.accountId;
+
+        if (data.toAccountId !== undefined)
+        updatePayload.toAccountId = data.toAccountId;
+
+        if (data.type !== undefined)
+        updatePayload.type = data.type;
+
+        if (data.categoryId !== undefined)
+        updatePayload.categoryId = data.categoryId;
+
+        if (data.amount !== undefined)
+        updatePayload.amount = data.amount;
+
+        if (data.description !== undefined)
+        updatePayload.description = data.description;
+
+        if (data.transactionDate !== undefined)
+            updatePayload.transactionDate = data.transactionDate;
+       
+        await transaction.update(updatePayload, { transaction: t });
+
+        await transaction.reload({ transaction: t});
+
+
+        // ---------- APPLY NEW EFFECT ----------
+
+        const newAccount = await Account.findByPk(transaction.accountId, { transaction: t })
+
+        if (transaction.type === 'transfer') {
+
+        const destination = await Account.findByPk(transaction.toAccountId!, { transaction: t });
+
+        if(!destination) {
+            throw new Error('Destination account not found.');
+        }
+
+        await newAccount!.update(
+            { balance: Number(newAccount!.balance) - Math.abs(Number(transaction.amount)) },
+            { transaction: t }
+        )
+
+        await destination!.update(
+            { balance: Number(destination!.balance) + Math.abs(Number(transaction.amount)) },
+            { transaction: t }
+        )
+
+        } else {
+
+        await newAccount!.update(
+            { balance: Number(newAccount!.balance) + Number(transaction.amount) },
+            { transaction: t }
+        )
+        }
+
+        return transaction
+    })
+    }
+    export async function getTransactionById(id: string, userId: string) {
+    const transaction = await Transaction.findOne({
+        where: { id, userId },
     });
-    
- }
+
+    if (!transaction) {
+        throw new Error('Transaction not found');
+    }
+
+    return transaction;
+    }
+
+    export async function deleteTransaction (id: string, userId: string) {
+        return sequelize.transaction(async (t) => {
+            //Find the transaction first to get its details
+            const transaction = await Transaction.findOne({
+                where: { id, userId},
+                transaction: t,
+            });
+
+            if(!transaction) {
+                throw new Error('Transaction not found');
+            }
+            //Get the account to update balance
+            const account = await Account.findByPk(transaction.accountId, {
+                transaction: t,
+            });
+
+            if(!account){
+                throw new Error('Account not found');
+            }
+
+            //Reverse the balance change (subtract the amount that was added)
+            if(transaction.type === 'transfer'){
+
+                const destination = await Account.findByPk(transaction.toAccountId!, {
+                    transaction: t
+                });
+                if(!destination) {
+                    throw new Error('Destination account not found');
+                }
+                // restore source account
+                await account.update(
+                    { balance: Number(account.balance) + Math.abs(Number(transaction.amount))},
+                    { transaction: t }
+                );
+
+                // remove from destination account
+                await destination.update(
+                    { balance: Number(destination.balance) - Math.abs(Number(transaction.amount))},
+                    { transaction: t}
+                );
+
+            } else {
+            await account.update(
+                { balance: Number(account.balance) - Number(transaction.amount)},
+                { transaction: t}
+            )};
+
+            //Delete the transaction
+            await transaction.destroy({ transaction: t});
+
+            return { message: 'Transaction deletd successfully'};
+        });
+        
+    }
