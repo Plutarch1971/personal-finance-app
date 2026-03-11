@@ -56,14 +56,15 @@ export default function Dashboard() {
 
   return (
     <div className="container-fluid py-2">
-      <p className="text-white text-end pe-5 fs-4 mt-4">
-        <span className="fw-normal">Welcome</span>
-        <strong className="ms-2">{username}</strong>
-        </p>
+        <div className="mb-4 mt-4">
+            <p className="text-white text-end pe-3 fs-5 m-0">
+              <span className="fw-normal">Welcome</span>
+              <strong className="ms-2">{username}</strong>
+            </p>
+            <h2 className="text-center text-white fs-1 mt-2 mb-5">Dashboard</h2>
+          </div>
+            
       <div className="row mt-4">
-        <h2 className="text-center text-white fs-1 mb-4">
-            Dashboard
-          </h2>
         {/* ================= SIDEBAR (Desktop Only) ================= */}
         <aside className="col-12 col-lg-2 mb-4 mb-lg-0">
           <div className="d-grid gap-3">
@@ -100,7 +101,7 @@ export default function Dashboard() {
           <SummaryCards summary={summary} />
 
           {/* ================= EXTRA INFO CARDS ================= */}
-          <div className="row mt-4 g-4">
+          <div className="row mt-2 g-3">
             <div className="col-12 col-lg-4">
               <div className="card shadow-sm h-100 rounded-4">
                <div className="card-body">
