@@ -39,7 +39,7 @@ export default function Login() {
       <div className="flex-grow-1 d-flex align-items-start pt-4">       
             <div className="row w-100 justify-content-center g-4 align-items-stretch">
                 <div className="col-12 col-md-4 col-lg-3">
-                      <div className="card h-100 rounded-4">
+                      <div className="card h-100 rounded-4 login-card">
                           <div className="card-body p-4 d-flex flex-column">
                             <h5 className="fw-bold mb-3 text-primary">
                               Track your expenses
@@ -57,7 +57,7 @@ export default function Login() {
                       </div>
                 </div>
                 <div className="col-12 col-md-4 col-lg-3">
-                      <div className="card h-100 border-0 shadow-lg rounded-4">
+                      <div className="card h-100 border-0 shadow-lg rounded-4 login-card">
                           <div className="card-body p-4 d-flex flex-column">
                             <h5 className="fw-bold mb-3 text-primary">Keep Track of your Investments</h5>
                               <p className="text-muted mb-3">

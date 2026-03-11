@@ -8,7 +8,7 @@
  box-shadow: "0 10px 25px rgba(0,0,0,0.15)";
 } 
 
-.card:hover {
+.login-card:hover {
   transform: translateY(-5px);
   transition: 0.3s ease;
 }

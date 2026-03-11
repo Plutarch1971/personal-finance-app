@@ -6,9 +6,7 @@ export type AccountType =
   | 'checking'
   | 'savings'
   | 'credit'
-  | 'cash'
-  | 'investment'
-  | 'wallet';
+  | 'investment';
 
 export interface AccountAttributes {
   id: string;
@@ -70,9 +68,7 @@ export function initAccountModel(sequelize: Sequelize) {
           'checking',
           'savings',
           'credit',
-          'cash',
           'investment',
-          'wallet'
         ),
         allowNull: false,
       },

@@ -9,7 +9,18 @@ import ExpenseByThirtyCard from '../components/ExpenseByThirtyCard';
 export default function Dashboard() {
   const auth = useAuth();
   if (!auth) return null;
-  const { logout } = auth;
+  const { logout, token } = auth;
+
+  const username = token
+      ? (() => {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.username ?? payload.name ?? payload.email ?? 'User';
+    } catch {
+      return 'User';
+    }
+  })()
+  : 'User';
 
   const [summary, setSummary] = useState({
     income: 0,
@@ -44,12 +55,15 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="container-fluid py-4">
+    <div className="container-fluid py-2">
+      <p className="text-white text-end pe-5 fs-4 mt-4">
+        <span className="fw-normal">Welcome</span>
+        <strong className="ms-2">{username}</strong>
+        </p>
       <div className="row mt-4">
         <h2 className="text-center text-white fs-1 mb-4">
             Dashboard
           </h2>
-
         {/* ================= SIDEBAR (Desktop Only) ================= */}
         <aside className="col-12 col-lg-2 mb-4 mb-lg-0">
           <div className="d-grid gap-3">
@@ -87,7 +101,6 @@ export default function Dashboard() {
 
           {/* ================= EXTRA INFO CARDS ================= */}
           <div className="row mt-4 g-4">
-
             <div className="col-12 col-lg-4">
               <div className="card shadow-sm h-100 rounded-4">
                <div className="card-body">

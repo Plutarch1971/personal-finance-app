@@ -31,3 +31,29 @@ export async function getCategoriesByUser(
         order: [[ 'name', 'ASC']],
     });
 }
+
+export async function seedDefaultCategories(userId: string) {
+
+    const categories: Array<{ name: string; type: 'income' | 'expense'}> = [
+        { name: 'Salary', type: 'income'},
+        { name: 'Bonus', type: 'income' },
+        { name: 'Frelance', type: 'income'},
+        { name: 'Interest', type: 'income'},
+        { name: 'Other Income', type: 'income'},
+
+        { name: 'Food', type: 'expense' },
+        { name: 'Transportation', type: 'expense' },
+        { name: 'Entertainment', type: 'expense' },
+        { name: 'Healthcare', type: 'expense'},
+        { name: 'Education', type: 'expense'},
+        { name: 'Housing', type: 'expense'},
+        { name: 'Other Expense', type: 'expense'}
+    ];
+
+    const rows = categories.map((c) => ({
+        ...c,
+        userId
+    }));
+
+    await Category.bulkCreate(rows);
+}

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 
+type AccountType = 'checking' | 'savings' | 'credit' |'investment';
+
 interface Account {
     id: string;
     name: string;
-    type: string;
+    type: AccountType;
     balance: number;
 }
  interface Category {
@@ -14,7 +16,7 @@ interface Account {
     type: 'income' | 'expense';
     parentId?: string | null;
 }
- type TransactionType = 'income' | 'expense' | 'transfer';
+ type TransactionType = 'income' | 'expense' |'transfer';
  type Mode = 'create' |'edit';
 
  interface TransactionFormProps {
@@ -64,6 +66,7 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
             ]);
             setAccounts(accountsRes.data);
             setCategories(categoriesRes.data);
+            console.log("Accounts: ", accountsRes.data);
             } catch (err) {
                 console.error('Failed to load form data', err);
             } finally {
@@ -92,7 +95,15 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
 
 
 
-    // -----------------------FILTER CATEGORIES ------------------------------------
+    // -----------------------FILTER ACCOUNTS ------------------------------------
+const groupedAccounts = {
+  bank: accounts.filter(a => ['checking','savings'].includes(a.type)),
+  credit: accounts.filter(a => a.type === 'credit'),
+  investment: accounts.filter(a => a.type === 'investment')
+};
+
+    //------------------------FILTER CATEGORIES-----------------------------------
+
     const filteredCategories = categories.filter(
         (c) => c.type === transactionType
     );
@@ -187,8 +198,48 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                     </div>
 
         {/*--------------------ACCOUNT RENDERING--------------------------- */}
-        
+                       
                         <div className="mb-3">
+                        <label className="form-label">Account</label>
+
+                        <select
+                            className="form-select"
+                            value={accountId}
+                            onChange={(e) => {
+                            setAccountId(e.target.value);
+                            setToAccountId('');
+                            }}
+                        >
+                            <option value="">Select an account</option>
+
+                            <optgroup label="Bank Accounts">
+                            {groupedAccounts.bank.map((acc) => (
+                                <option key={acc.id} value={acc.id}>
+                                {acc.name}
+                                </option>
+                            ))}
+                            </optgroup>
+
+                            <optgroup label="Credit Accounts">
+                            {groupedAccounts.credit.map((acc) => (
+                                <option key={acc.id} value={acc.id}>
+                                {acc.name}
+                                </option>
+                            ))}
+                            </optgroup>
+
+                            <optgroup label="Investment Accounts">
+                            {groupedAccounts.investment.map((acc) => (
+                                <option key={acc.id} value={acc.id}>
+                                {acc.name}
+                                </option>
+                            ))}
+                            </optgroup>
+
+                        </select>
+                        </div>
+         {/*-------------------- old ACCOUNT RENDERING--------------------------- */}
+                        {/* <div className="mb-3">
                             <label className="form-label">Account</label>
                             <select
                                 className="form-select"
@@ -208,12 +259,53 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                                 </option>
                                 ))}
                                 </select>
-                        </div>
+                        </div> */}
 
         
         {/**----------------------- TRANSFER ------------------------------ */}
-
                     {transactionType === 'transfer' && (
+                        <div className="mb-3">
+                            <label className="form-label">To Account</label>
+                            <select 
+                              className="form-select"
+                              value={toAccountId}
+                              onChange={(e) => setToAccountId(e.target.value)}
+                            >
+                            <option value="">Select destination account</option>    
+                                <optgroup label="Bank Accounts">
+                                {groupedAccounts.bank
+                                    .filter(a => a.id !== accountId)
+                                    .map(acc => (
+                                    <option key={acc.id} value={acc.id}>
+                                        {acc.name}
+                                    </option>
+                                ))}
+                                </optgroup>
+
+                                <optgroup label="Credit Accounts">
+                                {groupedAccounts.credit
+                                    .filter(a => a.id !== accountId)
+                                    .map(acc => (
+                                    <option key={acc.id} value={acc.id}>
+                                        {acc.name}
+                                    </option>
+                                ))}
+                                </optgroup>
+
+                                <optgroup label="Investment Accounts">
+                                    {groupedAccounts.investment
+                                        .filter(a => a.id !== accountId)
+                                        .map(acc => (
+                                        <option key={acc.id} value={acc.id}>
+                                            {acc.name}
+                                        </option>
+                                        ))}
+                                </optgroup>
+                             </select> 
+                        </div>     
+                    )}
+
+                    {/* {transactionType === 'transfer' && (
                         <div className="mb-3">
                             <label className="form-label">To Account</label>
                             <select 
@@ -231,7 +323,7 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                                 ))}
                             </select>
                         </div>
-                    )}
+                    )} */}
 
         {/*------------------------ CATEGORY ------------------------------*/}
                     {transactionType !== 'transfer' && (                        <div className="mb-3">

@@ -21,7 +21,7 @@ export default function Report(){
                 <div className="col-12">
                     <h1 className="text-center text-white"><strong>Welcome to Reporting</strong></h1>
                     <div className="d-flex align-items-center w-100">
-                    <button className="btn btn-outline-light text-white ms-3" style={{ minWidth: '235px'}}
+                    <button className="btn btn-outline-light ms-3" style={{ minWidth: '235px'}}
                         onClick={() => navigate('/dashboard')}
                     >
                         <strong>Dashboard</strong>
