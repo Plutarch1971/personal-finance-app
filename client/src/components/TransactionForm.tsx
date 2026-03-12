@@ -10,6 +10,12 @@ interface Account {
     type: AccountType;
     balance: number;
 }
+interface GroupedAccounts {
+    bank: Account[];
+    credit: Account[];
+    investment: Account[];
+}
+
  interface Category {
     id: string;
     name: string;
@@ -40,7 +46,11 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
 
      // ------------state-----------------
     
-    const [accounts, setAccounts] = useState<Account[]>([]);
+    const [accounts, setAccounts] = useState<GroupedAccounts>({
+        bank: [],
+        credit: [],
+        investment: []
+    });
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -61,7 +71,7 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
      async function loadData(){
             try {
             const [accountsRes, categoriesRes] = await Promise.all([
-                api.get('/accounts'),
+                api.get('/accounts/grouped'),
                 api.get('/categories'),
             ]);
             setAccounts(accountsRes.data);
@@ -96,11 +106,11 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
 
 
     // -----------------------FILTER ACCOUNTS ------------------------------------
-const groupedAccounts = {
-  bank: accounts.filter(a => ['checking','savings'].includes(a.type)),
-  credit: accounts.filter(a => a.type === 'credit'),
-  investment: accounts.filter(a => a.type === 'investment')
-};
+// const groupedAccounts = {
+//   bank: accounts.filter(a => ['checking','savings'].includes(a.type)),
+//   credit: accounts.filter(a => a.type === 'credit'),
+//   investment: accounts.filter(a => a.type === 'investment')
+// };
 
     //------------------------FILTER CATEGORIES-----------------------------------
 
@@ -213,7 +223,7 @@ const groupedAccounts = {
                             <option value="">Select an account</option>
 
                             <optgroup label="Bank Accounts">
-                            {groupedAccounts.bank.map((acc) => (
+                            {accounts.bank.map((acc) => (
                                 <option key={acc.id} value={acc.id}>
                                 {acc.name}
                                 </option>
@@ -221,7 +231,7 @@ const groupedAccounts = {
                             </optgroup>
 
                             <optgroup label="Credit Accounts">
-                            {groupedAccounts.credit.map((acc) => (
+                            {accounts.credit.map((acc) => (
                                 <option key={acc.id} value={acc.id}>
                                 {acc.name}
                                 </option>
@@ -229,7 +239,7 @@ const groupedAccounts = {
                             </optgroup>
 
                             <optgroup label="Investment Accounts">
-                            {groupedAccounts.investment.map((acc) => (
+                            {accounts.investment.map((acc) => (
                                 <option key={acc.id} value={acc.id}>
                                 {acc.name}
                                 </option>
@@ -238,30 +248,7 @@ const groupedAccounts = {
 
                         </select>
                         </div>
-         {/*-------------------- old ACCOUNT RENDERING--------------------------- */}
-                        {/* <div className="mb-3">
-                            <label className="form-label">Account</label>
-                            <select
-                                className="form-select"
-                                value={accountId}
-                                onChange={(e) => {
-                                    setAccountId(e.target.value);
-                                    setToAccountId('');
 
-                                    }
-                                }
-                                >
-                                <option value="">Select an account</option>
- 
-                                {accounts.map((a) => (
-                                <option key={a.id} value={a.id}>
-                                    {a.name}
-                                </option>
-                                ))}
-                                </select>
-                        </div> */}
-
-        
         {/**----------------------- TRANSFER ------------------------------ */}
                     {transactionType === 'transfer' && (
                         <div className="mb-3">
@@ -273,7 +260,7 @@ const groupedAccounts = {
                             >
                             <option value="">Select destination account</option>    
                                 <optgroup label="Bank Accounts">
-                                {groupedAccounts.bank
+                                {accounts.bank
                                     .filter(a => a.id !== accountId)
                                     .map(acc => (
                                     <option key={acc.id} value={acc.id}>
@@ -283,7 +270,7 @@ const groupedAccounts = {
                                 </optgroup>
 
                                 <optgroup label="Credit Accounts">
-                                {groupedAccounts.credit
+                                {accounts.credit
                                     .filter(a => a.id !== accountId)
                                     .map(acc => (
                                     <option key={acc.id} value={acc.id}>
@@ -293,7 +280,7 @@ const groupedAccounts = {
                                 </optgroup>
 
                                 <optgroup label="Investment Accounts">
-                                    {groupedAccounts.investment
+                                    {accounts.investment
                                         .filter(a => a.id !== accountId)
                                         .map(acc => (
                                         <option key={acc.id} value={acc.id}>
@@ -305,25 +292,6 @@ const groupedAccounts = {
                         </div>     
                     )}
 
-                    {/* {transactionType === 'transfer' && (
-                        <div className="mb-3">
-                            <label className="form-label">To Account</label>
-                            <select 
-                              className="form-select"
-                              value={toAccountId}
-                              onChange={(e) => setToAccountId(e.target.value)}
-                            >
-                                <option value="">Select destination account</option>
-                                {accounts
-                                .filter(a => a.id !== accountId)
-                                .map(a => (
-                                    <option key={a.id} value={a.id}>
-                                        {a.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    )} */}
 
         {/*------------------------ CATEGORY ------------------------------*/}
                     {transactionType !== 'transfer' && (                        <div className="mb-3">

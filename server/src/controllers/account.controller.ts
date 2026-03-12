@@ -28,3 +28,13 @@ export async function getAccounts(req: Request, res: Response) {
     res.status(400).json({ error: error.message });
   }
 }
+
+export async function getGroupedAccounts(req: Request, res: Response) {
+  try {
+    const userId = (req.user as any).id;
+    const groupedAccounts = await accountService.getGroupedAccounts(userId);
+    res.json(groupedAccounts);
+  } catch (error: any ) {
+    res.status(400).json({error: error.message});
+  }
+}

@@ -28,38 +28,28 @@ export async function getAccountsByUser(userId: string){
     });
 }
 
-// export async function seedDefaultAccounts(userId: string) {
+export async function getGroupedAccounts(userId: string) {
+    const accounts = await Account.findAll({
+        where: { userId },
+        order: [['createdAt', 'ASC']]
+    });
+    
+    const grouped = {
+        bank: [] as any[],
+        credit: [] as any[],
+        investment: [] as any[]
+    };
 
-//     await Account.bulkCreate([
-//         {
-//             userId,
-//             name: "Checking",
-//             type: "checking",
-//             currency: "CAD",
-//             balance: 0
-//         },
-//         {
-//             userId,
-//             name: "Savings",
-//             type: "savings",
-//             currency: "CAD",
-//             balance: 0
-//         },
-//         {
-//             userId,
-//             name: "Credit",
-//             type: "credit",
-//             currency: "CAD",
-//             balance: 0
-//         },
-//         {
-//             userId,
-//             name: "Investment",
-//             type: "investment",
-//             currency: "CAD",
-//             balance: 0
-//         }
-
-//     ]);
-
-// }
+    for (const acc of accounts) {
+       if(acc.type === 'checking' || acc.type === 'savings') {
+        grouped.bank.push(acc);
+       }
+       if(acc.type === 'credit') {
+        grouped.credit.push(acc);
+       }
+       if(acc.type === 'investment') {
+        grouped.investment.push(acc);
+       }
+    }
+    return grouped;
+}
