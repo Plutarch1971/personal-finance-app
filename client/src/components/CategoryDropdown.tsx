@@ -51,16 +51,18 @@ export default function CategoryDropdown ( {categories, value, onChange} : Props
                         <div className="fw-bold small text-muted">
                             {label}
                         </div>
-                        {groupCategories.map(c => (
-                            <div
-                                key={c.id}
-                                className="p-1 dropdown-item"
-                                style={{ cursor: 'pointer'}}
-                                onClick={() => {
-                                    onChange(c.id);
-                                    setOpen(false);
-                                }}
-                            >
+                        {groupCategories
+                            .filter(c => c.name !== label)
+                            .map(c => (
+                                <div
+                                    key={c.id}
+                                    className="p-1 dropdown-item"
+                                    style={{ cursor: 'pointer'}}
+                                    onClick={() => {
+                                        onChange(c.id);
+                                        setOpen(false);
+                                    }}
+                                >
                                 {c.name}
                             </div>
                         ))}

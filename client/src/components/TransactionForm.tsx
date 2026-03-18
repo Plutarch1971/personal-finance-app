@@ -23,6 +23,7 @@ interface GroupedAccounts {
     name: string;
     type: 'income' | 'expense';
     parentId?: string | null;
+    parentName: string;
 }
  type TransactionType = 'income' | 'expense' |'transfer';
  type Mode = 'create' |'edit';
@@ -123,32 +124,21 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
      }
     
 
-    //------------------------FILTER CATEGORIES-----------------------------------
+    //-------------------Grouping CATEGORIES-----------------------------------
+    const grouped = categories.reduce<Record<string, Category[]>>(
+        (acc, cat) => {
+            const parent = cat.parentName;
 
-    const filteredCategories = categories.filter(
-        (c) => c.type === transactionType
+            if (!acc[parent]) acc[parent] = [];
+
+            acc[parent].push(cat);
+
+            return acc;
+        },
+        {}
     );
-    const parentCategories = filteredCategories.filter((c) => !c.parentId);
-    const childCategories = filteredCategories.filter((c) => !!c.parentId);
-
-    const childrenByParentId: Record<string, Category[]> = {};
-    childCategories.forEach((child) => {
-        const parentId = child.parentId as string;
-        if (!childrenByParentId[parentId]) {
-            childrenByParentId[parentId] = [];
-        }
-        childrenByParentId[parentId].push(child);
-    });
-
-    const categoryGroups: Record<string, Category[]> = {};
-    parentCategories.forEach((parent) => {
-        const children = childrenByParentId[parent.id] || [];
-        categoryGroups[parent.name] = children.length > 0 ? children : [parent];
-    });
-
-    // const parents = filteredCategories.filter((c) => !c.parentId);
-    // const children = filteredCategories.filter((c) => c.parentId);
-
+         
+   
     /**?------------------ SUBMIT -------------------- */
     const handleSubmit = async (e:React.SyntheticEvent) => {
     e.preventDefault();
@@ -298,7 +288,7 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                     {transactionType !== 'transfer' && (                       
                         <div className="mb-3">
                             <label className="form-label">Category</label>
-                            <select className="form-select"
+                            {/* <select className="form-select"
                                     value={categoryId}
                                     onChange={
                                         (e) => setCategoryId(e.target.value)
@@ -311,12 +301,12 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                                     {c.name}
                                 </option>
                                 ))}
-                            </select>
-                            {/* <CategoryDropdown 
-                                categories={categoryGroups}
+                            </select> */}
+                            <CategoryDropdown 
+                                categories={grouped}
                                 value={categoryId}
                                 onChange={setCategoryId}
-                                />      */}
+                                />     
                                </div>
                            
                     )}
