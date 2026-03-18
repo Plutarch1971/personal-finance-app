@@ -31,10 +31,13 @@ export default function ExpenseByThirtyCard(){
             async function load(){
               try{
                 const res = await api.get('/reports/expense-by-thirty');
+                   console.log(res.data);
                 const formatted = res.data.map((row: any) => ({
-                    name: row['category.name'],
+                    // name: row['category.name'],
+                    name: row.category?.name,
                     value: Number(row.total),
                 }));
+                console.log('formatted:', formatted);
                 setData(formatted);
 
                 }finally {
@@ -57,7 +60,13 @@ export default function ExpenseByThirtyCard(){
         <ResponsiveContainer width="100%" height={320}>
             <BarChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis />
+                <XAxis 
+                dataKey="name"
+                interval={0}
+                angle={-25}
+                textAnchor="end"
+                height={60}
+                />
                 <YAxis />
                 <Tooltip />
                 <Legend />

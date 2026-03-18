@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
+import AccountDropdown from '../components/AccountDropdown';
+import CategoryDropdown from '../components/CategoryDropdown';
 
 type AccountType = 'checking' | 'savings' | 'credit' |'investment';
 
@@ -106,17 +108,46 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
 
 
     // -----------------------FILTER ACCOUNTS ------------------------------------
-// const groupedAccounts = {
-//   bank: accounts.filter(a => ['checking','savings'].includes(a.type)),
-//   credit: accounts.filter(a => a.type === 'credit'),
-//   investment: accounts.filter(a => a.type === 'investment')
-// };
+    let accountGroups: Record<string, Account[]> = {
+        "Bank Accounts": accounts.bank   
+     };
+
+     if (transactionType === "expense") {
+        accountGroups["Credit Accounts"] = accounts.credit;
+     }
+
+     if (transactionType === "transfer") {
+        accountGroups["Credit Accounts"] = accounts.credit;
+        accountGroups["Investment Accounts"] = 
+        accounts.investment.filter(acc => acc.name !== "Investment");
+     }
+    
 
     //------------------------FILTER CATEGORIES-----------------------------------
 
     const filteredCategories = categories.filter(
         (c) => c.type === transactionType
     );
+    const parentCategories = filteredCategories.filter((c) => !c.parentId);
+    const childCategories = filteredCategories.filter((c) => !!c.parentId);
+
+    const childrenByParentId: Record<string, Category[]> = {};
+    childCategories.forEach((child) => {
+        const parentId = child.parentId as string;
+        if (!childrenByParentId[parentId]) {
+            childrenByParentId[parentId] = [];
+        }
+        childrenByParentId[parentId].push(child);
+    });
+
+    const categoryGroups: Record<string, Category[]> = {};
+    parentCategories.forEach((parent) => {
+        const children = childrenByParentId[parent.id] || [];
+        categoryGroups[parent.name] = children.length > 0 ? children : [parent];
+    });
+
+    // const parents = filteredCategories.filter((c) => !c.parentId);
+    // const children = filteredCategories.filter((c) => c.parentId);
 
     /**?------------------ SUBMIT -------------------- */
     const handleSubmit = async (e:React.SyntheticEvent) => {
@@ -193,11 +224,12 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                         className="form-select"
                         value={transactionType}
                         onChange={(e) => {
-                            setTransactionType(
-                                e.target.value as TransactionType
-                            );
+                            const type = e.target.value as TransactionType;
+                            setTransactionType(type);
+
                             setCategoryId('');
                             setToAccountId('');
+                            setAccountId('');
                         }}
                         >
                             <option value="">Select type</option>
@@ -212,42 +244,12 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                         <div className="mb-3">
                         <label className="form-label">Account</label>
 
-                        <select
-                            className="form-select"
-                            value={accountId}
-                            onChange={(e) => {
-                            setAccountId(e.target.value);
-                            setToAccountId('');
-                            }}
-                        >
-                            <option value="">Select an account</option>
-
-                            <optgroup label="Bank Accounts">
-                            {accounts.bank.map((acc) => (
-                                <option key={acc.id} value={acc.id}>
-                                {acc.name}
-                                </option>
-                            ))}
-                            </optgroup>
-
-                            <optgroup label="Credit Accounts">
-                            {accounts.credit.map((acc) => (
-                                <option key={acc.id} value={acc.id}>
-                                {acc.name}
-                                </option>
-                            ))}
-                            </optgroup>
-
-                            <optgroup label="Investment Accounts">
-                            {accounts.investment.map((acc) => (
-                                <option key={acc.id} value={acc.id}>
-                                {acc.name}
-                                </option>
-                            ))}
-                            </optgroup>
-
-                        </select>
-                        </div>
+                        <AccountDropdown
+                         groups={accountGroups}
+                         value={accountId}
+                         onChange={setAccountId}
+                         />
+                         </div>
 
         {/**----------------------- TRANSFER ------------------------------ */}
                     {transactionType === 'transfer' && (
@@ -278,39 +280,45 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                                     </option>
                                 ))}
                                 </optgroup>
-
-                                <optgroup label="Investment Accounts">
+                                 <optgroup label="Investment Accounts">
                                     {accounts.investment
-                                        .filter(a => a.id !== accountId)
+                                        .filter(acc => acc.name !== "Investment")
                                         .map(acc => (
                                         <option key={acc.id} value={acc.id}>
                                             {acc.name}
                                         </option>
                                         ))}
                                 </optgroup>
+
                              </select> 
                         </div>     
                     )}
 
-
         {/*------------------------ CATEGORY ------------------------------*/}
-                    {transactionType !== 'transfer' && (                        <div className="mb-3">
+                    {transactionType !== 'transfer' && (                       
+                        <div className="mb-3">
                             <label className="form-label">Category</label>
                             <select className="form-select"
                                     value={categoryId}
                                     onChange={
                                         (e) => setCategoryId(e.target.value)
                                     }
-                               //disabled={!transactionType}
-                            >
+                               >
                                 <option value="">Select category</option>
                                 {filteredCategories.map((c) => (
-                                <option key={c.id} value={c.id}>
+                                    
+                                <option key={c.id} value={c.id} >
                                     {c.name}
                                 </option>
                                 ))}
                             </select>
-                        </div>
+                            {/* <CategoryDropdown 
+                                categories={categoryGroups}
+                                value={categoryId}
+                                onChange={setCategoryId}
+                                />      */}
+                               </div>
+                           
                     )}
 
 

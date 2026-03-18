@@ -36,13 +36,17 @@ export async function createTransaction(data: CreateTransactionInput) {
         if(data.type === 'income') {
             signedAmount = Math.abs(data.amount);
         }
+        if(data.type === 'transfer') {
+            signedAmount = Math.abs(data.amount);
+            data.categoryId = undefined;
+        }
         const transaction = await Transaction.create( 
             {
                 userId: data.userId,
                 type: data.type,
                 accountId: data.accountId,
                 toAccountId: data.toAccountId || null,
-                categoryId: data.categoryId,
+                categoryId: data.type === 'transfer' ? undefined : data.categoryId,
                 amount: signedAmount,
                 description: data.description,
                 transactionDate: data.transactionDate,
@@ -172,7 +176,7 @@ export async function updateTransaction(
 
         if (data.transactionDate !== undefined)
             updatePayload.transactionDate = data.transactionDate;
-       
+        
         await transaction.update(updatePayload, { transaction: t });
 
         await transaction.reload({ transaction: t});

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Account {
     id: string;
@@ -13,13 +13,25 @@ interface Props {
 
 export default function AccountDropdown({groups, value, onChange} : Props) {
     const [open, setOpen] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
 
     const selected = 
     Object.values(groups).flat().find(a => a.id === value)?.name ||
     "Select account";
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                setOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     return (
-        <div className="position-relative">
+        <div ref={ref} className="position-relative">
             <button
             type="button"
             className="form-control text-start"
@@ -29,7 +41,10 @@ export default function AccountDropdown({groups, value, onChange} : Props) {
             </button>
 
             { open && (
-                <div className="border rounded bg-white shadow mt-1 p-2 position-absolute w-100">
+                <div
+                    className="border rounded bg-white shadow mt-1 p-2 position-absolute w-100"
+                    style={{ maxHeight: '240px', overflowY: 'auto', zIndex: 1100 }}
+                >
                     {Object.entries(groups).map(([label, accounts]) => (
                         <div key={label} className="mb-2">
                             <div className="fw-bold small text-muted">{label}</div>

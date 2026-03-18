@@ -16,6 +16,7 @@ export async function getMonthlySummary(
     const rows = await Transaction.findAll({
         where: {
             userId,
+            type: { [Op.in]: ['income', 'expense']}, // exclude transfer
             transactionDate: {
                 [Op.between]: [startDate,endDate],
             },
@@ -98,6 +99,7 @@ export async function getIncomeByCategory( userId: string) {
     return Transaction.findAll({
         where: {
             userId,
+            type: 'income',
             amount: { [Op.gt] : 0 }, // income only
             transactionDate: {
                 [Op.between]: [startDate, endDate],

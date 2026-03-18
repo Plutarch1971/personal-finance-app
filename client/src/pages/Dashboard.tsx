@@ -105,10 +105,10 @@ export default function Dashboard() {
             <div className="col-12 col-lg-4">
               <div className="card shadow-sm h-100 rounded-4">
                <div className="card-body">
-                  <h5 className="card-title">Income By Categories</h5>
-                  <p className="card-text">
+                  <h5 className="card-title pt-2">Income :  Last 30 Days</h5>
+                  {/* <p className="card-text">
                     For last 30 days.
-                  </p>
+                  </p> */}
                   <IncomePieChart />
                 </div>
               </div>
@@ -117,10 +117,10 @@ export default function Dashboard() {
             <div className="col-12 col-md-4">
               <div className="card shadow-sm h-100 rounded-4">
                 <div className="card-body">
-                  <h5 className="card-title">Expense By Categories</h5>
-                  <p className="card-text">
+                  <h5 className="card-title pt-2">Expense : Last 30 days</h5>
+                  {/* <p className="card-text">
                     For last 30 days.
-                  </p>
+                  </p> */}
                   <ExpenseByThirtyCard />
                 </div>
               </div>
@@ -129,7 +129,7 @@ export default function Dashboard() {
             <div className="col-12 col-md-4">
               <div className="card shadow-sm h-100 rounded-4">
                 <div className="card-body">
-                  <h5 className="card-title">Investments</h5>
+                  <h5 className="card-title pt-2">Investments</h5>
                   <p className="card-text">
                     Keep track of investment performance and growth.
                   </p>

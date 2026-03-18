@@ -35,6 +35,7 @@ const DEFAULT_CATEGORIES = [
   { name: 'Rent', type: 'expense', parent: 'Home' },
   { name: 'Utilities', type: 'expense', parent: 'Home' },
   { name: 'Home Insurance', type: 'expense', parent: 'Home' },
+   { name: 'Property Tax', type: 'expense', parent: 'Home'},  //New category
   
   // Transportation
   { name: 'Transportation', type: 'expense', parent: null },
@@ -47,15 +48,33 @@ const DEFAULT_CATEGORIES = [
   // Travel
   { name: 'Travel', type: 'expense', parent: null },
   { name: 'Vacation', type: 'expense', parent: 'Travel' },
+
+  // Food
+  { name: 'Food', type: 'expense', parent: null},
+  { name: 'Groceries', type: 'expense', parent: 'Food'},
+  { name: 'Dining Out', type: 'expense', parent: 'Food'},
   
   // Entertainment
   { name: 'Entertainment', type: 'expense', parent: null },
-  { name: 'Dining Out', type: 'expense', parent: 'Entertainment' },
-  
+  { name: 'Games', type: 'expense', parent: 'Entertainment'},             //New category
+  { name: 'Shows', type: 'expense', parent: 'Entertainment'},             //New category
   // Other
   { name: 'Education', type: 'expense', parent: null },
-  { name: 'Medical', type: 'expense', parent: null },
-  { name: 'Other Expense', type: 'expense', parent: null },
+  { name: 'Healthcare', type: 'expense', parent: null },                  //New category?, not sure
+  { name: 'Medical', type: 'expense', parent: 'Healthcare'},              //Changed from parent to child
+  { name: 'Fitness', type: 'expense', parent: 'Healthcare'},              //New category
+
+  //Dues
+  { name: 'Government Dues', type: 'expense', parent: null},              //New category
+  { name: 'Income Tax', type: 'expense', parent: 'Government Dues'},      //New category
+  { name: 'Employment Insurance', type: 'expense', parent: 'Government Dues'},   //New category
+  { name: 'Canadian Pension Plan', type: 'expense', parent: 'Government Dues'},   //New category
+  
+  { name: 'Work Dues', type: 'expense', parent: null},                    //New category
+  { name: 'Work Pension', type: 'expense', parent: 'Work Dues'},          //New category
+  { name: 'Benefit Dues', type: 'expense', parent: 'Work Dues'},          //New category
+
+  { name: 'Other Expense', type: 'expense', parent: null },               //Delete 'Other' but keep 'Other Expense' 
 ];
 
 // TODO: Implement user creation logic
