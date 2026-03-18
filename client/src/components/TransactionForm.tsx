@@ -125,9 +125,11 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
     
 
     //-------------------Grouping CATEGORIES-----------------------------------
-    const grouped = categories.reduce<Record<string, Category[]>>(
+    const grouped = categories
+        .filter(cat => cat.type === transactionType)
+        .reduce<Record<string, Category[]>>(
         (acc, cat) => {
-            const parent = cat.parentName;
+            const parent = cat.parentName || "Other";
 
             if (!acc[parent]) acc[parent] = [];
 
