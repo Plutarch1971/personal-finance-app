@@ -130,7 +130,7 @@ export default function PieChartReport({onClose}: Props) {
                     {isChartVisible && (        
                         <div className="col-12 col-md-8 d-flex justify-content-center">
                             <div className="card shadow p-3">
-                                <PieChart width={700} height={500} style={{ backgroundColor:'#f0f0f0'}}>
+                                <PieChart width={800} height={500} style={{ backgroundColor:'#f0f0f0'}}>
                                     <Pie
                                         data={data}
                                         dataKey="value"
