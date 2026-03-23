@@ -7,8 +7,8 @@ interface ExpenseCategory{
     
 }
 interface ExpenseCategoryAPI {
-    "category.name": string;
-    total:string;
+    name: string;
+    value:string | number;
 }
 interface Props {
         onClose: () => void;
@@ -32,10 +32,11 @@ export default function ExpensesByCategoryCard({onClose} : Props){
                 params: { startDate, endDate }
             
             });
-            const data = expenseByCategoryRes.data.map((item: ExpenseCategoryAPI) =>({
-                categoryName: item["category.name"],
-                totalExpense: parseFloat(item.total)
-        }));
+            const data = (expenseByCategoryRes.data ?? []).map((item: ExpenseCategoryAPI) =>({
+                categoryName: item.name,
+                totalExpense: Number(item.value)
+        }))
+        .filter((row: any) => row.categoryName && Number.isFinite(row.totalExpense));
             
             setExpenseByCategory(data);
             setError('');

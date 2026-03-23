@@ -37,19 +37,27 @@ export default function PieChartReport({onClose}: Props) {
     async function loadReport() {
         setLoading(true);
         try {
-            const res = await api.get('/reports/expenses-by-category', {
+            const res = await api.get('/reports/monthly-expenses', {
             params: { startDate, endDate }
         });
         if (!res.data) {
             setError('Failed to fetch data.');
             return;
         }
-        const formatted = res.data.map((row: any) => ({
-            name: row['category.name'],
-            value: Number(row.total)
-        }));
+        const formatted: CharData[] = (res.data??[])
+            .map((row: { name: string; value: string | number}) => ({
+            name: row.name,
+            value: Number(row.value),
+        }))
+        .filter((item: CharData) => 
+            item.name.trim().length > 0  && 
+            Number.isFinite(item.value) && 
+            item.value > 0);
+
+        console.log(formatted);
+
         setData(formatted);
-        setError('');
+        setError(formatted.length ? '' : 'No expense data for the selected dates');
         } catch (error) {
             setError("Error fetching data.");
         } finally {

@@ -21,22 +21,40 @@ const COLORS = [
   '#FF4560',
 ];
 
+interface CharData {
+    name: string;
+    value: number;
+}
+
 export default function ExpenseByThirtyCard(){
     
     const [data, setData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    
 
     useEffect(() => {
+         const end = new Date();
+     const start = new Date(end);
+    start.setDate(end.getDate() -30);
+    
+    const startDate = start.toISOString().slice(0,10);
+    const endDate = end.toISOString().slice(0,10);
+
             async function load(){
               try{
-                const res = await api.get('/reports/expense-by-thirty');
-                   console.log(res.data);
-                const formatted = res.data.map((row: any) => ({
-                    // name: row['category.name'],
-                    name: row.category?.name,
-                    value: Number(row.total),
-                }));
+                const res = await api.get('/reports/monthly-expenses', {
+                    params: {startDate, endDate},
+                });
+                console.log(res.data);
+
+                const formatted : CharData [] = (res.data ?? [])
+                    .map((row: { name: string; value: string | number}) => ({
+                        name: row.name,
+                        value: Number(row.value),
+                }))
+                .filter((item: CharData) => item.name &&
+                Number.isFinite(item.value) &&
+                item.value > 0);
+
                 console.log('formatted:', formatted);
                 setData(formatted);
 

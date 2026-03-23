@@ -26,7 +26,7 @@ export default function MonthlySummaryCard({onClose}: Props) {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await api.get('/reports/summary', {
+            const res = await api.get('/reports/monthly-summary', {
                 params: { startDate, endDate }
             });
             setMonthlySummary(res.data);

@@ -40,30 +40,32 @@ export default function Login() {
             <div className="row w-100 justify-content-center g-4 align-items-stretch">
                 <div className="col-12 col-md-4 col-lg-3">
                       <div className="card h-100 rounded-4 login-card">
-                          <div className="card-body p-4 d-flex flex-column">
-                            <h5 className="fw-bold mb-3 text-primary">
+                          <div className="card-body p-4 d-flex flex-column mt-4">
+                            <strong><h5 className="fw-bold fs-3 mb-3 text-center text-primary">
                               Track your expenses
-                            </h5>
-                            <p className="text-muted mb-3">
+                            </h5></strong>
+                            <p className="text-muted ms-3 fs-5 mb-3">
                               Build better money habits with a clear view of your daily spending.
                             </p>
-                            <ul className="list-unstyled ps-3 small text-muted">
+                            <ul className="list ms-3 fs-6 ps-3 small text-muted">
                               <li>Track monthly income and expenses</li>
                               <li>Analyze spending habits</li>
                               <li>View category-based expense breakdown</li>
                               <li>Monitor account balances</li>
+                              <li>Add or remove categories</li>
                             </ul>
                           </div>
                       </div>
                 </div>
                 <div className="col-12 col-md-4 col-lg-3">
                       <div className="card h-100 border-0 shadow-lg rounded-4 login-card">
-                          <div className="card-body p-4 d-flex flex-column">
-                            <h5 className="fw-bold mb-3 text-primary">Keep Track of your Investments</h5>
-                              <p className="text-muted mb-3">
+                          <div className="card-body p-4 d-flex flex-column mt-4">
+                           <strong><h5 className="fw-bold fs-3 mb-3 text-center text-primary">Track of your Finances</h5></strong>
+                              <p className="text-muted ms-3 fs-5 mb-3">
                                 Understand how your money moves with visual and time-based insights.
                               </p>
-                            <ul className="list-unstyled ps-3 small text-muted">
+                            <ul className="list ms-3 fs-6 ps-3 small text-muted">
+                              <li>Follow your Investments</li>
                               <li>Visualize financial trends</li>
                               <li>Compare spending across time periods</li>
                               <li>Manage multiple financial accounts</li>

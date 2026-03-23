@@ -33,11 +33,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function load() {
+      setLoading(true);
+
+      try {
       const startDate = new Date();
       startDate.setDate(1);
       const endDate = new Date();
 
-      const res = await api.get('/reports/summary', {
+      const res = await api.get('/reports/monthly-summary', {
         params: {
           startDate: startDate.toISOString().slice(0, 10),
           endDate: endDate.toISOString().slice(0, 10),
@@ -45,8 +48,14 @@ export default function Dashboard() {
       });
 
       setSummary(res.data);
+    } catch (error: any) {
+      console.error('Failed to load monthly summary:', error);
+      setSummary({ income: 0, expense: 0, net: 0 });
+    } finally {
       setLoading(false);
     }
+    }
+    
     load();
   }, []);
 
