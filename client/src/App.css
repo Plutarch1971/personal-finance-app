@@ -10,6 +10,10 @@
  box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
 } 
 
+.bg-card {
+  background-color:#faf0ca;  
+}
+
 .login-card:hover {
   transform: translateY(-5px);
   transition: 0.3s ease;
@@ -42,4 +46,27 @@
 
 .select option {
   padding-left: 6px;
+}
+
+.medium-large {
+  font-size: 3rem;
+  font-weight: bold;
+}
+.extra-large {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.script-heading {
+  font-family: 'Great Vibes', cursive;
+  font-size: 5rem;
+  font-weight: 400;
+}
+
+.script-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  font-weight: 400;      /* Usually lighter for scripts */
+  letter-spacing: 0.05em; /* Add breathing room */
+  line-height: 1;      /* More space between lines */
 }

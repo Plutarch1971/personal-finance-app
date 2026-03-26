@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../api/axios';
 
 export default function Register(){
@@ -51,22 +51,24 @@ export default function Register(){
 
         }
         return (
-            <div className="container-fluid vh-100 pt-5" style={{backgroundColor: "#b4cfe0"}}> 
+            <div className="container-fluid vh-100 pt-5"> 
             <div className="row h-100"> 
 
                  {/**Left 2/3 Section */}
-                 <div className="col-md-8 d-none d-md-flex justify-content-center align-items-center">
-                    <h2> Registratioin Page</h2>
+                 <div className="col-md-8 d-none d-md-flex flex-column justify-content-center align-items-center">
+                    <p className="script-text text-white">Welcome to</p>
+                    <p className="script-heading text-white"> Personal Finance App</p>
+                    <p className="script-text text-white">Registration Page</p>
                      {/** Optioinal content here (image / branding /ect) */}
                     </div>
                      {/** Right 1/3 section */}
                      <div className="col-12 col-md-4 d-flex justify-content-center align-items-center">
-                    <div className="container mb-4"style={{width:'30rem'}}>
-                        <h2>Registration Form</h2>
+                    <div className="container bg-card mb-4 p-5 rounded-4"style={{width:'30rem'}}>
+                        <h2 className="text-center mb-4">Registration Form</h2>
                         {error && <div className="alert alert-danger">{error}</div>}
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
-                                <label className="form-label">Enter username:</label>
+                                <label className="form-label fs-4">Enter username:</label>
                                 <input type={username}
                                 className="form-control"
                                 value={username} 
@@ -74,7 +76,7 @@ export default function Register(){
                             </div>
                             
                             <div>
-                                <label className="form-lable">Enter email</label>
+                                <label className="form-lable fs-4">Enter email</label>
                                 <input type={email} 
                                 className="form-control"
                                 value={email} 
@@ -82,7 +84,7 @@ export default function Register(){
                             </div>
                             
                             <div className="mb-3">
-                                <label className="form-label">Enter password</label>
+                                <label className="form-label fs-4">Enter password</label>
                                 <input type="password" 
                                 className="form-control"
                                 value={password} 
@@ -90,7 +92,7 @@ export default function Register(){
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label">Confirm password</label>
+                                <label className="form-label fs-4">Confirm password</label>
                                 <input type="password" 
                                 className="form-control"
                                 value={confirmPassword} 
@@ -98,10 +100,14 @@ export default function Register(){
                             </div>
                         
                     
-                        <button className="btn btn-primary w-100" disabled={loading}>
+                        <button className="btn btn-primary w-100 fs-4 fw-semibold" disabled={loading}>
                             {loading ? 'Creating account....': 'Register'}
                         </button>
                         </form>
+                        <p className="pt-4 fs-4">
+                            Already registered? Go to {" "} 
+                            <Link to="/login">Login page</Link>
+                        </p>
                         </div>
                     </div>
                    </div>

@@ -45,7 +45,10 @@ export async function getExpensesByCategory(req: Request, res: Response) {
 export async function getMonthlySummary( req: Request, res: Response) {
     try {
         const userId = (req.user as any).id
-        const data = await reportService.getMonthlySummary(userId);
+        const startDate = req.query.startDate as string | undefined;
+        const endDate = req.query.endDate as string | undefined;
+
+        const data = await reportService.getMonthlySummary(userId, startDate, endDate);
         res.json(data);
     } catch (error: any) {
         res.status(500).json({ error: error.message})
@@ -89,4 +92,17 @@ export async function getExpenseThirty(req: Request, res: Response){
         return res.status(500).json(error.message);
     }       
     
+}
+
+export async function getMonthlyExpenseTrend(req: Request, res: Response){
+    try {
+        const userId = (req.user as any).id;
+
+        const data = await reportService.getMonthlyExpenseTrend(userId);
+
+        res.json(data);
+    } catch (error: any) {
+        console.error(error);
+        res.status(500).json({ error: error.message});
+    }
 }

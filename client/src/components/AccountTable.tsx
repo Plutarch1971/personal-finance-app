@@ -62,7 +62,9 @@ export default function AccountTable({onClose}: Props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {accounts.map((a) => (
+                        {accounts
+                        .filter((a) => !(a.type === 'investment' && Number(a.balance) === 0))
+                        .map((a) => (
                             <tr key={a.id}>
                                 <td>{a.name}</td>                               {/* Data cell 1*/}
                                 <td className="text-capitalize">{a.type}</td>   {/* Data cell 2 */}

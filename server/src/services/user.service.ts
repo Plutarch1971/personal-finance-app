@@ -15,7 +15,13 @@ const DEFAULT_ACCOUNTS: {
     { name: 'Checking Account', type: 'checking', currency: 'CAD', balance: 0 },
     { name: 'Savings Account', type: 'savings', currency: 'CAD', balance: 0 },
     { name: 'Credit Card', type: 'credit', currency: 'CAD', balance: 0 },
-    { name: 'Investment', type: 'investment', currency: 'CAD', balance: 0 },
+    //Investment Accounts
+    { name: 'TFSA', type: 'investment', currency: 'CAD', balance: 0 },
+    { name: 'RRSP', type: 'investment', currency: 'CAD', balance: 0 },
+    { name: 'RESP', type: 'investment', currency: 'CAD', balance: 0 },
+    { name: 'Bonds', type: 'investment', currency: 'CAD', balance: 0 },
+    { name: 'Stocks', type: 'investment', currency: 'CAD', balance: 0 },
+    { name: 'GIC', type: 'investment', currency: 'CAD', balance: 0 },
   ];
 
 // Default categories for new users with parent-child relationships
@@ -23,10 +29,25 @@ const DEFAULT_CATEGORIES = [
   // Income categories
   { name: 'Salary', type: 'income', parent: null },
   { name: 'Bonus', type: 'income', parent: null },
-  { name: 'Interest', type: 'income', parent: null },
   { name: 'Freelance', type: 'income', parent: null },
-  { name: 'Investment', type: 'income', parent: null },
+  { name: 'Government Benefits', type: 'income', parent: null},
+  { name: 'Old Age Benefit', type: 'income', parent:'Government Benefits'},
+  { name: 'Canadian Pension Plan', type: 'income', parent:'Government Benefits'},
+  { name: 'Child Benefit', type: 'income', parent:'Government Benefits'},
+  { name: 'Employment Insurance', type: 'income', parent:'Government Benefits'},
   { name: 'Other Income', type: 'income', parent: null },
+
+  // Investment Income Categories
+  { name: 'Investment Income', type: 'income', parent: null },
+  { name: 'Dividends', type: 'income', parent: 'Investment Income' },
+  { name: 'Interest', type: 'income', parent: 'Investment Income' },
+  { name: 'TSFA', type: 'income', parent: 'Investment Income' },
+  { name: 'GIC', type: 'income', parent: 'Investment Income' },
+  { name: 'Bonds', type: 'income', parent: 'Investment Income' },
+  { name: 'Stocks', type: 'income', parent: 'Investment Income' },
+  { name: 'RRSP', type: 'income', parent: 'Investment Income' },
+  { name: 'RESP', type: 'income', parent: 'Investment Income' },
+  { name: 'Other Investment', type: 'income', parent: 'Investment Income' },
   
   // Expense categories with parent-child relationships
   // Home
@@ -35,7 +56,7 @@ const DEFAULT_CATEGORIES = [
   { name: 'Rent', type: 'expense', parent: 'Home' },
   { name: 'Utilities', type: 'expense', parent: 'Home' },
   { name: 'Home Insurance', type: 'expense', parent: 'Home' },
-   { name: 'Property Tax', type: 'expense', parent: 'Home'},  //New category
+  { name: 'Property Tax', type: 'expense', parent: 'Home'},  //New category
   
   // Transportation
   { name: 'Transportation', type: 'expense', parent: null },
@@ -126,29 +147,7 @@ export async function registerUser(data: {
     }
   }
 
-  // Create default accounts for new user
-  // for (const acc of DEFAULT_ACCOUNTS) {
-  // const existingAccount = await Account.findOne({
-  //   where: { userId: user.id, name: acc.name},
-  //   transaction: t
-  // });
-  // if (!existingAccount) {
-  // await Promise.all(
-  //     DEFAULT_ACCOUNTS.map((acc) =>
-  //       Account.create(
-  //         {
-  //           userId: user.id,
-  //           name: acc.name,
-  //           type: acc.type,
-  //           currency: acc.currency,
-  //           initialBalance: acc.balance,
-  //           balance: acc.balance,
-  //       }, 
-  //       { transaction: t })
-  //       )
-  //     );
-  //   }
-  // }
+ 
   for (const acc of DEFAULT_ACCOUNTS) {
       await Account.findOrCreate({
         where: { userId: user.id, name: acc.name },

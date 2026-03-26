@@ -5,6 +5,7 @@ import SummaryCards from '../components/SummaryCards';
 import { useNavigate } from 'react-router-dom';
 import IncomePieChart from '../components/IncomePieChart';
 import ExpenseByThirtyCard from '../components/ExpenseByThirtyCard';
+import ExpenseTrendChart from '../components/ExpenseTrendChart';
 
 export default function Dashboard() {
   const auth = useAuth();
@@ -114,7 +115,8 @@ export default function Dashboard() {
             <div className="col-12 col-lg-4">
               <div className="card shadow-sm h-100 rounded-4">
                <div className="card-body">
-                  <h5 className="card-title pt-2">Income :  Last 30 Days</h5>
+                  <h5 className="card-title pt-2">Income by Category:</h5>
+                  <p className="small">Last 30 Days</p>
                   {/* <p className="card-text">
                     For last 30 days.
                   </p> */}
@@ -126,7 +128,8 @@ export default function Dashboard() {
             <div className="col-12 col-md-4">
               <div className="card shadow-sm h-100 rounded-4">
                 <div className="card-body">
-                  <h5 className="card-title pt-2">Expense : Last 30 days</h5>
+                  <h5 className="card-title pt-2">Expense by Parent Category:</h5>
+                   <p className="small">Last 30 Days</p>
                   {/* <p className="card-text">
                     For last 30 days.
                   </p> */}
@@ -138,10 +141,9 @@ export default function Dashboard() {
             <div className="col-12 col-md-4">
               <div className="card shadow-sm h-100 rounded-4">
                 <div className="card-body">
-                  <h5 className="card-title pt-2">Investments</h5>
-                  <p className="card-text">
-                    Keep track of investment performance and growth.
-                  </p>
+                  <h5 className="card-title pt-2">Monthly Expense Trend</h5>
+                   <p className="small">Last 6 months</p>
+                  <ExpenseTrendChart />
                 </div>
               </div>
             </div>

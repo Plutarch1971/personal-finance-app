@@ -17,5 +17,6 @@ router.get('/expenses-by-category', authenticateToken, controller.getExpensesByC
 router.get('/income-by-category', authenticateToken, controller.getIncomeByCategory)
 router.get('/account-balance', authenticateToken, controller.getAccountBalances);
 router.get('/expense-by-thirty', authenticateToken, controller.getExpenseThirty);
+router.get('/expense-trend', authenticateToken, controller.getMonthlyExpenseTrend);
 
 export default router;

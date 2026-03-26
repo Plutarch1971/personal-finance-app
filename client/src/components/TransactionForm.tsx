@@ -119,8 +119,9 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
 
      if (transactionType === "transfer") {
         accountGroups["Credit Accounts"] = accounts.credit;
-        accountGroups["Investment Accounts"] = 
-        accounts.investment.filter(acc => acc.name !== "Investment");
+        accountGroups["Investment Accounts"] = accounts.investment;
+        //accounts.investment.filter(acc => acc.name !== "Investment");
+        console.log("Investment accounts", accounts.investment);
      }
     
 
@@ -232,6 +233,7 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                     </div>
 
         {/*--------------------ACCOUNT RENDERING--------------------------- */}
+            
                        
                         <div className="mb-3">
                         <label className="form-label">Account</label>
@@ -290,20 +292,7 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
                     {transactionType !== 'transfer' && (                       
                         <div className="mb-3">
                             <label className="form-label">Category</label>
-                            {/* <select className="form-select"
-                                    value={categoryId}
-                                    onChange={
-                                        (e) => setCategoryId(e.target.value)
-                                    }
-                               >
-                                <option value="">Select category</option>
-                                {filteredCategories.map((c) => (
-                                    
-                                <option key={c.id} value={c.id} >
-                                    {c.name}
-                                </option>
-                                ))}
-                            </select> */}
+                        
                             <CategoryDropdown 
                                 categories={grouped}
                                 value={categoryId}

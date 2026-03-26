@@ -19,7 +19,6 @@ export default function Report(){
         <div className="container-fluid report-background w-100 vh-100" >
             <div className="row mt-5">
                 <div className="col-12">
-                    <h1 className="text-center text-white"><strong>Welcome to Reporting</strong></h1>
                     <div className="d-flex align-items-center w-100">
                     <button className="btn btn-outline-light ms-3" style={{ minWidth: '235px'}}
                         onClick={() => navigate('/dashboard')}
@@ -80,7 +79,15 @@ export default function Report(){
                     {activeView === 'account' && (
                         <AccountTable onClose={() => setActiveView(null)}/>
                     )}
-                </div>       
+                </div>    
+                    <div className="column-4">
+                        <div className="d-none d-md-flex flex-column justify-content-center align-items-center">
+                            <p className="script-text text-white">Welcome to</p>
+                            <p className="script-heading text-white"> Personal Finance App</p>
+                            <p className="script-text text-white">Report Page</p>
+                        </div> 
+                        
+                    </div>
                 </div> {/** Row closes here now */}
             </div>
      )

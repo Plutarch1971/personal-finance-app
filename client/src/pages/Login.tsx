@@ -33,21 +33,21 @@ export default function Login() {
   return (
     <div className="container-fluid vh-100 d-flex flex-column">
       <div className="text-center py-5 mt-4">
-          <h1 className="text-white display-3 fw-bold mb-3">My Personal Finance</h1> 
+          <h1 className="text-warning display-3 fw-bold mb-3">My Personal Finance</h1> 
           <h2 className="fs-2 text-center text-white h4 mt-4 mb-0"> What can you do with this app</h2>        
       </div>
-      <div className="flex-grow-1 d-flex align-items-start pt-4">       
+      <div className="flex-grow-1 d-flex align-items-start p-4">       
             <div className="row w-100 justify-content-center g-4 align-items-stretch">
-                <div className="col-12 col-md-4 col-lg-3">
-                      <div className="card h-100 rounded-4 login-card">
+                <div className="col-12 col-md-4 col-lg-4">
+                      <div className="card h-100 rounded-4 login-card bg-card">
                           <div className="card-body p-4 d-flex flex-column mt-4">
-                            <strong><h5 className="fw-bold fs-3 mb-3 text-center text-primary">
+                            <strong><h5 className="fw-bold fs-1 mb-3 text-center text-primary">
                               Track your expenses
                             </h5></strong>
-                            <p className="text-muted ms-3 fs-5 mb-3">
+                            <p className="text-muted fw-semibold ms-3 fs-4 mb-3">
                               Build better money habits with a clear view of your daily spending.
                             </p>
-                            <ul className="list ms-3 fs-6 ps-3 small text-muted">
+                            <ul className="list ms-3 fs-4 ps-4 text-muted">
                               <li>Track monthly income and expenses</li>
                               <li>Analyze spending habits</li>
                               <li>View category-based expense breakdown</li>
@@ -57,14 +57,14 @@ export default function Login() {
                           </div>
                       </div>
                 </div>
-                <div className="col-12 col-md-4 col-lg-3">
-                      <div className="card h-100 border-0 shadow-lg rounded-4 login-card">
+                <div className="col-12 col-md-4 col-lg-4">
+                      <div className="card h-100 border-0 shadow-lg rounded-4 login-card bg-card">
                           <div className="card-body p-4 d-flex flex-column mt-4">
-                           <strong><h5 className="fw-bold fs-3 mb-3 text-center text-primary">Track of your Finances</h5></strong>
-                              <p className="text-muted ms-3 fs-5 mb-3">
+                           <strong><h5 className="fw-bold fs-1 mb-3 text-center text-primary">Monitor your Finances</h5></strong>
+                              <p className="text-muted fw-semibold ms-3 fs-4 mb-3 ps-4">
                                 Understand how your money moves with visual and time-based insights.
                               </p>
-                            <ul className="list ms-3 fs-6 ps-3 small text-muted">
+                            <ul className="list ms-3 fs-4 ps-3 small text-muted ps-4">
                               <li>Follow your Investments</li>
                               <li>Visualize financial trends</li>
                               <li>Compare spending across time periods</li>
@@ -74,10 +74,10 @@ export default function Login() {
                           </div>
                       </div>
                 </div>
-                    <div className="col-12 col-md-4 col-lg-3">  
-                        <div className="card h-100 border-0 shadow-lg rounded-4">
+                    <div className="col-12 col-md-4 col-lg-4">  
+                        <div className="card h-100 border-0 shadow-lg rounded-4 bg-card">
                           <div className="card-body p-4 d-flex flex-column">
-                            <h3 className="fw-bold mb-4 text-center text-primary">Login</h3>
+                            <h3 className="fw-bold mb-4 fs-1 text-center text-primary">Login</h3>
 
                             {error && (
                               <div className="alert alert-danger">{error}</div>
@@ -106,16 +106,15 @@ export default function Login() {
                                   onChange={(e) => setPassword(e.target.value)}
                                 />
                               </div>
-
                               <button
                                 type="submit"
-                                className="btn btn-primary btn-lg w-100"
+                                className="btn btn-primary fs-4 btn-lg w-100"
                                 disabled={loading}
                               >
                                 {loading ? 'Logging in...' : 'Login'}
                               </button>
                             </form>
-                              <div className="text-center mt-3">
+                              <div className="text-center fs-4 mt-3">
                               <small>
                                 Don’t have an account?{' '}
                                 <Link to="/register">Register</Link>
