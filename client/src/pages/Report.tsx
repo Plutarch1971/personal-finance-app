@@ -16,7 +16,7 @@ export default function Report(){
     const navigate = useNavigate();
 
      return (
-        <div className="container-fluid report-background w-100 vh-100" >
+        <div className="container-fluid report-background w-100 vh-100 pt-4">
             <div className="row mt-5">
                 <div className="col-12">
                     <div className="d-flex align-items-center w-100">
@@ -79,7 +79,8 @@ export default function Report(){
                     {activeView === 'account' && (
                         <AccountTable onClose={() => setActiveView(null)}/>
                     )}
-                </div>    
+                </div> 
+                {!activeView && (   
                     <div className="column-4">
                         <div className="d-none d-md-flex flex-column justify-content-center align-items-center">
                             <p className="script-text text-white">Welcome to</p>
@@ -88,6 +89,7 @@ export default function Report(){
                         </div> 
                         
                     </div>
+                )}
                 </div> {/** Row closes here now */}
             </div>
      )

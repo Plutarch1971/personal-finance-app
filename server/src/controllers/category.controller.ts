@@ -38,3 +38,67 @@ export async function createCategory(req: Request, res: Response){
     }
 }
 
+export async function createCategoryByUser(req: Request, res: Response) {
+    try {
+        const userId = (req.user as any).id;
+        const { name, type, parentId} = req.body;
+
+        const category = await categoryService.createCategoryByUser({ userId, name, type, parentId});
+        res.status(201).json(category);
+    } catch (err: any) {
+        res.status(400).json(({ error: err.message}));
+    }
+}
+
+export async function deleteCategory(req: Request, res: Response) {
+    try {
+        const userId = (req.user as any).id;
+        const id  = req.params.id as string;
+
+        await categoryService.deleteCategory(id, userId);
+            res.json({ message: 'Deleted successfully'});
+        } catch (err:any) {
+        res.status(400).json({ error: err.message })
+    }
+}
+
+export async function updateCategory(req: Request, res: Response) {
+    try {
+      const userId = (req.user as any).id;
+      const id  = req.params.id as string;
+
+      const { name, parentId, type } = req.body;
+
+      // Basic validation
+      if(!name || !type) {
+        return res.status(400).json({ error: 'Name and type are required'});
+      }
+
+      // Prevent self-parenting
+      if (parentId === id) {
+        return res.status(400).json(({ error: 'Category cannot be its own parent'}));
+      }
+
+      const existing = await categoryService.getCategoryById(id, userId);
+
+      if (!existing) {
+        return res.status(404).json({ error: 'Category not found'});
+      }
+      if (existing.type !== type) {
+        return res.status(400).json ({
+            error: 'Cannot change category type (income/expense)',
+        });
+      }
+      // Update category
+      const updated = await categoryService.updateCategory(id, userId, {
+        name,
+        parentId: parentId || null,
+      });
+        return res.json(updated);
+    } catch (error: any) {
+        console.error('Update category error:', error);
+        return res.status(500).json({
+            error: 'Failed to update category',
+        });
+    }
+}
