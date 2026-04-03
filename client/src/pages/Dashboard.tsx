@@ -99,6 +99,13 @@ export default function Dashboard() {
               View Reports
             </button>
 
+            <button
+              className="btn btn-outline-light py-2"
+              onClick={() => navigate('/categories')}
+            >
+              Manage Categories
+            </button>
+
             <button className="btn btn-danger mt-3 py-2" onClick={logout}>
               Logout
             </button>

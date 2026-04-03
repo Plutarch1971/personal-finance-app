@@ -5,7 +5,7 @@ interface CreateCategoryInput{
     userId: string;
     name: string;
     type: 'income' | 'expense';
-    parentId?: string;
+    parentId?: string | null;
 }
 
 export async function createCategory(data: CreateCategoryInput) {
@@ -59,15 +59,10 @@ export async function seedDefaultCategories(userId: string) {
     await Category.bulkCreate(rows);
 }
 // For user creates categories
-export async function createCategoryByUser( data: {
-    userId: string;
-    name: string;
-    type: 'income' | 'expense';
-    parentId?: string | null;
-
-}) {
-    return Category.create(data);
-}
+// export async function createCategoryByUser( data: CreateCategoryInput)
+// {
+//     return Category.create(data);
+// }
 
 // For user to delete category
 export async function deleteCategory(categoryId: string, userId: string){
@@ -101,7 +96,9 @@ export async function updateCategory(
     userId: string, 
     data: { name: string; parentId: string | null}
     ) {
+        
       await Category.update(data,  {
         where: { id, userId}, 
     });
+    return Category.findByPk(id);
 }

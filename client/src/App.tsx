@@ -8,6 +8,7 @@ import Transactions from './pages/Transactions';
 import Report from './pages/Report';
 import ProtectedRoute from './components/ProtectedRoute';
 import EditTransaction from './pages/EditTransaction';
+import CategoryManager  from './pages/CategoryManager';
 
 function App() {
   return (
@@ -53,6 +54,14 @@ function App() {
             <EditTransaction />
           </ProtectedRoute>
         } 
+        />
+        <Route
+          path="/categories"
+          element={
+            <ProtectedRoute>
+              <CategoryManager />
+            </ProtectedRoute>
+          }
         />
 
     </Routes>

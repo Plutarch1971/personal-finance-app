@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as categoryService from '../services/category.service';
+import { Category } from '../models/category';
 
 
 export async function getCategories(req: Request, res: Response){
@@ -23,32 +24,62 @@ export async function getCategories(req: Request, res: Response){
     }
 }
 export async function createCategory(req: Request, res: Response){
+    if (!req.user) {
+        return res.status(401).json({ error: 'Unathorized'});
+    }
+    const existingCategory = await Category.findOne({
+        where: {
+           name: req.body.name,
+           userId: req.user.id,
+           type: req.body.type
+       }
+     });
+
+    if (existingCategory) {
+       return res.status(400).json({error: 'Category already exists'})
+   }
+
     try{
         const userId = req.user!.id;
-    const { name, type, parentId} = req.body;
-    const category = await categoryService.createCategory({
-    userId,
-    name,
-    type,
-    parentId,
-    });
-    res.status(201).json(category);
-    } catch (error: any){
-      res.status(400).json({error: error.message});
-    }
-}
-
-export async function createCategoryByUser(req: Request, res: Response) {
-    try {
-        const userId = (req.user as any).id;
         const { name, type, parentId} = req.body;
-
-        const category = await categoryService.createCategoryByUser({ userId, name, type, parentId});
+        const category = await categoryService.createCategory({
+        userId,
+        name,
+        type,
+        parentId,
+        });
         res.status(201).json(category);
-    } catch (err: any) {
-        res.status(400).json(({ error: err.message}));
-    }
+        } catch (error: any){
+        res.status(400).json({error: error.message});
+        }
 }
+
+// export async function createCategoryByUser(req: Request, res: Response) {
+
+//     if (!req.user) {
+//         return res.status(401).json({ error: 'Unathorized'});
+//     }
+//     const existingCategory = await Category.findOne({
+//         where: {
+//             name: req.body.name,
+//             userId: req.user.id,
+//             type: req.body.type
+//         }
+//     });
+
+//     if (existingCategory) {
+//         return res.status(400).json({error: 'Category already exists'})
+//     }
+//     try {
+//         const userId = (req.user as any).id;
+//         const { name, type, parentId} = req.body;
+
+//         const category = await categoryService.createCategoryByUser({ userId, name, type, parentId});
+//         res.status(201).json(category);
+//     } catch (err: any) {
+//         res.status(400).json(({ error: err.message}));
+//     }
+// }
 
 export async function deleteCategory(req: Request, res: Response) {
     try {
@@ -66,6 +97,7 @@ export async function updateCategory(req: Request, res: Response) {
     try {
       const userId = (req.user as any).id;
       const id  = req.params.id as string;
+      if (!id) return res.status(400).json({error: 'Missing category id'});
 
       const { name, parentId, type } = req.body;
 
