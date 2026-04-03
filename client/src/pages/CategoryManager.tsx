@@ -118,7 +118,7 @@ export default function CategoryManager() {
                 
             return (
                 <>
-            <div className="container py-4">
+            <div className="container p-5">
                 <div className="position-relative d-flex align-items-center">
                 <h1 className="position-absolute start-50 translate-middle-x mb-4 text-white">Category Manager</h1>
                 <button 
@@ -130,15 +130,17 @@ export default function CategoryManager() {
                 </button>
                 </div>
                 <div className="card mb-4 p-4">
-                    <h2 className="h5 mb-3">Manage Your Categories</h2>
+                    <h2 className="h5 mb-3">Manage Your Catagories</h2>
                     <form className="row g-2 align-items-center" onSubmit={(e) => {e.preventDefault(); handleAdd();}}>
                         <div className="col-12 col-md-4">
                         <select
                             className="form-select"
+                            title="If you want to create a new child category, 
+                            select a parent category from the list, then add a child category"
                             value={selectedParent ?? ''}
                             onChange={(e) => setSelectedParent(e.target.value || null)}
                         >
-                            <option value="">No parent (top-level)</option>
+                            <option value="">Select a parent category</option>
                             {parents.map((p) => (
                             <option key={p.id} value={p.id}>{p.name}</option>
                             ))}
@@ -147,9 +149,12 @@ export default function CategoryManager() {
                         <div className="col-12 col-md-5">
                         <input
                             className="form-control"
+                            title="If you want to create a new parent category, 
+                            then no need to select anything from the dropdown list, 
+                            just write the name in the text box, then click add category"
                             value={newName}
                             onChange={(e) => setNewName(e.target.value)}
-                            placeholder="Category name"
+                            placeholder="Create a child category"
                         />
                         </div>
                         <div className="col-12 col-md-3">
