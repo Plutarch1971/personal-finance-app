@@ -119,104 +119,157 @@ export default function CategoryManager() {
             return (
                 <>
             <div className="container p-5">
-                <div className="position-relative d-flex align-items-center">
-                <h1 className="position-absolute start-50 translate-middle-x mb-4 text-white">Category Manager</h1>
-                <button 
-                  className="btn btn-light ms-auto position-relative w-80 mb-4 me-2"
-                  type={"button"}
-                  onClick={() => navigate('/dashboard')}
-                  >
-                    Dashboard
-                </button>
-                </div>
-                <div className="card mb-4 p-4">
-                    <h2 className="h5 mb-3">Manage Your Catagories</h2>
-                    <form className="row g-2 align-items-center" onSubmit={(e) => {e.preventDefault(); handleAdd();}}>
-                        <div className="col-12 col-md-4">
-                        <select
-                            className="form-select"
-                            title="If you want to create a new child category, 
-                            select a parent category from the list, then add a child category"
-                            value={selectedParent ?? ''}
-                            onChange={(e) => setSelectedParent(e.target.value || null)}
-                        >
-                            <option value="">Select a parent category</option>
-                            {parents.map((p) => (
-                            <option key={p.id} value={p.id}>{p.name}</option>
-                            ))}
-                        </select>
-                        </div>
-                        <div className="col-12 col-md-5">
-                        <input
-                            className="form-control"
-                            title="If you want to create a new parent category, 
-                            then no need to select anything from the dropdown list, 
-                            just write the name in the text box, then click add category"
-                            value={newName}
-                            onChange={(e) => setNewName(e.target.value)}
-                            placeholder="Create a child category"
-                        />
-                        </div>
-                        <div className="col-12 col-md-3">
-                        <button type="submit" className="btn btn-primary w-100">Add Category</button>
-                        </div>
-                        </form>
-                        </div>
-                        <div className="mb-3">
-                            <button
-                             className={'btn-dark btn-outline-secondary'}
-                             onClick={() => 
-                                setSelectedType('expense')}
-                             >
-                                Expense
-                             </button>
-                             <button
-                              className={'btn-dark btn-outline-secondary'}
-                              onClick={() =>
-                                setSelectedType('income')
-                              }
-                              >
-                                Income
-                              </button>
-                        </div>
+                <div className="row mt-5">
+                    <div className="col-10 md-6">
+                        <div className="position-relative d-flex align-items-center">
+                    <h1 className="position-absolute start-50 translate-middle-x mb-4 text-white">Category Manager</h1>
                     
-                        <div className="card p-3">
-                        {parents.map((parent) => (
-                        <div key={parent.id} className="mb-4">
-                            <div className="d-flex justify-content-between align-items-center pb-2 mb-2 border-bottom border-2">
-                                <strong>{parent.name}</strong>
-                                <div className="d-flex gap-2">
-                                    <button className="btn btn-sm btn-outline-secondary" onClick={() => setEditingId(parent.id)}>Edit</button>
-                                    <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(parent.id)}>Delete</button>
-                                </div>
-                            </div>
-                        <div className="ms-3">
-                        {getChildren(parent.id).map((child) => (
-                        <div key={child.id} className="d-flex justify-content-between align-items-center pb-2 mb-2 border-bottom">
-                            {editingId === child.id ? (
-                                <>
-                            <input
-                                value={editingName}
-                                onChange={(e) => setEditingName(e.target.value)}
-                            />
-                            <button onClick={() => handleUpdate(child.id)}>Save</button>
-                            </>
-                            ) :  (
-                            <>
-                                <span>{child.name}</span>
-                            <div>
-                                <button onClick={() => setEditingId(child.id)}>Edit</button>
-                                <button onClick={() => handleDelete(child.id)}>Delete</button>
-                            </div>
-                            </>
-                        )}
-                    </div>
-                    ))}
+                        </div>
                     </div>
                 </div>
-                ))}
-            </div>
-        </div>
+
+                <div className="row">
+                        <div className="col-2 ">
+                            <div className="mb-3 d-flex flex-column align-items-center gap-2">
+                                <label className="mb-auto mt-4 text-center text-white">View Categories</label>
+                                
+                                <button
+                                className="btn btn-primary btn-outline-light w-100"
+                                onClick={() => 
+                                    setSelectedType('expense')}
+                                >
+                                    Expense 
+                                </button>
+                                
+                                <button
+                                className="btn btn-primary btn-outline-light w-100"
+                                onClick={() =>
+                                    setSelectedType('income')
+                                }
+                                >
+                                    Income 
+                                </button>
+                                <button 
+                                    className="btn btn-primary btn-outline-light w-100"
+                                    type={"button"}
+                                    onClick={() => navigate('/dashboard')}
+                                    >
+                                        Dashboard
+                                </button>
+                            </div>
+                        </div>
+                        <div className="col-10 col-md-6 mt-4">
+                                <div className="card mb-4 p-4">
+                                    <h2 className="h5 mb-3">Manage Your Catagories</h2>
+                                    <form className="row g-2 align-items-center" onSubmit={(e) => {e.preventDefault(); handleAdd();}}>
+                                        <div className="col-12 col-md-4">
+                                        <select
+                                            className="form-select"
+                                            title="If you want to create a new child category, 
+                                            select a parent category from the list, then add a child category"
+                                            value={selectedParent ?? ''}
+                                            onChange={(e) => setSelectedParent(e.target.value || null)}
+                                        >
+                                            <option value="">Select a parent category</option>
+                                            {parents.map((p) => (
+                                            <option key={p.id} value={p.id}>{p.name}</option>
+                                            ))}
+                                        </select>
+                                        </div>
+                                        <div className="col-12 col-md-5 d-flex jutify-content-center flex-row">
+                                        <input
+                                            className="form-control"
+                                            title="If you want to create a new parent category, 
+                                            then no need to select anything from the dropdown list, 
+                                            just write the name in the text box, then click add category"
+                                            value={newName}
+                                            onChange={(e) => setNewName(e.target.value)}
+                                            placeholder="Create a child category"
+                                        />
+                                        </div>
+                                            <div className="col-12 col-md-3">
+                                                <button type="submit" className="btn btn-primary w-100">Add Category</button>
+                                                <button type="button" className="btn btn-secondary w-100 mt-2" onClick={() => {
+                                                    setNewName(''); 
+                                                    setSelectedParent(null);
+                                                }}
+                                                >
+                                                    Cancel
+                                                </button>
+                                               
+                                            </div>
+                                    </form>
+                                </div>
+                                        
+                        </div>       
+
+                            <div className="col-10 col-md-6 mt-4"> 
+                                        <div className="card p-3">
+                                        {parents.map((parent) => (
+                                        <div key={parent.id} className="mb-4">
+                                            <div className="d-flex justify-content-between align-items-center pb-2 mb-2 border-bottom border-2">
+                                                <strong>{parent.name}</strong>
+                                                <div className="d-flex gap-2">
+                                                    <button className="btn btn-sm btn-outline-secondary" onClick={() => {
+                                                        setEditingId(parent.id);
+                                                        setEditingName(parent.name);
+
+                                                    }}
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                    <button className="btn btn-sm btn-outline-secondary" onClick={() => {
+                                                        setEditingId(null);
+                                                        setEditingName('');
+                                                    }}
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                    <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(parent.id)}>Delete</button>
+                                                </div>
+                                            </div>
+                                        <div className="ms-3">
+                                        {getChildren(parent.id).map((child) => (
+                                        <div key={child.id} className="d-flex justify-content-between align-items-center pb-2 mb-2 border-bottom">
+                                            {editingId === child.id ? (
+                                                <>
+                                            <input
+                                                value={editingName}
+                                                onChange={(e) => setEditingName(e.target.value)}
+                                            />
+                                            <button onClick={() => handleUpdate(child.id)}>Save</button>
+                                            </>
+                                            ) :  (
+                                            <>
+                                                <span>{child.name}</span>
+                                            <div>
+                                                <button onClick={() => {
+                                                    setEditingId(child.id);
+                                                    setEditingName(child.name);
+                                                    }}
+                                                >Edit
+                                                </button>
+                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => {
+                                                        setEditingId(null);
+                                                        setEditingName('');
+                                                    }}
+                                                    >
+                                                    Cancel
+                                                    </button>
+                                                <button onClick={() => handleDelete(child.id)}>Delete</button>
+                                            </div>
+                                            </>
+                                            )}
+                                            </div>
+                                            ))}
+                                        </div>
+                                        </div>
+                
+                                    ))}
+                                 </div>
+                             </div>
+                        </div>       
+                    </div>   
     </>
 );
 }
