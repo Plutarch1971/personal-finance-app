@@ -1,5 +1,3 @@
-CatagoryManager.tsx
-
 // CategoryManager.tsx
 import api from '../api/axios';
 import { useState, useEffect } from 'react';

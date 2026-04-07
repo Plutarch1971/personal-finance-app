@@ -9,6 +9,7 @@ import Report from './pages/Report';
 import ProtectedRoute from './components/ProtectedRoute';
 import EditTransaction from './pages/EditTransaction';
 import CategoryManager  from './pages/CategoryManager';
+import AddCategory from './components/AddCategory';
 
 function App() {
   return (
@@ -63,6 +64,12 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/add-category"
+          element={<AddCategory />
+          } 
+        />
+        
 
     </Routes>
     </BrowserRouter>
