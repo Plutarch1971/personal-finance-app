@@ -103,9 +103,7 @@ export default function AddCategory({ onClose } : AddCategoryProps) {
     return (
         <>
             <div className="container p-2">
-                <h1 className="text-center text-white">Catagory Manager</h1>
-
-                <div className="row justify-content-center mt-4">
+                <div className="row">
                     <div className="col-10 col-md-10 mt-4"> 
                         <div className="card mb-4 p-4 w-100">
                             <h2 className="h5 mb-3">Add Catagories</h2>

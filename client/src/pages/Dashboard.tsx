@@ -103,7 +103,7 @@ export default function Dashboard() {
               className="btn btn-outline-light py-2"
               onClick={() => navigate('/categories')}
             >
-              Manage Categories
+              Category Manager
             </button>
 
             <button className="btn btn-danger mt-3 py-2" onClick={logout}>
