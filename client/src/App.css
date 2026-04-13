@@ -11,7 +11,8 @@
 } 
 
 .bg-card {
-  background-color:#faf0ca;  
+  /* background-color:#faf0ca;  */
+  background-color:#c2e7ff;
 }
 
 .login-card:hover {
@@ -69,4 +70,7 @@
   font-weight: 400;      /* Usually lighter for scripts */
   letter-spacing: 0.05em; /* Add breathing room */
   line-height: 1;      /* More space between lines */
+}
+.same-btn {
+  width: 80px; /* pick any size you want */
 }

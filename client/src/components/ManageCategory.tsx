@@ -1,8 +1,6 @@
-// CategoryManager.tsx
+// ManageCategory.tsx
 import api from '../api/axios';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 
  interface Category{
     id: string;
@@ -16,12 +14,10 @@ import { useNavigate } from 'react-router-dom';
     onClose: () => void;
  };
 
-export default function CategoryManager({ onClose }: ManageCategoryProps) {
+export default function ManageCategory({ onClose }: ManageCategoryProps) {
             const [ loading, setLoading ] = useState(true);
             const [ selectedType, setSelectedType ] = useState<'income'|'expense'>('expense');
             const [ category, setCategory] = useState<Category[]>([]);
-            const [ newName, setNewName ] = useState('');
-            const [ selectedParent, setSelectedParent ] = useState<string | null>(null);
             const [ editingId, setEditingId ] = useState<string | null>(null);
             const [ editingName, setEditingName ] = useState('');
 
@@ -63,54 +59,43 @@ export default function CategoryManager({ onClose }: ManageCategoryProps) {
 
             const getChildren = (parentId: string) => 
                 children.filter(c => c.parentId === parentId);
+ 
+            const startEdit = (category: Category) => {
+                setEditingId(category.id);
+                setEditingName(category.name);
+            };
 
-            // const handleAdd = async ()=> {
-            //     // Check if category name already exists
-            //     const normalizedNewName = newName.trim().toLowerCase();
-
-            //     const categoryExists = category.some(
-            //         (c) => 
-            //             c.type === selectedType &&
-            //             c.parentId === selectedParent &&
-            //             c.name.trim().toLowerCase() === normalizedNewName
-            //     );
-
-            //     if (categoryExists) {
-            //         alert('This category already exists'); 
-            //         return;
-            //     }
-
-            //     if(!newName.trim()) {
-            //         alert('Please enter a category name');
-            //         return;
-            //     }
-            // await api.post('/categories', {
-            //     name: newName,
-            //     type: selectedType,
-            //     parentId: selectedParent, //null => parent category, id => child category 
-            // });
-            // setNewName(''); // Clear the input after adding
-            // setSelectedParent(null);
-            // refreshCategories();
-            
-            // } 
-
-            const handleUpdate = async (id: string) => {
-                await api.put(`/categories/${id}`, {
-                    name: editingName,
-                    type: selectedType,
-                    parentId: selectedParent
-                });
+            const cancelEdit = () => {
                 setEditingId(null);
-                refreshCategories();
+                setEditingName('');
+
             }
+            const handleUpdate = async (category: Category) => {
+                const trimmed = editingName.trim();
+                if(!trimmed) {
+                    alert('Category name cannot be empty');
+                    return;
+                }
+
+                try {
+                await api.put(`/categories/${category.id}`, {
+                    name: trimmed,
+                    type: category.type,
+                    parentId: category.parentId ?? null
+                });
+                cancelEdit();
+                await refreshCategories();
+            } catch (err: any) {
+                alert(err.response?.data?.error || 'Failed to update category');
+            }
+         };
 
             const handleDelete = async (id: string) => {
                 if(!confirm('Delete this category?')) return;
 
                 try {
-                await api.delete(`/categories/${id}`);
-                refreshCategories();
+                await api.delete('/categories/' + id);
+                await refreshCategories();
                 } catch (err: any) {
                     alert(err.response?.data?.error || "Cannot delete.");
                 }
@@ -130,14 +115,14 @@ export default function CategoryManager({ onClose }: ManageCategoryProps) {
                             <div className="col-lg-12 col-md-4 mt-4">
                                 <div className="d-flex justify-content-center align-items-center gap-3 w-100 flex-wrap">
                                     <h4 className="text-primary">Manage Your Catagories</h4>
-                                    <button className="btn btn-outline-secondary mb-2"
+                                    <button className="btn btn-outline-secondary"
                                             onClick={() => setSelectedType('income')
 
                                     }
                                     >
                                     View Income Categories
                                     </button>
-                                    <button className="btn btn-outline-secondary mb-2"
+                                    <button className="btn btn-outline-secondary"
                                             onClick={() => setSelectedType('expense')
 
                                     }
@@ -152,61 +137,92 @@ export default function CategoryManager({ onClose }: ManageCategoryProps) {
                                     </button>
                                 </div>
                             </div>
-                            <main className="col-12 col-lg-10 p-3 mx-auto text-center">
+                            {/* <main className="col-12 col-lg-10 p-3 mx-auto text-center"> */}
+                            <main className="p-2">
+                                <div className="fw-semibold mb-3 text-center">
                                 {selectedType === 'income' ? 'Income Categories' : 'Expense Categories'}
-
+                                </div>
                                     {parents.map((parent) => (
                                     <div key={parent.id} className="mb-4">
-                                        <div className="d-flex justify-content-between align-items-center pb-2 mb-2 border-bottom border-2">
+                                        {/* <div className="d-flex justify-content-between align-items-center pb-2 mb-2 border-bottom border-2"> */}
+                                        <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-2 border-bottom border-2">
                                             <strong>{parent.name}</strong>
                                             <div className="d-flex gap-2">
-                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => {
-                                                    setEditingId(parent.id);
-                                                    setEditingName(parent.name);
-
-                                                }}
+                                                <button 
+                                                    className="btn same-btn btn-outline-warning" 
+                                                    onClick={() => startEdit(parent)}
                                                 >
-                                                    Edit
+                                                 Edit
                                                 </button>
-                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => {
-                                                    setEditingId(null);
-                                                    setEditingName('');
-                                                }}
+
+                                                <button 
+                                                    className="btn same-btn btn-outline-secondary" 
+                                                    onClick={cancelEdit}
                                                 >
                                                     Cancel
                                                 </button>
-                                                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(parent.id)}>Delete</button>
+                                                <button 
+                                                    className="btn same-btn btn-outline-danger" 
+                                                    onClick={() => handleDelete(parent.id)}
+                                                    >
+                                                    Delete
+                                                    </button>
                                             </div>
                                         </div>
-                                    <div className="ms-3">
+
+                                    <div className="ms-3 ms-sm-3">
                                     {getChildren(parent.id).map((child) => (
-                                    <div key={child.id} className="d-flex justify-content-between align-items-center pb-2 mb-2 border-bottom">
+                                    <div key={child.id} 
+                                        className="d-flex  flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center pb-2 mb-2 border-bottom">
                                         {editingId === child.id ? (
-                                            <>
-                                        <input
-                                            value={editingName}
-                                            onChange={(e) => setEditingName(e.target.value)}
-                                        />
-                                        <button onClick={() => handleUpdate(child.id)}>Save</button>
-                                        </>
+
+                                        <div    className="d-flex flex-wrap gap-2 w-100">
+                                            
+                                                <input
+                                                    className="form-control form-control-sm"
+                                                    style={{maxWidth: 260}}
+                                                    value={editingName}
+                                                    onChange={(e) => setEditingName(e.target.value)}
+                                                />
+                                                <button 
+                                                className="btn btn-sm btn-outline-success"
+                                                onClick={() => handleUpdate(child)}
+                                                >
+                                                Save
+                                                </button>
+
+                                                <button
+                                                    className="btn btn-sm btn-outline-secondary"
+                                                    onClick={cancelEdit}
+                                                >
+                                                    Cancel
+                                                </button>
+                                                </div>
+                    
                                         ) :  (
                                         <>
                                             <span>{child.name}</span>
-                                        <div>
-                                            <button onClick={() => {
-                                                setEditingId(child.id);
-                                                setEditingName(child.name);
-                                                }}
-                                            >Edit
+                                        <div className="d-flex flex-wrap gap-2">
+                                            <button 
+                                                className="btn same-btn btn-outline-warning" 
+                                                onClick={() => startEdit(child)}
+                                            >
+                                                Edit
                                             </button>
-                                            <button className="btn btn-sm btn-outline-secondary" onClick={() => {
-                                                    setEditingId(null);
-                                                    setEditingName('');
-                                                }}
-                                                >
+                                        
+                                            <button 
+                                                className="btn same-btn btn-outline-secondary" 
+                                                onClick={cancelEdit}
+                                            >
                                                 Cancel
-                                                </button>
-                                            <button onClick={() => handleDelete(child.id)}>Delete</button>
+                                            </button>
+
+                                            <button 
+                                                className="btn same-btn btn-outline-danger" 
+                                                onClick={() => handleDelete(child.id)}
+                                            >
+                                                Delete
+                                            </button>
                                         </div>
                                         </>
                                         )}
