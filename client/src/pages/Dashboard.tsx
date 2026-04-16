@@ -76,8 +76,10 @@ export default function Dashboard() {
             
       <div className="row mt-4">
         {/* ================= SIDEBAR (Desktop Only) ================= */}
-        <aside className="col-12 col-lg-2 mb-4 mb-lg-0">
-          <div className="d-grid gap-3">
+        {/* <aside className="col-12 col-lg-2 mb-4 mb-lg-0"> */}
+         <aside className="col-12 col-lg-2 p-3 mt-2">
+          {/* <div className="d-grid gap-3"> */}
+          <div className="d-flex flex-row flex-wrap gap-2 justify-content-center justify-content-lg-start">
             <button
               className="btn btn-outline-light py-2"
               onClick={() => navigate('/transactions/new')}
@@ -103,7 +105,7 @@ export default function Dashboard() {
               className="btn btn-outline-light py-2"
               onClick={() => navigate('/categories')}
             >
-              Category Manager
+              Category
             </button>
 
             <button className="btn btn-danger mt-3 py-2" onClick={logout}>

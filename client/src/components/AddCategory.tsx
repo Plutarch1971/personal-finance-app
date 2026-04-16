@@ -106,7 +106,7 @@ export default function AddCategory({ onClose } : AddCategoryProps) {
                 <div className="row">
                     <div className="col-10 col-md-10 mt-4"> 
                         <div className="card mb-4 p-4 w-100">
-                            <h2 className="h5 mb-3">Add Catagories</h2>
+                            <h2 className="h5 mb-3">Create a New Catagory</h2>
 
                             <div className="d-flex gap-2 mb-3">
                                 <button 
@@ -174,7 +174,7 @@ export default function AddCategory({ onClose } : AddCategoryProps) {
 
                                 <div className="col-12 col-md-3">
                                     <button type="submit" className="btn btn-primary w-100">
-                                        Add Category
+                                        Submit
                                     </button>
                                     <button 
                                         type="button" 

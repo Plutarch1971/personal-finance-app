@@ -149,7 +149,7 @@ export default function ManageCategory({ onClose }: ManageCategoryProps) {
                                             <strong>{parent.name}</strong>
                                             <div className="d-flex gap-2">
                                                 <button 
-                                                    className="btn same-btn btn-outline-warning" 
+                                                    className="btn same-btn btn-outline-success" 
                                                     onClick={() => startEdit(parent)}
                                                 >
                                                  Edit
@@ -204,7 +204,7 @@ export default function ManageCategory({ onClose }: ManageCategoryProps) {
                                             <span>{child.name}</span>
                                         <div className="d-flex flex-wrap gap-2">
                                             <button 
-                                                className="btn same-btn btn-outline-warning" 
+                                                className="btn same-btn btn-outline-success" 
                                                 onClick={() => startEdit(child)}
                                             >
                                                 Edit

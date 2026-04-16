@@ -72,5 +72,15 @@
   line-height: 1;      /* More space between lines */
 }
 .same-btn {
-  width: 80px; /* pick any size you want */
+  min-width: 70px; /* pick any size you want */
+  padding: 0.2rem 0.45rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 576px) {
+  .same-btn {
+    min-width: 58px;
+    padding: 0.15rem 0.35rem;
+    font-size: 0.72rem;
+  }
 }

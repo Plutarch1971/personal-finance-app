@@ -70,14 +70,10 @@ export default function PieChartReport({onClose}: Props) {
     return ( 
         <>
             <div className="container-fluid h-100">
-                <div className="row justify-content-center mt-5" 
-                     style={!isChartVisible ? { transform: 'translateX(-8.333%)'} : {}}
-                >
-                    <div className={
-                                isChartVisible
-                                ? "col-12 col-md-4" 
-                                : "col-12 col-md-6 col-xl-4"
-                    }>
+                <div className="row">
+                     {/* Following is the definition to wrap the piechart under the input form  */}
+                  <div className="col-12 col-lg-10 d-flex flex-row flex-wrap gap-3">
+                    <div className="col-12 col-md-6">
                         <div className="card shadow p-4 w-100">
                             <h3 className="text-center mb-3">
                                 Expenses in Pie Chart
@@ -105,9 +101,9 @@ export default function PieChartReport({onClose}: Props) {
                                             onChange={(e) => 
                                                 setEndDate(e.target.value)} 
                                     />
-                                <div className="d-flex align-items-center justify-content-between mt-4">
+                                <div className="d-flex align-items-center justify-content-between mt-4 gap-2">
                                     <button
-                                        className="btn btn-primary w-50"
+                                        className="btn btn-primary flex-grow-1"
                                         onClick={loadReport}
                                         disabled={loading}
                                     >
@@ -116,7 +112,8 @@ export default function PieChartReport({onClose}: Props) {
                                         : 'Generate Report'
                                         }
                                     </button>
-                                    <button className="btn btn-danger w-25"                                             type="button"
+                                    <button className="btn btn-danger"
+                                            type="button"
                                             onClick={onClose}
                                     >
                                         Close
@@ -127,10 +124,12 @@ export default function PieChartReport({onClose}: Props) {
                              </div>       
                         </div>
                     </div>    
+                    {/* Pie Chart */}
                     {isChartVisible && (        
-                        <div className="col-12 col-md-8 d-flex justify-content-center">
-                            <div className="card shadow p-3">
-                                <PieChart width={800} height={500} style={{ backgroundColor:'#f0f0f0'}}>
+                        <div className="col-12 col-md-6 d-flex justify-content-center">
+                            <div className="card shadow p-3 w-100">
+                                <PieChart width={400} height={400} style={{ backgroundColor:'#f0f0f0'}}>
+                                    {/* Pie chart code */}
                                     <Pie
                                         data={data}
                                         dataKey="value"
@@ -146,7 +145,7 @@ export default function PieChartReport({onClose}: Props) {
                             </div>
                         </div>
                     )}
-
+                </div>
             </div>
         </div>  
     </>             

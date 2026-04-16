@@ -42,14 +42,16 @@ export default function MonthlySummaryCard({onClose}: Props) {
         <>
             <div className="col-10 mt-3">
             <div className="d-flex justify-content-center">
-                <div style={{ width: '500px' }}>  
+                <div style={{ width: '100%', maxWidth:'500px' }}>  
                     <div className="card rounded-4">
                         <h3 className="text-center mt-4">Monthly Summary</h3>
-                    <div className="card-body ms-2">
-                        <div className="card-title"><strong>Select a Month</strong></div>
+                    <div className="card-body">
+                        <div className="card-title">
+                            <strong>Select a Month</strong>
+                            </div>
                         <form onSubmit={handleSubmit}>
                             <label className="form-control">Enter start date:</label>
-                            <input type="date"
+                            <input className="form-control" type="date"
                                 value={startDate} onChange={(e) => setStartDate(e.target.value)}
                             />
                             <label className="form-control">Enter end date:</label>
@@ -80,7 +82,7 @@ export default function MonthlySummaryCard({onClose}: Props) {
                         </form>
                     
                     </div>
-                </div>
+                    </div>
                 </div>
             </div>
             </div>
