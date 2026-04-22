@@ -41,9 +41,10 @@ interface GroupedAccounts {
         transactionDate: string;
     };
     onSubmit: (data: any) => Promise<void>;
+    onClose?: () => void;
  }
 
-export default function TransactionForm({mode, initialData, onSubmit}: TransactionFormProps){
+export default function TransactionForm({mode, initialData, onSubmit, onClose}: TransactionFormProps){
      
     const navigate = useNavigate();
 
@@ -358,9 +359,9 @@ export default function TransactionForm({mode, initialData, onSubmit}: Transacti
 
                         <button className="btn btn-secondary"
                                 type="button"
-                                onClick={() => navigate(-1)}
+                                onClick={() => {onClose?.()}}                              
                         >
-                            Back
+                            Close
                         </button>
                         </div>
                         

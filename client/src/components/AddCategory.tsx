@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
  }
 
  type AddCategoryProps = {
-    onClose: () => void;
+    onClose?: () => void;
  };
 
 export default function AddCategory({ onClose } : AddCategoryProps) {
@@ -183,7 +183,7 @@ export default function AddCategory({ onClose } : AddCategoryProps) {
                                         setNewName(''); 
                                         setSelectedParent(null);
                                         setError('');
-                                        onClose();
+                                        onClose?.();
                                     }}
                                     >
                                         Cancel
