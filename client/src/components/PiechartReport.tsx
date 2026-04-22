@@ -5,7 +5,8 @@ import {
     Pie,
     Tooltip,
     Legend,
-    Cell
+    Cell,
+    ResponsiveContainer
 } from 'recharts';
 
 const COLORS = [
@@ -160,7 +161,9 @@ export default function PieChartReport({onClose}: Props) {
                     {/* Pie Chart */}
                     {isChartVisible && (        
                         <div className="col-12 col-md-6 d-flex justify-content-center">
-                            <div className="card shadow p-3 w-100">
+                            <div className="card shadow p-3 w-100" style={{minHeight: 320}}>
+                                <div style={{ width: '100%', height: 300}}>
+                                 <ResponsiveContainer width="100%" height="100%">
                                 <PieChart width={380} height={380} style={{ backgroundColor:'#f0f0f0'}}>
                                     <Tooltip
                                         formatter={(value) => Number(value?? 0).toLocaleString()}
@@ -174,13 +177,15 @@ export default function PieChartReport({onClose}: Props) {
                                         nameKey="name"
                                         label={renderInsidePercentLabel}
                                         labelLine={false}
-                                        outerRadius={130}
+                                        outerRadius={90}
                                     >
                                         {data.map((_, index) => (
                                             <Cell key={index} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
                                 </PieChart>
+                                </ResponsiveContainer>
+                                </div>
                             </div>
                         </div>
                     )}
