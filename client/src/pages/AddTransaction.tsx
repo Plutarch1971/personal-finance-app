@@ -23,17 +23,17 @@ export default function AddTransaction(){
             <h2 className="text-center text-white">Transaction Page</h2>
         </div>
         <div className="row">
-            <div className="col-12 col-lg-2 p-3 mt-2">
+            <div className="col-12 col-lg-2 d-flex flex-column gap-2 p-3 mt-2">
                 <button className="btn btn-outline-light"
                         onClick={() => setActiveView('TransactionForm')}              
                 >
-                    Manually Enter Transaction
+                    Add Transaction
                 </button>
-                 <button className="btn btn-outline-light"
+                 {/* <button className="btn btn-outline-light"
                         onClick={() => setActiveView('ExtractReceipt')}              
                 >
                     Extract from Receipt
-                </button>
+                </button> */}
                 <button className="btn btn-outline-light"
                         onClick={() => navigate('/dashboard')}              
                 >

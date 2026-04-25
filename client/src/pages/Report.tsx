@@ -19,7 +19,7 @@ export default function Report(){
         <div className="container-fluid report-background w-100 vh-100 pt-4">
                     <div className="row mt-5">
                         <div className="col-8 col-lg-12">
-                            <div className="d-flex align-items-center w-100">
+                            <div className="d-flex flex-row align-items-center w-100">
                             <button className="btn btn-outline-light ms-3" style={{ minWidth: 'auto'}}
                                 onClick={() => navigate('/dashboard')}
                             >
@@ -38,7 +38,7 @@ export default function Report(){
             {/* {error && <div className="alert alert-danger">{error}</div>}  */}
                     <div className="row">
                                 <div className="col-12 col-lg-2 p-3 mt-2">
-                                    <div className="d-flex flex-row flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                                    <div className="d-flex flex-column flex-wrap gap-2 justify-content-center justify-content-lg-start">
                                         <button
                                             className="btn btn-outline-light"
                                             onClick={() => setActiveView('summary')}
