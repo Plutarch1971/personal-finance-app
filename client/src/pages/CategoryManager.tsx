@@ -22,7 +22,7 @@ export default function CategoryManager() {
                                         className="btn btn-outline-light mt-2 w-100" 
                                         onClick={() => setActivePanel('add')}
                                         >
-                                        Add Category
+                                        Add New Category
                                         </button>
 
                                         <button
@@ -30,7 +30,7 @@ export default function CategoryManager() {
                                             onClick={() => 
                                                 setActivePanel('manage')}
                                         >
-                                        Manage Category
+                                        Manage Existing Category
                                         </button>
 
                                         <button 
