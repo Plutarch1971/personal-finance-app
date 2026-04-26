@@ -66,8 +66,11 @@ function App() {
         />
         <Route
           path="/add-category"
-          element={<AddCategory />
-          } 
+          element={
+            <ProtectedRoute>
+              <AddCategory onClose={() => window.history.back()} />
+            </ProtectedRoute>
+          }
         />
         
 

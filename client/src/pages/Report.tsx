@@ -69,30 +69,30 @@ export default function Report(){
         
                 <div className="col-12 col-lg-10 d-flex justify-content-center px-3 px-lg-4 pb-4">
                     <div className="w-100" style={{ maxWidth: '1100px'}}>
-                    {activeView === 'summary' && (
-                        <MonthlySummaryCard onClose={() => setActiveView(null)}/>
-                    )}
-                    {activeView === 'table' && (  
-                        <ExpensesByCategoryCard onClose={() => setActiveView(null)} />  
-                    )}
-                    {activeView === 'chart' && ( 
-                        <PieChartReport onClose={() => setActiveView(null)}/>
-                    )}
-                    {activeView === 'account' && (
-                        <AccountTable onClose={() => setActiveView(null)}/>
-                    )}
-                </div> 
-                {!activeView && (   
-                    <div className="column-4">
-                        <div className="d-none d-md-flex flex-column justify-content-center align-items-center">
-                            <p className="script-text text-white">Welcome to</p>
-                            <p className="script-heading text-white"> Personal Finance App</p>
-                            <p className="script-text text-white">Report Page</p>
-                        </div> 
-                        
+                        {activeView === 'summary' && (
+                            <MonthlySummaryCard onClose={() => setActiveView(null)}/>
+                        )}
+                        {activeView === 'table' && (
+                            <ExpensesByCategoryCard onClose={() => setActiveView(null)} />
+                        )}
+                        {activeView === 'chart' && (
+                            <PieChartReport onClose={() => setActiveView(null)}/>
+                        )}
+                        {activeView === 'account' && (
+                            <AccountTable onClose={() => setActiveView(null)}/>
+                        )}
+                        {!activeView && (
+                            <div className="column-4">
+                                <div className="d-none d-md-flex flex-column justify-content-center align-items-center">
+                                    <p className="script-text text-white">Welcome to</p>
+                                    <p className="script-heading text-white"> Personal Finance App</p>
+                                    <p className="script-text text-white">Report Page</p>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div> {/** Row closes here now */}
+                </div>
+            </div>
             </div>
      )
 }
