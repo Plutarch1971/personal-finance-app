@@ -111,20 +111,26 @@ Routes → Controllers → Services → Models → Database
 git clone https://github.com/your-username/personal-finance-app.git
 cd personal-finance-app
  
-**2️⃣ Backend Setup**
-cd server
+**2️⃣ Install Dependencies**
 npm install
-Create .env file:
+
+The repo root is the source of truth for local setup. It uses npm workspaces, so one install command pulls in the root, client, and server dependencies together.
+
+**3️⃣ Backend Environment**
+Create `server/.env`:
 PORT=5000
 DATABASE_URL=your_postgres_connection
 JWT_SECRET=your_secret
-Run:
-npm run dev
  
-**3️⃣ Frontend Setup**
-cd client
-npm install
+**4️⃣ Start Development**
 npm run dev
+
+This starts both the API server and the Vite client from the repo root.
+
+**Optional workspace commands**
+- `npm run dev:server`
+- `npm run dev:client`
+- `npm run build`
  
 ## 📊 Future Improvements
 •	Budget tracking system
@@ -158,4 +164,3 @@ This project demonstrates:
 •	Responsive UI
 •	Financial reporting logic
  
-
