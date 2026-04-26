@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import EditTransaction from './pages/EditTransaction';
 import CategoryManager  from './pages/CategoryManager';
 import AddCategory from './components/AddCategory';
+import ReceiptCapture from './components/ReceiptCapture';
 
 function App() {
   return (
@@ -64,6 +65,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+         path="/receipts/capture"
+         element={
+          <ProtectedRoute>
+            <ReceiptCapture />
+          </ProtectedRoute>
+         }
+         />
         <Route
           path="/add-category"
           element={

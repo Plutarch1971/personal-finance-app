@@ -84,6 +84,7 @@ Interactive and visual financial insights using Recharts:
 ## 📈 Sample Use Cases
 With this app, a user can:
 •	Track monthly income and expenses
+•   Create own categories
 •	Analyze spending habits
 •	View category-based expense breakdown
 •	Monitor account balances

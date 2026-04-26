@@ -3,7 +3,10 @@ import api from '../api/axios';
 import {
     PieChart,
     Pie,
-    Cell
+    Tooltip,
+    Legend,
+    Cell,
+    ResponsiveContainer
 } from 'recharts';
 
 const COLORS = [
@@ -66,6 +69,37 @@ export default function PieChartReport({onClose}: Props) {
     }
 
     const isChartVisible = data.length > 0 && !loading;
+    const renderInsidePercentLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+}: any) => {
+  const RADIAN = Math.PI / 180;
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.55;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  // Hide tiny labels to avoid overlap
+  if (!percent || percent < 0.04) return null;
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="#fff"
+      textAnchor="middle"
+      dominantBaseline="central"
+      fontSize={12}
+      fontWeight={600}
+    >
+      {(percent * 100).toFixed(1)}%
+    </text>
+  );
+};
+   
 
     return ( 
         <>
@@ -127,21 +161,31 @@ export default function PieChartReport({onClose}: Props) {
                     {/* Pie Chart */}
                     {isChartVisible && (        
                         <div className="col-12 col-md-6 d-flex justify-content-center">
-                            <div className="card shadow p-3 w-100">
-                                <PieChart width={400} height={400} style={{ backgroundColor:'#f0f0f0'}}>
+                            <div className="card shadow p-3 w-100" style={{minHeight: 320}}>
+                                <div style={{ width: '100%', height: 300}}>
+                                 <ResponsiveContainer width="100%" height="100%">
+                                <PieChart width={380} height={380} style={{ backgroundColor:'#f0f0f0'}}>
+                                    <Tooltip
+                                        formatter={(value) => Number(value?? 0).toLocaleString()}
+                                        contentStyle={{ borderRadius: 8 }}
+                                    />
+                                    <Legend /> 
                                     {/* Pie chart code */}
                                     <Pie
                                         data={data}
                                         dataKey="value"
                                         nameKey="name"
-                                        label={renderCustomLabel}
-                                        outerRadius={200}
+                                        label={renderInsidePercentLabel}
+                                        labelLine={false}
+                                        outerRadius={90}
                                     >
                                         {data.map((_, index) => (
                                             <Cell key={index} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
                                 </PieChart>
+                                </ResponsiveContainer>
+                                </div>
                             </div>
                         </div>
                     )}

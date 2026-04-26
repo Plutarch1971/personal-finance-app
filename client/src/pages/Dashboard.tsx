@@ -79,12 +79,12 @@ export default function Dashboard() {
         {/* <aside className="col-12 col-lg-2 mb-4 mb-lg-0"> */}
          <aside className="col-12 col-lg-2 p-3 mt-2">
           {/* <div className="d-grid gap-3"> */}
-          <div className="d-flex flex-row flex-wrap gap-2 justify-content-center justify-content-lg-start">
+          <div className="d-flex flex-column flex-wrap gap-2 justify-content-center justify-content-lg-start">
             <button
               className="btn btn-outline-light py-2"
               onClick={() => navigate('/transactions/new')}
             >
-              Add Transaction
+              Transaction Page
             </button>
 
             <button
