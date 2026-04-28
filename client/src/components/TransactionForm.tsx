@@ -3,6 +3,7 @@ import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AccountDropdown from '../components/AccountDropdown';
 import CategoryDropdown from '../components/CategoryDropdown';
+import ReceiptCapture from '../components/ReceiptCapture';
 
 type AccountType = 'checking' | 'savings' | 'credit' |'investment';
 
@@ -68,7 +69,7 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
     const [transactionDate, setTransactionDate] = useState('');
     const [description, setDescription] = useState('');
     const [transactionType, setTransactionType] = useState<TransactionType>('expense')
-    
+    const [activeView, setActiveView] = useState< 'ExtractReceipt' | null>(null);
     
 /*---------------LOAD ACCOUNTS + CATEGOIRES---------------------------*/ 
    useEffect(() => {
@@ -302,8 +303,18 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
                                </div>
                            
                     )}
-
-
+                {/* ------------Extract expense data from Receipt---------------------------- */}
+                <div className="d-flex flex-column flex-wrap mb-3">
+                    <label className="mb-2">Fill in expense data from receipt</label>
+                    <button className="btn btn-primary" style={{maxWidth: '265px'}}
+                            onClick={() => setActiveView('ExtractReceipt')}              
+                    >
+                        Extract Receipt
+                    </button>
+                    {activeView === 'ExtractReceipt' && (
+                    <ReceiptCapture onClose={() => setActiveView(null)} />      
+                )}
+                </div>
                         {/*------------------------- AMOUNT ----------------------- */}
                         
                         <div className="mb-3">

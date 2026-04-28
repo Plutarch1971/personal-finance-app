@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import TransactionForm from '../components/TransactionForm';
-import ReceiptCapture from '../components/ReceiptCapture';
+// import ReceiptCapture from '../components/ReceiptCapture';
 
 export default function AddTransaction(){
      const auth = useAuth();
@@ -11,7 +11,7 @@ export default function AddTransaction(){
           const { logout } = auth;
 
     const navigate = useNavigate();
-    const [activeView, setActiveView] = useState< 'TransactionForm' | 'ExtractReceipt' | null>(null);
+    const [activeView, setActiveView] = useState< 'TransactionForm' | null>(null);
 
     async function handleCreate(data: any) {
         await api.post('/transactions', data);
@@ -54,9 +54,9 @@ export default function AddTransaction(){
                 onClose={() => setActiveView(null)}
                 />
                 )}
-                {activeView === 'ExtractReceipt' && (
+                {/* {activeView === 'ExtractReceipt' && (
                     <ReceiptCapture onClose={() => setActiveView(null)} />      
-                )}
+                )} */}
             </div>
         </div>
         
