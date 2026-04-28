@@ -19,14 +19,14 @@ export default function Report(){
         <div className="container-fluid report-background w-100 vh-100 pt-4">
                     <div className="row mt-5">
                         <div className="col-8 col-lg-12">
-                            <div className="d-flex flex-row align-items-center w-100">
-                            <button className="btn btn-outline-light ms-3" style={{ minWidth: 'auto'}}
+                            <div className="d-flex flex-row flex-wrap align-items-between w-100">
+                            <button className="btn btn-outline-light ms-2" style={{ minWidth: '265px', maxWidth: 'auto'}}
                                 onClick={() => navigate('/dashboard')}
                             >
                                 <strong>Dashboard</strong>
                             </button>
-                            <button className="btn btn-danger fw-bold ms-auto me-3" 
-                                    style={{ minWidth: 'auto'}}
+                            <button className="btn btn-danger fw-bold ms-2 me-3 mt-2" 
+                                    style={{ minWidth: '265px', maxWidth: 'auto'}}
                                     onClick={logout}
                                     >
                                 Logout
@@ -84,7 +84,7 @@ export default function Report(){
                                     </div> 
                                 {!activeView && (   
                                     <div className="col-12 col-lg-12">
-                                        <div className="d-none d-md-flex flex-column justify-content-center align-items-center">
+                                        <div className="d-none d-md-flex flex-column align-items-center">
                                             <p className="script-text text-white">Welcome to</p>
                                             <p className="script-heading text-white"> Personal Finance App</p>
                                             <p className="script-text text-white">Report Page</p>

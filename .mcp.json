@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "devvault": {
+      "type": "http",
+      "url": "https://app.stablepiggy.com/mcp",
+      "headers": {
+        "Authorization": "Bearer dv-99949ee34fad6165b5537080651d6792"
+      }
+    }
+  }
+}

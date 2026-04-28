@@ -4,3 +4,7 @@ dist/
 .DS_Store
 *.log
 structure.txt
+
+
+# temp files
+/temp
