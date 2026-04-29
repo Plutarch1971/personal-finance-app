@@ -14,7 +14,7 @@ router.use('/accounts', accountRoutes);
 router.use('/categories', categoryRoutes);
 router.use('/transactions', transactionRoutes);
 router.use('/reports', reportRoutes);
-router.use('receipts', receiptRoutes);
+router.use('/receipts', receiptRoutes);
 router.use('/auth', authRoutes);
 
 export default router;

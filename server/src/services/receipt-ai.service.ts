@@ -7,21 +7,21 @@ const client = new OpenAI({
 
 const receiptItemSchema = z.object({
     description: z.string().nullable(),
-    quantity: z.number().nullable(),
-    unitPrice: z.number().nullable(),
-    total: z.number().nullable(),
+    quantity: z.coerce.number().nullable(),
+    unitPrice: z.coerce.number().nullable(),
+    total: z.coerce.number().nullable(),
 });
 
 const receiptDraftSchema = z.object({
     merchantName: z.string().nullable(),
     receiptDate: z.string().nullable(), //ISO date preferred
-    cy: z.string().default('CAD'),
-    subtotal: z.number().nullable(),
-    tax: z.number().nullable(),
-    total: z.number().nullable(),
+    currency: z.string().nullish().transform(val => val ?? 'CAD'),
+    subtotal: z.coerce.number().nullable(),
+    tax: z.coerce.number().nullable(),
+    total: z.coerce.number().nullable(),
     paymentMethod: z.string().nullable(),
-    items: z.array(receiptItemSchema).default([]),
-    warning: z.array(z.string()).default([]),
+    items: z.array(receiptItemSchema).nullish().transform(val => val ?? []),
+    warnings: z.array(z.string()).nullish().transform(val => val ?? []),
 });
 
 export type ReceiptDraft = z.infer<typeof receiptDraftSchema>;
@@ -38,7 +38,7 @@ const base64 = fileBuffer.toString('base64');
 const dataUrl = 'data:' + mimeType + ';base64,' + base64;
 
 const completion = await client.chat.completions.create({
-    model: process.env.OPENAI_RECEIPT_MODEL || 'gpt-4.1-mini',
+    model: process.env.OPENAI_RECEIPT_MODEL || 'gpt-4o-mini',
     response_format: { type: 'json_object'},
     messages: [
         {

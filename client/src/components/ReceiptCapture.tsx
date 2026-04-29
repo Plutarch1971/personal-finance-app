@@ -17,11 +17,12 @@ type Draft = {
 
 type ReceiptCaptureProps = {
     onClose?: () => void;
+    onExtracted?: (draft: Draft) => void;
 }
 
-export default function ReceiptCapture({ onClose }: ReceiptCaptureProps) {
-    const [accountId, setAccountId] = useState('');
-    const [categoryId, setCategoryId] = useState('');
+export default function ReceiptCapture({ onClose, onExtracted }: ReceiptCaptureProps) {
+    const [accountId] = useState('');
+    const [categoryId] = useState('');
     const [file, setFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string>('');
     const [draft, setDraft] = useState<Draft | null>(null);
@@ -47,14 +48,13 @@ export default function ReceiptCapture({ onClose }: ReceiptCaptureProps) {
             const formData = new FormData();
             formData.append('receipt', file);
 
-            const res = await api.post('/receipts/extract', formData, {
-                headers: { 'Content-Type': 'multipart/form-data'},
-            });
+            const res = await api.post('/receipts/extract', formData);
 
             setDraft(res.data.draft);
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
-            alert('Receipt extraction failed');
+            const errorMsg = err.response?.data?.error || err.message || 'Receipt extraction failed';
+            alert(`Receipt extraction failed: ${errorMsg}`);
         } finally {
             setLoading(false);
         }
@@ -67,7 +67,7 @@ export default function ReceiptCapture({ onClose }: ReceiptCaptureProps) {
             return;
         }
         try {
-            await api.post('receipts/confirm', {
+            await api.post('/receipts/confirm', {
                 accountId,
                 categoryId,
                 draft,
@@ -80,7 +80,7 @@ export default function ReceiptCapture({ onClose }: ReceiptCaptureProps) {
     };
 
     return (
-        <div className="p-4" style={{ width: '600px', maxWidth: '800px'}}>
+        <div className="p-2" style={{ width: '100%', maxWidth: '600px'}}>
             <div className="card">
                 <div className="card-title">
                     <h4 className="text-center pt-4">Receipt Capture</h4>
@@ -89,7 +89,7 @@ export default function ReceiptCapture({ onClose }: ReceiptCaptureProps) {
 
                     <input className=""
                         type='file'
-                        accept=''
+                        accept='image/*'
                         capture='environment'
                         onChange={onPick}
                     />
@@ -101,7 +101,7 @@ export default function ReceiptCapture({ onClose }: ReceiptCaptureProps) {
                     ) : null}
 
                     <div className="mt-4 d-flex justify-content-between">
-                        <button className="button"
+                        <button type="button" className="btn btn-primary"
                             onClick={extract}
                             disabled={!file || loading}>
                             {loading ? 'Extracting...' : 'Extract Receipt'}
@@ -121,9 +121,19 @@ export default function ReceiptCapture({ onClose }: ReceiptCaptureProps) {
                             <p>Date: {draft.receiptDate || 'Unknown'}</p>
                             <p>Total: {draft.total ?? 'Unknown'} {draft.currency}</p>
                             {draft.warnings?.length ?<p>Warnings: {draft.warnings.join(',')}</p> : null}
-                            <button className="button" onClick={confirmToTransaction}>
-                                Confirm And Save
-                            </button>
+                            
+                            <div className="d-flex flex-wrap gap-2">
+                                {onExtracted && (
+                                    <button type="button" className="btn btn-success" onClick={() => onExtracted(draft)}>
+                                        Use Extracted Data
+                                    </button>
+                                )}
+                                {!onExtracted && (
+                                    <button type="button" className="btn btn-primary" onClick={confirmToTransaction}>
+                                        Confirm And Save
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     ) : null}
                     </div>

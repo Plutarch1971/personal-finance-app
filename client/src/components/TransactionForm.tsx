@@ -306,13 +306,24 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
                 {/* ------------Extract expense data from Receipt---------------------------- */}
                 <div className="d-flex flex-column flex-wrap mb-3">
                     <label className="mb-2">Fill in expense data from receipt</label>
-                    <button className="btn btn-primary" style={{maxWidth: '265px'}}
+                    <button type="button" className="btn btn-primary" style={{maxWidth: '265px'}}
                             onClick={() => setActiveView('ExtractReceipt')}              
                     >
                         Extract Receipt
                     </button>
                     {activeView === 'ExtractReceipt' && (
-                    <ReceiptCapture onClose={() => setActiveView(null)} />      
+                    <ReceiptCapture 
+                        onClose={() => setActiveView(null)} 
+                        onExtracted={(draft) => {
+                            if (draft.total) setAmount(draft.total.toString());
+                            if (draft.receiptDate) {
+                                // Extract just YYYY-MM-DD from potential ISO string
+                                setTransactionDate(draft.receiptDate.split('T')[0]);
+                            }
+                            if (draft.merchantName) setDescription(`Receipt: ${draft.merchantName}`);
+                            setActiveView(null);
+                        }}
+                    />      
                 )}
                 </div>
                         {/*------------------------- AMOUNT ----------------------- */}
