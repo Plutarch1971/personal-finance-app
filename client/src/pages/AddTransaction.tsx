@@ -29,11 +29,7 @@ export default function AddTransaction(){
                 >
                     Add Transaction
                 </button>
-                 {/* <button className="btn btn-outline-light"
-                        onClick={() => setActiveView('ExtractReceipt')}              
-                >
-                    Extract from Receipt
-                </button> */}
+                 
                 <button className="btn btn-outline-light"
                         onClick={() => navigate('/dashboard')}              
                 >
@@ -54,9 +50,7 @@ export default function AddTransaction(){
                 onClose={() => setActiveView(null)}
                 />
                 )}
-                {/* {activeView === 'ExtractReceipt' && (
-                    <ReceiptCapture onClose={() => setActiveView(null)} />      
-                )} */}
+               
             </div>
         </div>
         
