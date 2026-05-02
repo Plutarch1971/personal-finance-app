@@ -19,7 +19,7 @@ export default function Report(){
         <div className="container-fluid report-background w-100 vh-100 pt-4">
                     <div className="row mt-5">
                         <div className="col-8 col-lg-12">
-                            <div className="d-flex flex-row flex-wrap align-items-between w-100">
+                            <div className="d-flex flex-row flex-wrap justify-content-between w-100">
                             <button className="btn btn-outline-light ms-2" style={{ minWidth: '265px', maxWidth: 'auto'}}
                                 onClick={() => navigate('/dashboard')}
                             >
