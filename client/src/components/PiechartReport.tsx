@@ -33,10 +33,6 @@ export default function PieChartReport({onClose}: Props) {
     const [startDate, setStartDate] = useState('');
     const [ endDate, setEndDate] = useState('');
    
-    const renderCustomLabel = ({ name,percent }:any) =>  {
-        return `${name} ${(percent * 100).toFixed(1)}%`; 
-    };
-
     async function loadReport() {
         setLoading(true);
         try {

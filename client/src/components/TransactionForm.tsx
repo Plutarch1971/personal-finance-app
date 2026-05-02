@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/axios';
-import { useNavigate } from 'react-router-dom';
 import AccountDropdown from '../components/AccountDropdown';
 import CategoryDropdown from '../components/CategoryDropdown';
 import ReceiptCapture from '../components/ReceiptCapture';
@@ -47,8 +46,6 @@ interface GroupedAccounts {
 
 export default function TransactionForm({mode, initialData, onSubmit, onClose}: TransactionFormProps){
      
-    const navigate = useNavigate();
-
      // ------------state-----------------
     
     const [accounts, setAccounts] = useState<GroupedAccounts>({
