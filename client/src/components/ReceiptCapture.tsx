@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import api from '../api/axios';
 
+const supportedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
 type Draft = {
     merchantName: string | null;
     receiptDate: string | null;
@@ -28,25 +30,13 @@ export default function ReceiptCapture({ onClose, onExtracted }: ReceiptCaptureP
     const [draft, setDraft] = useState<Draft | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const onPick = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const picked = e.target.files?.[0] || null;
-        setFile(picked);
-        setDraft(null);
-
-        if (picked) {
-            setPreview(URL.createObjectURL(picked));
-        } else {
-            setPreview('');
-        }
-    };
-
-    const extract = async () => {
-        if (!file) return;
+    const extract = async (selectedFile: File | null = file) => {
+        if (!selectedFile) return;
         setLoading(true);
 
         try {
             const formData = new FormData();
-            formData.append('receipt', file);
+            formData.append('receipt', selectedFile);
 
             const res = await api.post('/receipts/extract', formData);
 
@@ -58,6 +48,30 @@ export default function ReceiptCapture({ onClose, onExtracted }: ReceiptCaptureP
         } finally {
             setLoading(false);
         }
+    };
+
+    const onPick = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const picked = e.target.files?.[0] || null;
+
+        if (picked && !supportedMimeTypes.includes(picked.type)) {
+            setFile(null);
+            setDraft(null);
+            setPreview('');
+            e.target.value = '';
+            alert('Please choose a JPG, PNG, or WEBP receipt image.');
+            return;
+        }
+
+        setFile(picked);
+        setDraft(null);
+
+        if (picked) {
+            setPreview(URL.createObjectURL(picked));
+            void extract(picked);
+            return;
+        }
+
+        setPreview('');
     };
 
     const confirmToTransaction = async () => {
@@ -89,8 +103,7 @@ export default function ReceiptCapture({ onClose, onExtracted }: ReceiptCaptureP
 
                     <input className=""
                         type='file'
-                        accept='image/*'
-                        capture='environment'
+                        accept='image/jpeg,image/png,image/webp'
                         onChange={onPick}
                     />
 
@@ -102,9 +115,9 @@ export default function ReceiptCapture({ onClose, onExtracted }: ReceiptCaptureP
 
                     <div className="mt-4 d-flex justify-content-between">
                         <button type="button" className="btn btn-primary"
-                            onClick={extract}
+                            onClick={() => void extract()}
                             disabled={!file || loading}>
-                            {loading ? 'Extracting...' : 'Extract Receipt'}
+                            {loading ? 'Extracting...' : 'Extract Receipt Again'}
                         </button>
                         <button
                     type="button"
