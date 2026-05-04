@@ -10,7 +10,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import EditTransaction from './pages/EditTransaction';
 import CategoryManager  from './pages/CategoryManager';
 import AddCategory from './components/AddCategory';
-import ReceiptUpload from './components/ReceiptUpload';
 
 function App() {
   return (

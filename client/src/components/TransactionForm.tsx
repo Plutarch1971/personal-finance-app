@@ -71,8 +71,14 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
     
 
     
-    const handleSuccess = (data: any) => {
-            console.log("Extracted receipt", data);
+    const handleReceiptExtracted = (draft: any) => {
+        if (draft.total) setAmount(draft.total.toString());
+        if (draft.receiptDate) {
+            // Extract just YYYY-MM-DD from potential ISO string
+            setTransactionDate(draft.receiptDate.split('T')[0]);
+        }
+        if (draft.merchantName) setDescription(`Receipt: ${draft.merchantName}`);
+        setActiveView(null);
     };
     
 /*---------------LOAD ACCOUNTS + CATEGOIRES---------------------------*/ 
@@ -329,22 +335,17 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
                     {activeView === 'ExtractReceipt' && (
                     <ReceiptUpload 
                         onClose={() => setActiveView(null)} 
-                        onExtracted={(draft) => {
-                            if (draft.total) setAmount(draft.total.toString());
-                            if (draft.receiptDate) {
-                                // Extract just YYYY-MM-DD from potential ISO string
-                                setTransactionDate(draft.receiptDate.split('T')[0]);
-                            }
-                            if (draft.merchantName) setDescription(`Receipt: ${draft.merchantName}`);
-                            setActiveView(null);
-                        }}
+                        onExtracted={handleReceiptExtracted}
                     />   
                     
                 )}
                 
                     {/* ----------------Extract data from Camera Capture-------- */}
                     {activeView === 'ReceiptCamera' && (
-                        <ReceiptCamera onUploadSuccess={handleSuccess} />
+                        <ReceiptCamera 
+                            onUploadSuccess={handleReceiptExtracted} 
+                            onClose={() => setActiveView(null)}
+                        />
                     )}   
 
                 </div>

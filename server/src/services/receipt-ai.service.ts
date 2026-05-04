@@ -52,7 +52,7 @@ const completion = await client.chat.completions.create({
                 {
                     type: 'text',
                     text:
-                        'Extract merchantName, receiptDate (ISO if possible), currency, subtotal, tax, total, paymentMethod, items[]. Each item must include description, quantity, unitPrice, total. add warnings[] for unclear fields.',
+                        'Extract receipt details into JSON. Fields: merchantName, receiptDate (ISO format), currency, subtotal, tax, total, paymentMethod, items[] (description, quantity, unitPrice, total). HIGH ACCURACY REQUIRED for the "total" amount—ensure it is the final grand total paid. Add warnings[] for unclear fields. Return JSON only.',
                 },
                 {
                     type: 'image_url',
