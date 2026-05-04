@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import api from '../api/axios';
+import heic2any from 'heic2any';
 
-const supportedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
+const supportedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
 
 type Draft = {
     merchantName: string | null;
@@ -50,16 +51,39 @@ export default function ReceiptCapture({ onClose, onExtracted }: ReceiptCaptureP
         }
     };
 
-    const onPick = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const picked = e.target.files?.[0] || null;
+    const onPick = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        let picked = e.target.files?.[0] || null;
 
-        if (picked && !supportedMimeTypes.includes(picked.type)) {
+        if (picked && !supportedMimeTypes.includes(picked.type) && 
+            !picked.name.toLowerCase().endsWith('.heic') && 
+            !picked.name.toLowerCase().endsWith('.heif')) {
             setFile(null);
             setDraft(null);
             setPreview('');
             e.target.value = '';
-            alert('Please choose a JPG, PNG, or WEBP receipt image.');
+            alert('Please choose a JPG, PNG, WEBP, or HEIC receipt image.');
             return;
+        }
+
+        if (picked && (picked.type.includes('heic') || picked.type.includes('heif') || 
+            picked.name.toLowerCase().endsWith('.heic') || picked.name.toLowerCase().endsWith('.heif'))) {
+            setLoading(true);
+            try {
+                const convertedBlob = await heic2any({
+                    blob: picked,
+                    toType: 'image/jpeg',
+                    quality: 0.9
+                });
+                const blob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+                picked = new File([blob], picked.name.replace(/\.[^/.]+$/, ".jpg"), { type: 'image/jpeg' });
+            } catch (err) {
+                console.error('HEIC conversion failed', err);
+                alert('Failed to process HEIC image. Please try a different format.');
+                setLoading(false);
+                return;
+            } finally {
+                setLoading(false);
+            }
         }
 
         setFile(picked);
@@ -101,9 +125,9 @@ export default function ReceiptCapture({ onClose, onExtracted }: ReceiptCaptureP
                 <div className="card-body">
                     
 
-                    <input className=""
+                    <input className="form-control"
                         type='file'
-                        accept='image/jpeg,image/png,image/webp'
+                        accept='image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif'
                         onChange={onPick}
                     />
 
