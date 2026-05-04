@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import api from '../api/axios';
 import AccountDropdown from '../components/AccountDropdown';
 import CategoryDropdown from '../components/CategoryDropdown';
-import ReceiptCapture from '../components/ReceiptCapture';
+import ReceiptUpload from './ReceiptUpload';
+import ReceiptCamera from "./ReceiptCamera";
 
 type AccountType = 'checking' | 'savings' | 'credit' |'investment';
 
@@ -66,7 +67,13 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
     const [transactionDate, setTransactionDate] = useState('');
     const [description, setDescription] = useState('');
     const [transactionType, setTransactionType] = useState<TransactionType>('expense')
-    const [activeView, setActiveView] = useState< 'ExtractReceipt' | null>(null);
+    const [activeView, setActiveView] = useState< 'ExtractReceipt' | 'ReceiptCamera' |null>(null);
+    
+
+    
+    const handleSuccess = (data: any) => {
+            console.log("Extracted receipt", data);
+    };
     
 /*---------------LOAD ACCOUNTS + CATEGOIRES---------------------------*/ 
    useEffect(() => {
@@ -300,16 +307,27 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
                                </div>
                            
                     )}
-                {/* ------------Extract expense data from Receipt---------------------------- */}
+                {/* ------------Extract expense data from Receipt Upload---------------------------- */}
                 <div className="d-flex flex-column flex-wrap mb-3">
                     <label className="mb-2">Fill in expense data from receipt</label>
+                    <div className="d-flex flex-wrap gap-2">
                     <button type="button" className="btn btn-primary" style={{maxWidth: '265px'}}
                             onClick={() => setActiveView('ExtractReceipt')}              
                     >
                         Extract Receipt
                     </button>
+
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary"
+                      onClick={() => setActiveView('ReceiptCamera')}
+                    >
+                        Use Camera
+                    </button>
+                    </div>
+                    
                     {activeView === 'ExtractReceipt' && (
-                    <ReceiptCapture 
+                    <ReceiptUpload 
                         onClose={() => setActiveView(null)} 
                         onExtracted={(draft) => {
                             if (draft.total) setAmount(draft.total.toString());
@@ -320,8 +338,15 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
                             if (draft.merchantName) setDescription(`Receipt: ${draft.merchantName}`);
                             setActiveView(null);
                         }}
-                    />      
+                    />   
+                    
                 )}
+                
+                    {/* ----------------Extract data from Camera Capture-------- */}
+                    {activeView === 'ReceiptCamera' && (
+                        <ReceiptCamera onUploadSuccess={handleSuccess} />
+                    )}   
+
                 </div>
                         {/*------------------------- AMOUNT ----------------------- */}
                         
