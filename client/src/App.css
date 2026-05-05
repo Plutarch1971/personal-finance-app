@@ -1,6 +1,7 @@
 /* Custom brand colors */
 :root {
-  --primary-color: #4a90e2;
+  /* --primary-color: #4a90e2; */
+  --primary-color: #023e8a  
 }
 
 /* Override Bootstrap card shadow */
