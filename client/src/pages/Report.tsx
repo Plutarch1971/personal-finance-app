@@ -19,18 +19,10 @@ export default function Report(){
         <div className="container-fluid report-background w-100 vh-100 pt-4">
                     <div className="row mt-5">
                         <div className="col-8 col-lg-12">
-                            <div className="d-flex flex-row flex-wrap justify-content-between w-100">
-                            <button className="btn btn-outline-light ms-2" style={{ minWidth: '265px', maxWidth: 'auto'}}
-                                onClick={() => navigate('/dashboard')}
-                            >
-                                <strong>Dashboard</strong>
-                            </button>
-                            <button className="btn btn-danger fw-bold ms-2 me-3 mt-2" 
-                                    style={{ minWidth: '265px', maxWidth: 'auto'}}
-                                    onClick={logout}
-                                    >
-                                Logout
-                            </button>
+                            <div className="d-flex flex-row flex-wrap w-100">
+                               
+                            
+                            
                             </div>
                         </div>
                         
@@ -39,6 +31,19 @@ export default function Report(){
                     <div className="row">
                                 <div className="col-12 col-lg-2 p-3 mt-2">
                                     <div className="d-flex flex-column flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                                         <button className="btn btn-danger fw-bold me-1 mt-2" 
+                                            // style={{ minWidth: '275px', maxWidth: 'auto'}}
+                                            onClick={logout}
+                                            >
+                                             Logout
+                                        </button>
+
+                                        <button className="btn btn-outline-light" 
+                                            // style={{ minWidth: '275px', maxWidth: '275'}}
+                                             onClick={() => navigate('/dashboard')}
+                                         >
+                                            <strong>Dashboard</strong>
+                                     </button>
                                         <button
                                             className="btn btn-outline-light"
                                             onClick={() => setActiveView('summary')}
@@ -67,31 +72,30 @@ export default function Report(){
                 
                         { /** Main Content Area */}
                 
-                                <div className="col-12 col-lg-10 d-flex justify-content-center px-3 px-lg-4 pb-4">
-                                    <div className="w-100" style={{ maxWidth: '1100px'}}>
-                                    {activeView === 'summary' && (
-                                        <MonthlySummaryCard onClose={() => setActiveView(null)}/>
-                                    )}
-                                    {activeView === 'table' && (  
-                                        <ExpensesByCategoryCard onClose={() => setActiveView(null)} />  
-                                    )}
-                                    {activeView === 'chart' && ( 
-                                        <PieChartReport onClose={() => setActiveView(null)}/>
-                                    )}
-                                    {activeView === 'account' && (
-                                        <AccountTable onClose={() => setActiveView(null)}/>
-                                    )}
-                                    </div> 
-                                {!activeView && (   
-                                    <div className="col-12 col-lg-12">
+                                {activeView ? (
+                                    <div className="col-12 col-lg-10 d-flex justify-content-center px-3 px-lg-4 pb-4">
+                                        <div className="w-100" style={{ maxWidth: '1100px'}}>
+                                            {activeView === 'summary' && (
+                                                <MonthlySummaryCard onClose={() => setActiveView(null)}/>
+                                            )}
+                                            {activeView === 'table' && (  
+                                                <ExpensesByCategoryCard onClose={() => setActiveView(null)} />  
+                                            )}
+                                            {activeView === 'chart' && ( 
+                                                <PieChartReport onClose={() => setActiveView(null)}/>
+                                            )}
+                                            {activeView === 'account' && (
+                                                <AccountTable onClose={() => setActiveView(null)}/>
+                                            )}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="col-12 col-lg-8 d-flex flex-column align-items-center justify-content-center py-4">
                                         <div className="d-none d-md-flex flex-column align-items-center">
-                                            <p className="script-text text-white">Welcome to</p>
-                                            <p className="script-heading text-white"> Personal Finance App</p>
-                                            <p className="script-text text-white">Report Page</p>
+                                            <h1 className="script-text text-white">Welcome to Report Page</h1>
                                         </div>                      
                                     </div>
                                 )}
-                            </div>
                     </div> {/** Row closes here now */}
             </div>
      )

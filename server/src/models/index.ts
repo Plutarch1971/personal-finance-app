@@ -3,6 +3,7 @@ import { Account, initAccountModel } from './accounts';
 import { User, initUserModel } from './user';
 import { Transaction, initTransactionModel } from './transaction';
 import { Category, initCategoryModel } from './category';
+import { Budget, initBudgetModel } from './budget';
 
 /**
  * Initialize all models and set up associations.
@@ -14,6 +15,7 @@ export async function initializeModels() {
   initAccountModel(sequelize);
   initTransactionModel(sequelize);
   initCategoryModel(sequelize);
+  initBudgetModel(sequelize);
   
   // Set up associations
 
@@ -35,7 +37,14 @@ export async function initializeModels() {
   Category.belongsTo(User, { foreignKey: 'userId', as: 'user' });
   Category.hasMany(Transaction, { foreignKey: 'categoryId', as: 'transactions' });
 
-  return { sequelize, User, Account, Transaction, Category };
+  // Budget association
+  User.hasMany(Budget, { foreignKey: 'userId', as: 'budgets'});
+  Budget.belongsTo(User, { foreignKey: 'userId', as: 'user'});
+
+  Category.hasMany(Budget, {foreignKey: 'categoryId', as: 'budgets'});
+  Budget.belongsTo(Category, { foreignKey: 'categoryId', as: 'category'});
+
+  return { sequelize, User, Account, Transaction, Category, Budget };
 }
 
-export { sequelize, Account, User, Transaction, Category };
+export { sequelize, Account, User, Transaction, Category, Budget };

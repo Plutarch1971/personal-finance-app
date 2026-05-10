@@ -38,7 +38,7 @@ export default function AccountTable({onClose}: Props) {
         <>
         {/* <div className="container-fluid mt-5"> */}
          {/* <div className="col-10 mt-3"> */}
-            <div className="d-flex justify-content-center w-100 px-3" >
+            <div className="d-flex justify-content-center w-100 px-3 py-3" >
                <div className="card w-100"style={{ maxWidth: '1100px'}}>
                     <div className="card-body"> 
                         <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-3">  

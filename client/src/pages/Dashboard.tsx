@@ -108,6 +108,13 @@ export default function Dashboard() {
               Manage Category
             </button>
 
+            <button
+              className="btn btn-outline-light py-2"
+              onClick={() => navigate('/budget')}
+            >
+              Manage Budget
+            </button>
+
             <button className="btn btn-danger mt-3 py-2" onClick={logout}>
               Logout
             </button>

@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import EditTransaction from './pages/EditTransaction';
 import CategoryManager  from './pages/CategoryManager';
 import AddCategory from './components/AddCategory';
+import BudgetPage from './pages/BudgetPage';
 
 function App() {
   return (
@@ -77,6 +78,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AddCategory onClose={() => window.history.back()} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/budget"
+          element={
+            <ProtectedRoute>
+              <BudgetPage />
             </ProtectedRoute>
           }
         />

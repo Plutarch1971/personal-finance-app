@@ -2,6 +2,7 @@
 import { User, Category, Account } from '../models';
 import { AccountType } from '../models/accounts';
 import sequelize from '../config/connection';
+import { DEFAULT_CATEGORIES } from '../constants/categories';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
@@ -23,80 +24,6 @@ const DEFAULT_ACCOUNTS: {
     { name: 'Stocks', type: 'investment', currency: 'CAD', balance: 0 },
     { name: 'GIC', type: 'investment', currency: 'CAD', balance: 0 },
   ];
-
-// Default categories for new users with parent-child relationships
-const DEFAULT_CATEGORIES = [
-  // Income categories
-  { name: 'Salary', type: 'income', parent: null },
-  { name: 'Bonus', type: 'income', parent: null },
-  { name: 'Freelance', type: 'income', parent: null },
-  { name: 'Government Benefits', type: 'income', parent: null},
-  { name: 'Old Age Benefit', type: 'income', parent:'Government Benefits'},
-  { name: 'Canadian Pension Plan', type: 'income', parent:'Government Benefits'},
-  { name: 'Child Benefit', type: 'income', parent:'Government Benefits'},
-  { name: 'Employment Insurance', type: 'income', parent:'Government Benefits'},
-  { name: 'Other Income', type: 'income', parent: null },
-
-  // Investment Income Categories
-  { name: 'Investment Income', type: 'income', parent: null },
-  { name: 'Dividends', type: 'income', parent: 'Investment Income' },
-  { name: 'Interest', type: 'income', parent: 'Investment Income' },
-  { name: 'TSFA', type: 'income', parent: 'Investment Income' },
-  { name: 'GIC', type: 'income', parent: 'Investment Income' },
-  { name: 'Bonds', type: 'income', parent: 'Investment Income' },
-  { name: 'Stocks', type: 'income', parent: 'Investment Income' },
-  { name: 'RRSP', type: 'income', parent: 'Investment Income' },
-  { name: 'RESP', type: 'income', parent: 'Investment Income' },
-  { name: 'Other Investment', type: 'income', parent: 'Investment Income' },
-  
-  // Expense categories with parent-child relationships
-  // Home
-  { name: 'Home', type: 'expense', parent: null },
-  { name: 'Mortgage', type: 'expense', parent: 'Home' },
-  { name: 'Rent', type: 'expense', parent: 'Home' },
-  { name: 'Utilities', type: 'expense', parent: 'Home' },
-  { name: 'Home Insurance', type: 'expense', parent: 'Home' },
-  { name: 'Property Tax', type: 'expense', parent: 'Home'},  //New category
-  
-  // Transportation
-  { name: 'Transportation', type: 'expense', parent: null },
-  { name: 'Public Transit', type: 'expense', parent: 'Transportation' },
-  { name: 'Car Maintenance', type: 'expense', parent: 'Transportation' },
-  { name: 'Car Loan', type: 'expense', parent: 'Transportation' },
-  { name: 'Car Insurance', type: 'expense', parent: 'Transportation' },
-  { name: 'Gas', type: 'expense', parent: 'Transportation' },
-  
-  // Travel
-  { name: 'Travel', type: 'expense', parent: null },
-  { name: 'Vacation', type: 'expense', parent: 'Travel' },
-
-  // Food
-  { name: 'Food', type: 'expense', parent: null},
-  { name: 'Groceries', type: 'expense', parent: 'Food'},
-  { name: 'Dining Out', type: 'expense', parent: 'Food'},
-  
-  // Entertainment
-  { name: 'Entertainment', type: 'expense', parent: null },
-  { name: 'Games', type: 'expense', parent: 'Entertainment'},             //New category
-  { name: 'Shows', type: 'expense', parent: 'Entertainment'},             //New category
-  // Other
-  { name: 'Education', type: 'expense', parent: null },
-  { name: 'Healthcare', type: 'expense', parent: null },                  //New category?, not sure
-  { name: 'Medical', type: 'expense', parent: 'Healthcare'},              //Changed from parent to child
-  { name: 'Fitness', type: 'expense', parent: 'Healthcare'},              //New category
-
-  //Dues
-  { name: 'Government Dues', type: 'expense', parent: null},              //New category
-  { name: 'Income Tax', type: 'expense', parent: 'Government Dues'},      //New category
-  { name: 'Employment Insurance', type: 'expense', parent: 'Government Dues'},   //New category
-  { name: 'Canadian Pension Plan', type: 'expense', parent: 'Government Dues'},   //New category
-  
-  { name: 'Work Dues', type: 'expense', parent: null},                    //New category
-  { name: 'Work Pension', type: 'expense', parent: 'Work Dues'},          //New category
-  { name: 'Benefit Dues', type: 'expense', parent: 'Work Dues'},          //New category
-
-  { name: 'Other Expense', type: 'expense', parent: null },               //Delete 'Other' but keep 'Other Expense' 
-];
 
 // TODO: Implement user creation logic
 export async function registerUser(data: {

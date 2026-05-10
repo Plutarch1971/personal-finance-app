@@ -99,12 +99,11 @@ export default function PieChartReport({onClose}: Props) {
 
     return ( 
         <>
-            <div className="container-fluid h-100">
-                <div className="row">
+            <div className="col-10 mt-3">
+                <div className="d-flex flex-wrap align-items-column justify-content-center">
                      {/* Following is the definition to wrap the piechart under the input form  */}
-                  <div className="col-12 col-lg-10 d-flex flex-row flex-wrap gap-3">
-                    <div className="col-12 col-md-6">
-                        <div className="card shadow p-4 w-100">
+                  <div style={{ width: '100%', maxWidth: '500px'}}>
+                        <div className="card shadow p-4 w-100 rounded-4">
                             <h3 className="text-center mb-3">
                                 Expenses in Pie Chart
                             </h3>
@@ -156,9 +155,9 @@ export default function PieChartReport({onClose}: Props) {
                     </div>    
                     {/* Pie Chart */}
                     {isChartVisible && (        
-                        <div className="col-12 col-md-6 d-flex justify-content-center">
-                            <div className="card shadow p-3 w-100" style={{minHeight: 320}}>
-                                <div style={{ width: '100%', height: 300}}>
+                        <div className="col-12 col-md-6 d-flex justify-content-center mt-4">
+                            <div className="card shadow p-3 w-100" style={{minHeight: 360}}>
+                                <div style={{ width: '100%', height: 360}}>
                                  <ResponsiveContainer width="100%" height="100%">
                                 <PieChart width={380} height={380} style={{ backgroundColor:'#f0f0f0'}}>
                                     <Tooltip
@@ -173,7 +172,7 @@ export default function PieChartReport({onClose}: Props) {
                                         nameKey="name"
                                         label={renderInsidePercentLabel}
                                         labelLine={false}
-                                        outerRadius={90}
+                                        outerRadius={120}
                                     >
                                         {data.map((_, index) => (
                                             <Cell key={index} fill={COLORS[index % COLORS.length]} />
@@ -186,8 +185,7 @@ export default function PieChartReport({onClose}: Props) {
                         </div>
                     )}
                 </div>
-            </div>
-        </div>  
+            </div> 
     </>             
     )
 }

@@ -51,8 +51,8 @@ export default function ExpensesByCategoryCard({onClose} : Props){
     <>
                 <div className="col-10 mt-3">
                     <div className="d-flex justify-content-center">
-                        <div style={{ width: '500px'}}>
-                            <div className="card">
+                        <div style={{ width: '100%', maxWidth: '500px'}}>
+                            <div className="card rounded-4">
                                 <h3 className="text-center mt-4">Expenses By Categories</h3>
                                 <div className="card-body">
                                     <div className="card-title"><strong>Table Format</strong></div>

@@ -38,6 +38,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
       
         // Attach the user information to the request object
         req.user = decoded;
+        console.log('auth middleware attached user:', req.user);
         next(); // Call the next middleware function
       } catch (err) {
         console.log('Token verification failed:', err);
