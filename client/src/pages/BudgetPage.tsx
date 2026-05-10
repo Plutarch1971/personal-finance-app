@@ -111,7 +111,7 @@ export default function BudgetPage() {
     }
 
     return (
-        <div className="container-fluid py-4">
+        <div className="container-fluid py-4 mt-4">
             <div className="d-flex justify-content-center align-items-center mb-4 px-3">
                 <h1 className="text-white">Budget Management</h1>
             </div>

@@ -14,10 +14,10 @@ export async function getBudgetTemplate(userId: string) {
             order: [['name', 'ASC'], ['userId', 'DESC']]
         });
 
-        // Filter out categories that SHOULD be children according to our design
-        const childCategoryNames = new Set(
+        // Only include categories that are designated as parents in our design for expenses
+        const designatedParentNames = new Set(
             DEFAULT_CATEGORIES
-                .filter(cat => cat.parent !== null)
+                .filter(cat => cat.type === 'expense' && cat.parent === null)
                 .map(cat => cat.name)
         );
 
@@ -25,7 +25,7 @@ export async function getBudgetTemplate(userId: string) {
         const seenNames = new Set();
 
         for (const c of parentCategories) {
-            if (!seenNames.has(c.name) && !childCategoryNames.has(c.name)) {
+            if (!seenNames.has(c.name) && designatedParentNames.has(c.name)) {
                 template.push({
                     categoryId: String(c.id),
                     name: c.name,
