@@ -1,3 +1,4 @@
+// Transaction.tsx this page is to view all transactions
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
@@ -66,7 +67,7 @@ export default function Transaction(){
 
             <button
               className="btn btn-secondary btn-sm"
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate('/transactions/new')}
             >
               Back
             </button>

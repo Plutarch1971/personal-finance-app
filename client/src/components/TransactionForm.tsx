@@ -69,7 +69,17 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
     const [transactionType, setTransactionType] = useState<TransactionType>('expense')
     const [activeView, setActiveView] = useState< 'ExtractReceipt' | 'ReceiptCamera' |null>(null);
     
+   const resetForm = () => {
+        setAccountId('');
+        setToAccountId('');
+        setCategoryId('');
+        setAmount('');
+        setTransactionDate('');
+        setDescription('');
+        setTransactionType('expense');
+        };
 
+    
     
     const handleReceiptExtracted = (draft: any) => {
         if (draft.total) setAmount(draft.total.toString());
@@ -197,8 +207,10 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
     try {
         setSaving(true);
         await onSubmit(payload);
+        resetForm();
         } finally {
             setSaving(false);
+            setLoading(false);
         }
     };       
         

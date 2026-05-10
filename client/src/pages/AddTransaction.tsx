@@ -1,3 +1,4 @@
+// AddTransaction.tsx , this is the transaction landing page with transaction operation buttons
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -15,7 +16,6 @@ export default function AddTransaction(){
 
     async function handleCreate(data: any) {
         await api.post('/transactions', data);
-        navigate('/transactions');
     }
     return (
         <>
@@ -28,6 +28,11 @@ export default function AddTransaction(){
                         onClick={() => setActiveView('TransactionForm')}              
                 >
                     Add Transaction
+                </button>
+                <button className="btn btn-outline-light"
+                        onClick={() => navigate('/transactions')}              
+                >
+                    View Transaction
                 </button>
                  
                 <button className="btn btn-outline-light"
