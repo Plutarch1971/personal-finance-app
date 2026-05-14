@@ -15,8 +15,8 @@ export default function Report(){
     const [ activeView, setActiveView ] = useState<'summary' | 'table' | 'chart' |'account'| null>(null);
     const navigate = useNavigate();
 
-     return (
-        <div className="container-fluid report-background w-100 vh-100 pt-4">
+      return (
+          <div className="container-fluid report-background w-100 pt-4">
                     <div className="row mt-5">
                         <div className="col-8 col-lg-12">
                             <div className="d-flex flex-row flex-wrap w-100">

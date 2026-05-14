@@ -77,12 +77,42 @@
   padding: 0.2rem 0.45rem;
   font-size: 0.8rem;
 }
+.bg-footer{
+  background-color: #FCB07E 
+}
 
 @media (max-width: 576px) {
   .same-btn {
     min-width: 58px;
     padding: 0.15rem 0.35rem;
     font-size: 0.72rem;
+  }
+}
+
+/* Responsive adjustments for Login page on large screens */
+@media (min-width: 992px) {
+  .login-title {
+    font-size: 3.5rem !important;
+  }
+  .login-subtitle {
+    font-size: 1.5rem !important;
+  }
+  .login-card-title {
+    font-size: 1.75rem !important;
+  }
+  .login-card-text {
+    font-size: 1.1rem !important;
+  }
+  .login-card-list {
+    font-size: 1rem !important;
+  }
+  .login-card .form-control, 
+  .login-card .btn {
+    padding: 0.6rem 1rem;
+    font-size: 1.1rem;
+  }
+  .login-card label {
+    font-size: 1.1rem;
   }
 }
 
