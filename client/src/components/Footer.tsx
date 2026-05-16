@@ -1,11 +1,11 @@
 export default function Footer(){
     return (
-            <footer className="bg-primary text-light py-4 mt-auto border-top">
+            <footer className="text-light py-2 mt-auto border-top">
             <div className="container d-flex justify-content-between flex-wrap">
                 
                 <div>
-                <h5 className="mb-1">Personal Finance App</h5>
-                <p>Track expenses, budgets, and investments.</p>
+                <img src="/Logo-smartbook-sm-white-bg.png" className="logo-icon-title" />
+                <p>Finance tracking for individuals and small businesses.</p>
                 </div>
 
                 <div className="d-flex flex-column">

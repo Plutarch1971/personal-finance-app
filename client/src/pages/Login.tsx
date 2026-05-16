@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <div className="container-fluid d-flex flex-column">
       <div className="text-center py-5 mt-4 login-header">
-          <h1 className="text-warning display-5 fw-bold mb-2 login-title">My Personal Finance</h1> 
+          <h1 className="text-warning display-5 fw-bold mb-2 login-title">SmartBooks</h1> 
           <h2 className="fs-5 text-center text-white mb-0 login-subtitle"> What can you do with this app</h2>        
       </div>
       <div className="flex-grow-1 d-flex align-items-start p-4">       
@@ -52,7 +52,7 @@ export default function Login() {
                               <li>Analyze spending habits</li>
                               <li>View category-based expense breakdown</li>
                               <li>Monitor account balances</li>
-                              <li>Add or remove categories</li>
+                              <li>Add or remove categories to adjust your personal or small business needs</li>
                             </ul>
                           </div>
                       </div>

@@ -57,7 +57,7 @@ export default function Register(){
                  {/**Left 2/3 Section */}
                  <div className="col-md-8 d-none d-md-flex flex-column justify-content-center align-items-center">
                     <p className="script-text text-white">Welcome to</p>
-                    <p className="script-heading text-white"> Personal Finance App</p>
+                    <p className="script-heading text-white">SmartBooks</p>
                     <p className="script-text text-white">Registration Page</p>
                      {/** Optioinal content here (image / branding /ect) */}
                     </div>

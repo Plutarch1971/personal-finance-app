@@ -81,6 +81,10 @@
   background-color: #FCB07E 
 }
 
+.logo-icon-title {
+  height: 36px;
+}
+
 @media (max-width: 576px) {
   .same-btn {
     min-width: 58px;
