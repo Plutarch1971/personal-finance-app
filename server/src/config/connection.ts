@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 export const { JWT_SECRET } = process.env;
 
-const sequelize = process.env.DB_URL
-  ? new Sequelize(process.env.DB_URL, {
+const sequelize =   process.env.DATABASE_URL
+  ? new Sequelize(process.env.DATABASE_URL, {
       dialect: 'postgres',
       dialectOptions:
         process.env.NODE_ENV === 'production'
