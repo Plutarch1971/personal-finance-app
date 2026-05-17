@@ -4,7 +4,7 @@ export default function Footer(){
             <div className="container d-flex justify-content-between flex-wrap">
                 
                 <div>
-                <img src="/logo-smartbook-sm-white-bg.png" className="logo-icon-title" />
+                <img src="/logo-smartbook-sm-white-bg.png" style={{height: "32px"}} />
                 <p>Finance tracking for individuals and small businesses.</p>
                 </div>
 
