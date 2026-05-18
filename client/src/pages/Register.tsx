@@ -34,7 +34,7 @@ export default function Register(){
             try {
                 setLoading(true);
 
-                await api.post('/users/register', {
+                await api.post('/auth/register', {
                     username,
                     email, 
                     password
@@ -73,7 +73,7 @@ export default function Register(){
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label className="form-label fs-4">Enter username:</label>
-                                <input type={username}
+                                <input type="text"
                                 className="form-control"
                                 value={username} 
                                 onChange={e =>setUsername(e.target.value)}/>
@@ -81,7 +81,7 @@ export default function Register(){
                             
                             <div>
                                 <label className="form-lable fs-4">Enter email</label>
-                                <input type={email} 
+                                <input type="email" 
                                 className="form-control"
                                 value={email} 
                                 onChange={e => setEmail(e.target.value)}/>

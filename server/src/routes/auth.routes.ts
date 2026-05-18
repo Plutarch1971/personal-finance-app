@@ -1,7 +1,10 @@
 import { Router } from 'express';
+import { register, login } from '../controllers/user.controller';
 
 const router = Router();
 
-// Auth routes will go here
+// Auth routes
+router.post('/register', register);
+router.post('/login', login);
 
 export default router;
