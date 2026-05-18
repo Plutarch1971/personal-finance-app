@@ -42,7 +42,11 @@ export default function Register(){
                 navigate('/login');
             }
             catch( err: any){
-                setError(err.response?.data.error || 'Registration failed');
+                setError(
+                    err.response?.data?.error ||
+                    err.response?.data?.message ||
+                    `Registration failed${err.response?.status ? ` (${err.response.status})` : ''}`
+                );
             }finally{
                 setLoading(false);
             }
