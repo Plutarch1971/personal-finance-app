@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import ExpensesByCategoryCard from '../components/ExpensesByCategoryCard';
 import MonthlySummaryCard from '../components/MonthlySummaryCard';
-import PieChartReport from '../components/PiechartReport';
+//import PieChartReport from '../components/PiechartReport';
 import AccountTable from '../components/AccountTable';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext'; 
-
+const PieChartReport = lazy(() => import('../components/PiechartReport'));
 
 export default function Report(){
     const auth = useAuth();
@@ -81,8 +81,10 @@ export default function Report(){
                                             {activeView === 'table' && (  
                                                 <ExpensesByCategoryCard onClose={() => setActiveView(null)} />  
                                             )}
-                                            {activeView === 'chart' && ( 
-                                                <PieChartReport onClose={() => setActiveView(null)}/>
+                                            {activeView === 'chart' && (
+                                                <Suspense fallback={<div className="text-white">Loading chart...</div>}>
+                                                    <PieChartReport onClose={() => setActiveView(null)} />
+                                                </Suspense>
                                             )}
                                             {activeView === 'account' && (
                                                 <AccountTable onClose={() => setActiveView(null)}/>

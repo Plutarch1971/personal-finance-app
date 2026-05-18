@@ -177,7 +177,7 @@ export default function BudgetPage() {
                     {showDisplay && (
                         <div className="card shadow border-0 rounded-4">
                             <div className="card-body p-4">
-                                <h5 className="card-title fw-bold mb-4">Monthly Budget Allocation</h5>
+                                <h2 className="card-title fw-bold mb-4 fs-5">Monthly Budget Allocation</h2>
                                 {budgets.length === 0 ? (
                                     <div className="text-center py-5">
                                         <p className="text-muted fs-5">No budgets found for this month.</p>

@@ -41,9 +41,9 @@ export default function Login() {
                 <div className="col-12 col-md-3">
                       <div className="card h-100 border-0 shadow-sm rounded-4 login-card bg-card">
                           <div className="card-body p-3 p-lg-4 d-flex flex-column">
-                            <h4 className="fw-bold fs-4 mb-3 text-center text-primary login-card-title">
+                            <h3 className="fw-bold fs-4 mb-3 text-center text-primary login-card-title">
                               📊 Track your expenses
-                            </h4>
+                            </h3>
                             <p className="text-muted fw-semibold mb-3 login-card-text">
                               Build better money habits with a clear view of your daily spending.
                             </p>
@@ -85,8 +85,9 @@ export default function Login() {
 
                             <form onSubmit={handleSubmit}>
                               <div className="mb-3">
-                                <label className="form-label">Email</label>
+                                <label htmlFor="email">Email</label>
                                 <input
+                                  id="email"
                                   type="email"
                                   className="form-control"
                                   value={email}

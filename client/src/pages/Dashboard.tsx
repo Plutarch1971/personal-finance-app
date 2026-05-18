@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import SummaryCards from '../components/SummaryCards';
 import { useNavigate } from 'react-router-dom';
-import IncomePieChart from '../components/IncomePieChart';
-import ExpenseByThirtyCard from '../components/ExpenseByThirtyCard';
-import ExpenseTrendChart from '../components/ExpenseTrendChart';
+
+const IncomePieChart = lazy(() => import('../components/IncomePieChart'));
+const ExpenseTrendChart = lazy(() => import('../components/ExpenseTrendChart'));
+const ExpenseByThirtyCard = lazy(() => import('../components/ExpenseByThirtyCard'));
 
 export default function Dashboard() {
   const auth = useAuth();
@@ -128,10 +129,11 @@ export default function Dashboard() {
 
           {/* ================= EXTRA INFO CARDS ================= */}
           <div className="row mt-2 g-3">
+            <Suspense fallback={<div className="text-white">Loading charts...</div>}>
             <div className="col-12 col-lg-4">
               <div className="card shadow-sm h-100 rounded-4">
                <div className="card-body">
-                  <h5 className="card-title pt-2">Income by Category:</h5>
+                  <h2 className="card-title pt-2 fs-5">Income by Category:</h2>
                   <p className="small">Last 30 Days</p>
                   {/* <p className="card-text">
                     For last 30 days.
@@ -163,9 +165,8 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-
+          </Suspense>
           </div>
-
         </main>
         </div>
       </div>

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import api from '../api/axios';
 import AccountDropdown from '../components/AccountDropdown';
 import CategoryDropdown from '../components/CategoryDropdown';
-import ReceiptUpload from './ReceiptUpload';
-import ReceiptCamera from "./ReceiptCamera";
+
+const ReceiptUpload = lazy(() => import('./ReceiptUpload'));
+const ReceiptCamera = lazy(() => import('./ReceiptCamera'));
 
 type AccountType = 'checking' | 'savings' | 'credit' |'investment';
 
@@ -343,7 +344,7 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
                         Use Camera
                     </button>
                     </div>
-                    
+                    <Suspense fallback={<div className="text-white">Loading....</div>}>
                     {activeView === 'ExtractReceipt' && (
                     <ReceiptUpload 
                         onClose={() => setActiveView(null)} 
@@ -359,7 +360,7 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
                             onClose={() => setActiveView(null)}
                         />
                     )}   
-
+                </Suspense>
                 </div>
                         {/*------------------------- AMOUNT ----------------------- */}
                         

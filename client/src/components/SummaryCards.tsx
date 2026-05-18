@@ -14,7 +14,7 @@ export default function SummaryCards({ summary }: Props){
                 <div className="card text-bg-success text-white shadow h-100 rounded-4">
                     <div className="card-body">
                         <h4 className="card-title">Income:</h4>
-                        <h4>${summary.income.toFixed(2)}</h4>
+                        <h5>${summary.income.toFixed(2)}</h5>
                         <p className="small">Current Month</p>
                     </div>
                 </div>
