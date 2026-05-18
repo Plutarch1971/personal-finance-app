@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import InstallButton from '../components/InstallButton';
 
 export default function Login() {
   const auth = useAuth();
@@ -114,11 +115,12 @@ export default function Login() {
                                 {loading ? 'Logging in...' : 'Login'}
                               </button>
                             </form>
-                              <div className="text-center mt-3">
-                              <small>
+                              <div className="text-center mt-3 d-flex justify-content-between">
+                             
                                 Don’t have an account?{' '}
                                 <Link to="/register">Register</Link>
-                              </small>
+                             
+                              <InstallButton />
                             </div>
                           </div>
                         </div>
