@@ -1,13 +1,6 @@
 import { Router } from 'express';
 import { authenticateToken } from '../middleware/auth';
 import * as controller from '../controllers/report.controller';
-// import {
-//     getMonthlyExpensesByCategory,
-//     getExpensesByCategory,
-//     getIncomeByCategory,
-//     getAccountBalances,
-//     getExpenseThirty
-// } from '../controllers/report.controller';
 
 const router = Router();
 
