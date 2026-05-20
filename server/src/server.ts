@@ -15,6 +15,9 @@ async function startServer() {
     await initializeModels();
     console.log('Models initialized with associations');
 
+    await sequelize.sync({ alter: true});
+    console.log('Models initialized with association');
+
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
   } catch (error) {
     console.error('Failed to start server:', error);
