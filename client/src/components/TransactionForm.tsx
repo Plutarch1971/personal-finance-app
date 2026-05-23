@@ -1,10 +1,18 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { 
+    lazy, 
+    Suspense, 
+    useEffect, 
+    useState,
+     } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import AccountDropdown from '../components/AccountDropdown';
 import CategoryDropdown from '../components/CategoryDropdown';
 
 const ReceiptUpload = lazy(() => import('./ReceiptUpload'));
 const ReceiptCamera = lazy(() => import('./ReceiptCamera'));
+
+const navigate = useNavigate();
 
 type AccountType = 'checking' | 'savings' | 'credit' |'investment';
 
@@ -413,6 +421,14 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
                         : mode === 'create'
                         ? 'Add Transaction'
                         : 'Update Transaction'}
+                        </button>
+                        
+                        <button 
+                            type="button"
+                            className="btn-btn-secondary"
+                            onClick={() => navigate('/transactions')}
+                        >
+                            View Transaction
                         </button>
 
                         <button className="btn btn-secondary"

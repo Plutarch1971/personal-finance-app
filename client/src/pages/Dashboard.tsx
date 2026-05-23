@@ -62,7 +62,7 @@ export default function Dashboard() {
   }, []);
 
   if (loading) {
-    return <div className="container mt-5">Loading...</div>;
+    return <div className="container text-white mt-5">Loading...</div>;
   }
 
   return (
