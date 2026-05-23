@@ -12,7 +12,6 @@ import CategoryDropdown from '../components/CategoryDropdown';
 const ReceiptUpload = lazy(() => import('./ReceiptUpload'));
 const ReceiptCamera = lazy(() => import('./ReceiptCamera'));
 
-const navigate = useNavigate();
 
 type AccountType = 'checking' | 'savings' | 'credit' |'investment';
 
@@ -77,6 +76,8 @@ export default function TransactionForm({mode, initialData, onSubmit, onClose}: 
     const [description, setDescription] = useState('');
     const [transactionType, setTransactionType] = useState<TransactionType>('expense')
     const [activeView, setActiveView] = useState< 'ExtractReceipt' | 'ReceiptCamera' |null>(null);
+
+    const navigate = useNavigate();
     
    const resetForm = () => {
         setAccountId('');
