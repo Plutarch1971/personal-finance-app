@@ -9,11 +9,11 @@ export default defineConfig({
   react(),
   VitePWA({
     registerType: 'autoUpdate',
-    includeAssets: ['favicon.ico','robots.txt'],
+    includeAssets: ['logo.webp','smartbooksfinance-logo-1024x500.webp','pwa-192.webp','pwa-512.webp','robots.txt'],
 
     manifest: {
-      name: 'SmartBooks',
-      short_name: 'SmartBooks',
+      name: 'SmartBooksFinance',
+      short_name: 'SmartBooksFinance',
 
       description: 'Personal and small business finance management',
 
