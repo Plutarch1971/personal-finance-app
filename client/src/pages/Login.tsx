@@ -39,32 +39,32 @@ export default function Login() {
       </div>
       <div className="flex-grow-1 d-flex align-items-start p-4">       
             <div className="row w-100 justify-content-center g-4 g-lg-5 align-items-stretch">
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-3">
                       <div className="card h-100 border-0 shadow-sm rounded-4 login-card bg-card">
                           <div className="card-body p-3 p-lg-4 d-flex flex-column">
                             <h3 className="fw-bold fs-4 mb-3 text-center text-primary login-card-title">
                               📊 Track your expenses
                             </h3>
-                            <img src="piechart.png" alt="piechart.png" />
+                            <img src="donutchart.png" className="mb-2" alt="piechart.png" />
                             <p className="text-muted fw-semibold mb-3 login-card-text">
                               Build better money habits with a clear view of your daily spending.
                             </p>
                           </div>
                       </div>
                 </div>
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-3">
                       <div className="card h-100 border-0 shadow-sm rounded-4 login-card bg-card">
                           <div className="card-body p-3 p-lg-4 d-flex flex-column">
-                           <h4 className="fw-bold fs-4 mb-3 text-center text-primary login-card-title">
+                           <h4 className="fw-bold fs-4 text-center text-primary login-card-title mb-3">
                             📈 Monitor your Finances</h4>
-                            <img src="stackedbarchart.png" alt="stackedbarchart.png" />
+                            <img src="multiplelinechart.png" alt="multiplelinechart.png" className="mb-2" />
                               <p className="text-muted fw-semibold mb-3 login-card-text">
                                 Understand how your money moves with visual and time-based insights.
                               </p>
                           </div>
                       </div>
                 </div>
-                    <div className="col-12 col-md-4">  
+                    <div className="col-12 col-md-3">  
                         <div className="card h-100 border-0 shadow-sm rounded-4 login-card bg-card">
                           <div className="card-body p-3 p-lg-4 d-flex flex-column">
                             <h3 className="fw-bold mb-4 fs-4 text-center text-primary login-card-title">Login</h3>
@@ -104,13 +104,11 @@ export default function Login() {
                                 {loading ? 'Logging in...' : 'Login'}
                               </button>
                             </form>
-                              <div className="text-center mt-3 d-flex justify-content-between">
-                             
-                                Don’t have an account?{' '}
-                                <Link to="/register">Register</Link>
-                             
-                              <InstallButton />
-                            </div>
+                              <div className="text-center mt-3 d-flex justify-content-between flex-wrap">
+                                      <p className="mb-3"> Don’t have an account?{' '}</p>
+                                      <Link to="/register">Register</Link>
+                                      <InstallButton />
+                              </div>
                           </div>
                         </div>
                       </div>
