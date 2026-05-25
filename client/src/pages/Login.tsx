@@ -34,48 +34,37 @@ export default function Login() {
   return (
     <div className="container-fluid d-flex flex-column">
       <div className="text-center py-5 mt-4 login-header">
-          <h1 className="text-warning display-5 fw-bold mb-2 login-title">SmartBooks</h1> 
+          <h1 className="text-warning display-5 fw-bold mb-2 login-title">SmartBooksFinance</h1> 
           <h2 className="fs-5 text-center text-white mb-0 login-subtitle"> What can you do with this app</h2>        
       </div>
       <div className="flex-grow-1 d-flex align-items-start p-4">       
             <div className="row w-100 justify-content-center g-4 g-lg-5 align-items-stretch">
-                <div className="col-12 col-md-3">
+                <div className="col-12 col-md-4">
                       <div className="card h-100 border-0 shadow-sm rounded-4 login-card bg-card">
                           <div className="card-body p-3 p-lg-4 d-flex flex-column">
                             <h3 className="fw-bold fs-4 mb-3 text-center text-primary login-card-title">
                               📊 Track your expenses
                             </h3>
+                            <img src="piechart.png" alt="piechart.png" />
                             <p className="text-muted fw-semibold mb-3 login-card-text">
                               Build better money habits with a clear view of your daily spending.
                             </p>
-                            <ul className="list ps-3 text-success fw-normal login-card-list">
-                              <li>Track monthly income and expenses</li>
-                              <li>Analyze spending habits</li>
-                              <li>View category-based expense breakdown</li>
-                              <li>Monitor account balances</li>
-                              <li>Add or remove categories to adjust your personal or small business needs</li>
-                            </ul>
                           </div>
                       </div>
                 </div>
-                <div className="col-12 col-md-3">
+                <div className="col-12 col-md-4">
                       <div className="card h-100 border-0 shadow-sm rounded-4 login-card bg-card">
                           <div className="card-body p-3 p-lg-4 d-flex flex-column">
-                           <h4 className="fw-bold fs-4 mb-3 text-center text-primary login-card-title">📈 Monitor your Finances</h4>
+                           <h4 className="fw-bold fs-4 mb-3 text-center text-primary login-card-title">
+                            📈 Monitor your Finances</h4>
+                            <img src="stackedbarchart.png" alt="stackedbarchart.png" />
                               <p className="text-muted fw-semibold mb-3 login-card-text">
                                 Understand how your money moves with visual and time-based insights.
                               </p>
-                            <ul className="list ps-3 text-success fw-normal login-card-list">
-                              <li>Follow your Investments</li>
-                              <li>Visualize financial trends</li>
-                              <li>Compare spending across time periods</li>
-                              <li>Manage multiple financial accounts</li>
-                              <li>Track last 30-day spending behavior</li>
-                            </ul>
                           </div>
                       </div>
                 </div>
-                    <div className="col-12 col-md-3">  
+                    <div className="col-12 col-md-4">  
                         <div className="card h-100 border-0 shadow-sm rounded-4 login-card bg-card">
                           <div className="card-body p-3 p-lg-4 d-flex flex-column">
                             <h3 className="fw-bold mb-4 fs-4 text-center text-primary login-card-title">Login</h3>
