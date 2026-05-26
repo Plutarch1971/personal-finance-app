@@ -9,7 +9,7 @@ export default defineConfig({
   react(),
   VitePWA({
     registerType: 'autoUpdate',
-    includeAssets: ['logo.webp','smartbooksfinance-logo-1024x500.webp','pwa-192.webp','pwa-512.webp','robots.txt'],
+    includeAssets: ['logo.webp','smartbooks-logo-bg-1024x500.webp','pwa-192.webp','pwa-512.webp','robots.txt'],
 
     manifest: {
       name: 'SmartBooksFinance',

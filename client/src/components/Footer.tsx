@@ -4,7 +4,7 @@ export default function Footer(){
             <div className="container d-flex justify-content-between">
                 
                 <div>
-                <img src="/smartbooksfinance-logo-1024x500.webp" alt="Smart Book logo" style={{height: "32px"}} />
+                <img src="/smartbooks-logo-bg-1024x500.webp" alt="Smart Book logo" style={{height: "32px"}} />
                 <p>Finance tracking for individuals and small businesses.</p>
                 </div>
 
