@@ -3,7 +3,7 @@ import Footer from '../components/Footer';
 
 export default function Layout() {
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column min-vh-100 mt-auto">
       
       {/* Page Content */}
       <main className="flex-grow-1">

@@ -85,6 +85,7 @@
   height: 32px;
 }
 
+
 @media (max-width: 576px) {
   .same-btn {
     min-width: 58px;

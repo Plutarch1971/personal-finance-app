@@ -1,0 +1,133 @@
+/* ========== Page ========= */
+
+.landing-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0F172A, #1E3A8A, #16A34A);
+}
+
+/* ========== Header ========= */
+
+.login-header {
+    flex-shrink: 0;
+    padding: 1rem 2rem;
+}
+
+/* ========== Main Area ========= */
+ .content-area{
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    padding: 1rem 2rem 2rem;
+ }
+
+ /* ========== 3 Column Layout ========= */
+
+ .landing-grid{
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 250px;
+    gap: 1.5rem;
+    height: 100%;
+    overflow: hidden;
+ }
+
+ .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    height: 100%;
+ }
+
+ /* =========== PANELS =========== */
+
+ .left-panel,
+ .center-panel,
+ .right-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 1.5rem;
+    overflow: hidden;
+ }
+
+ /* ==========LOGIN PANELS ======== */
+
+ .right-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+ }
+
+
+/* ========== CARD STYLING ======== */
+
+.dashboard-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1rem;
+    height: 100%;
+}
+
+/* ========== IMAGES ======== */
+
+.feature-image,
+.chart-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-height: 110px;
+}
+
+/* ========== FOOTER ======== */
+
+.footer {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 0.8rem;
+    color: white;
+}
+
+.logo-sm {
+  width: 80px; 
+  height: 80px;
+}
+
+
+ @media (max-width: 992px) {
+    .landing-page {
+        overflow-y: auto;
+    }
+    .content-area {
+        overflow: visible;
+        padding: 1rem;
+    }
+    .landing-grid {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+    .dashboard-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .left-panel,
+    .center-panel,
+    .right-panel {
+        width: 100%;
+    }
+    .right-panel {
+        order: -1;
+    }
+    .login-header {
+        text-align: center;
+        justify-content: center;
+    }
+ }
+
+ @media (max-width: 576px) {
+    .dashboard-grid{
+        grid-template-columns: 1fr;
+    }
+ }
