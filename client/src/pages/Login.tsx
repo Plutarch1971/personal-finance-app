@@ -36,100 +36,90 @@ export default function Login() {
     <div className="container-fluid">
 
          {/* ===== HEADER SECTION ======= */}
-          <div className="login-header">
+          <div className="login-header mt-4">
             <img src="pwa-192.webp" alt="smarbooks-logo" className="logo-sm"/>
-              <h1 className="text-warning display-5 fw-bold mb-0 login-title">SmartBooksFinance</h1> 
-              {/* <h2 className="fs-5 text-center text-white mb-0 login-subtitle"> What can you do with this app</h2>         */}
+            <h1 className="text-warning display-5 fw-bold mb-0 login-title">SmartBooksFinance</h1> 
           </div>
 
           {/* ======  LANDING GRID STARTS =========*/}
-          <div className="landing-grid">
+        <div className="landing-grid">
 
           {/* ===========  LEFT PANEL ============= */}
-          <div className="left-panel">
-            <div className="dashboard-card mb-4">
-              <p>Under construction</p>
+            <div className="left-panel">
+              <div className="dashboard-card mb-4">
+                <p>Under construction</p>
+              </div>
             </div>
-            <div className="dashboard-card">
-              
-            </div>
-          </div>
 
-          {/* ============ CENTER PANE============= */}
-          <div className="center-panel">
-              <div className="dashboard-grid">
-                <div>
-                  <div className="dashboard-card h-100">
-                    <h3 className="text-primary fw-bold">
-                       📊 Track Expenses
-                   </h3>
-                    <img
-                        src="expense-barchart.jpg"
-                        alt="expenses"
-                        className="feature-image"
-                    />
-                      <p>
-                        Build better money habits with a clear
-                        view of your spending.
-                      </p>
+              {/* ============ CENTER PANE============= */}
+            <div className="center-panel">
+                    <div className="dashboard-grid">
+                          <div>
+                            <div className="dashboard-card h-100">
+                              <h5 className="text-primary fw-bold"> 📊 Track Expenses</h5>
+                              <div className="image-wrapper">
+                                <img src="expense-barchart.jpg" alt="expenses" className="feature-image" />
+                              </div>
+                              <p>Build better money habits with a clear view of your spending. </p>
+                            </div>
+                          </div>
+                    
+                          <div>
+                              <div className="dashboard-card h-100">
+                                <h5 className="text-primary fw-bold"> 📈 Financial Insight </h5>
+                                <div className="image-wrapper">
+                                  <img  src="income-donut.png" alt="income" className="feature-image"/>
+                                </div>
+                                <p>Understand how your money moves over time.</p>
+                              </div>
+                          </div>
+                      
+                            <div>
+                                <div className="dashboard-card h-100">
+                                  <h5 className="text-primary fw-bold"> 📈 Analytical</h5>
+                                  <div className="image-wrapper">
+                                    <div className="image-wrapper">
+                                      <img src="expense-piechart.png" alt="expense-piechart" className="feature-image" />
+                                    </div>
+                                    <p>Track where money goes.</p>
+                                  </div>
+                                </div>
+                            </div>
+                    
+                            <div>
+                                <div className="dashboard-card h-100">
+                                  <h5 className="text-primary fw-bold">📈 Reports</h5>
+                                  <div className="image-wrapper">
+                                   <img src="report-page.png" alt="report-page" className="feature-image"/>
+                                  </div>
+                                  <p>Reviewing Reports regularly can help make spending decisions.</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div className="dashboard-card h-100">
+                                  <h5 className="text-primary fw-bold">Card 5</h5>
+                                  <div className="image-wrapper">
+                                    <img src="" alt="" className="feature-image"/>
+                                  </div>
+                                  <p>Card 5</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div className="dashboard-card h-100">
+                                  <h5 className="text-primary fw-bold">Card 6</h5>
+                                  <div className="image-wrapper">
+                                    <img src="" alt="" className="feature-image"/>
+                                  </div>
+                                  <p>Card 6</p>
+                                </div>
+                            </div>
                   </div>
-                </div>
-                <div>
-                      <div className="dashboard-card h-100">
-                        <h3 className="text-primary fw-bold">
-                          📈 Financial Insights
-                        </h3>
-
-                        <img 
-                            src="income-donut.png"
-                            alt="income"
-                            className="feature-image"
-                          />
-                        <p>
-                          Understand how your money moves over time.
-                        </p>
-                      </div>
-                </div>
-                <div>
-                      <div className="dashboard-card h-100">
-                        <h3 className="text-primary fw-bold">
-                          📈 Analytical
-                        </h3>
-
-                        <img 
-                            src="expense-piechart.png"
-                            alt="expense-piechart"
-                            className="feature-image"
-                          />
-                        <p>
-                          Track where money goes.
-                        </p>
-                      </div>
-                </div>
-                <div>
-                    <div className="dashboard-card h-100">
-                      <h3 className="text-primary fw-bold">
-                          📈 Reports
-                        </h3>
-
-                        <img 
-                            src="report-page.png"
-                            alt="report-page"
-                            className="feature-image"
-                          />
-                        <p>
-                          Reviewing Reports regularly can help make spending decisions.
-                        </p>
-                    </div>
-                </div>
-
-
-          </div>
-
-          </div>
+            </div>
                 
           {/* ============ RIGHT PANEL =========== */}
-                  <div className="right-panel">  
+                  <div className="right-panel text-white">  
                     
                         <h3 className="fw-bold mb-4 text-center">
                           Login
@@ -171,15 +161,15 @@ export default function Login() {
                           </button>
                         </form>
                           <div className="mt-4 text-center">
-                                  <p> Don’t have an account?</p>
-                                  <Link to="/register">Register</Link>
-
-                                  <div className="mt-3">
-                                  <InstallButton />
-                                  </div>
+                              <p> Don’t have an account?</p>
+                              <Link to="/register">Register</Link>
+              
+                              <div className="mt-3">
+                              <InstallButton />
+                              </div>
                           </div>
                   </div>                          
-    </div>
+        </div>
     </div>
 
   );
