@@ -47,7 +47,13 @@ export default function Login() {
           {/* ===========  LEFT PANEL ============= */}
             <div className="left-panel">
               <div className="dashboard-card mb-4">
-                <p>Under construction</p>
+                <h5 className="text-primary fw-bold">Transaction Features</h5>
+                  <div className="image-wrapper">
+                    <img src="add-transaction.png" alt="transaction-page" className="feature-image" />
+                  </div>
+                  <p>Your transaction starts here</p>
+                  <p>You can create expense, income or transfer</p>
+                  <p>Add a transaction uploading a file or use camera upload feature</p>
               </div>
             </div>
 
@@ -88,31 +94,32 @@ export default function Login() {
                     
                             <div>
                                 <div className="dashboard-card h-100">
-                                  <h5 className="text-primary fw-bold">📈 Reports</h5>
+                                  <h5 className="text-primary fw-bold">📈 Reports Features</h5>
                                   <div className="image-wrapper">
                                    <img src="report-page.png" alt="report-page" className="feature-image"/>
                                   </div>
-                                  <p>Reviewing Reports regularly can help make spending decisions.</p>
+                                  <p>View your financial reports in Report Page</p>
                                 </div>
                             </div>
 
                             <div>
                                 <div className="dashboard-card h-100">
-                                  <h5 className="text-primary fw-bold">Card 5</h5>
+                                  <h5 className="text-primary fw-bold">Dashboard Features Screenshot</h5>
                                   <div className="image-wrapper">
-                                    <img src="" alt="" className="feature-image"/>
+                                    <img src="dashboard-laptop.png" alt="dashboard" className="feature-image"/>
                                   </div>
-                                  <p>Card 5</p>
+                                  <p>View current month's expense summary instatly</p> 
+                                  <p>Start navigation to all financial activities from here.</p>
                                 </div>
                             </div>
 
                             <div>
                                 <div className="dashboard-card h-100">
-                                  <h5 className="text-primary fw-bold">Card 6</h5>
+                                  <h5 className="text-primary fw-bold">View Budget Features</h5>
                                   <div className="image-wrapper">
-                                    <img src="" alt="" className="feature-image"/>
+                                    <img src="budget-page.png" alt="budget-page" className="feature-image"/>
                                   </div>
-                                  <p>Card 6</p>
+                                  <p>Auto generate budget or make your own budget</p>
                                 </div>
                             </div>
                   </div>
