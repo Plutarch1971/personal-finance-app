@@ -58,7 +58,7 @@ export default function InstallButton() {
     if (isIOS) {
         return (
             <button 
-               className="btn btn-outline-warning btn-sm"
+               className="btn btn-warning btn-sm"
                onClick={() => 
                 alert(
                     'To install SmartBooks: \n\nTap Share -> Add to Home Screen'
