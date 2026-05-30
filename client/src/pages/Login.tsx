@@ -58,7 +58,7 @@ export default function Login() {
               </div>
             </div>
 
-              {/* ============ CENTER PANE============= */}
+              {/* ============ CENTER PANEL ============= */}
             <div className="center-panel">
                     <div className="dashboard-grid">
                           <div>

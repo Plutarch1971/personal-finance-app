@@ -13,34 +13,29 @@
 .login-header {
     display: flex;
     flex-shrink: 0;
-    min-height: 220px;
+    min-height: 120px;
     padding: 2rem 3rem;
     gap: 1rem;
 }
 
 /* ========== Main Area ========= */
- .content-area{
-    flex: 1;
-    display: flex;
-    overflow: hidden;
-    padding: 1rem 2rem 2rem;
- }
+ 
 
  /* ========== 3 Column Layout ========= */
 
  .landing-grid{
     flex: 1;
     display: grid;
-    grid-template-columns: 260px 1fr 280px;
+    grid-template-columns: 320px 1fr 280px;
     gap: 1rem;
-    height: calc(100vh - 220px);
+    height: calc(100vh - 190px);
     overflow: hidden;
  }
 
  .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 250px);
     gap: .75rem;
     height: 100%;
     /* align-content: start; */
@@ -64,8 +59,16 @@
  .right-panel {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    height: auto;
+    align-self: start;
+    max-height: 500px;
  }  
+
+ .left-panel {
+    align-self: start;
+    height: auto;
+ }
 
 /* ========== CARD STYLING ======== */
 
@@ -75,7 +78,7 @@
     background: white;
     border-radius: 20px;
     padding: 0.75rem;
-    min-height: 0;
+    height: 250px;
 }
 
 /* ========== IMAGES ======== */
@@ -88,21 +91,14 @@
 }
 
 .image-wrapper{
-    flex: 1;
+    height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 120px;
+    flex: none;
 }
 
 /* ========== FOOTER ======== */
-
-.footer {
-    flex-shrink: 0;
-    text-align: center;
-    padding: 0.8rem;
-    color: white;
-}
 
 .logo-sm {
   width: 80px; 
@@ -111,37 +107,86 @@
 
 
  @media (max-width: 992px) {
+
     .landing-page {
         overflow-y: auto;
     }
-    .content-area {
-        overflow: visible;
-        padding: 1rem;
-    }
+
     .landing-grid {
         display: flex;
         flex-direction: column;
         height: auto;
     }
+
     .dashboard-grid{
         grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        gap: 0.75rem;
+        height: auto;
     }
+
+    .dashboard-card {
+        height: auto;
+        min-height: 260;
+    }
+
     .left-panel,
     .center-panel,
     .right-panel {
         width: 100%;
     }
+
     .right-panel {
         order: -1;
     }
+
     .login-header {
         text-align: center;
         justify-content: center;
+    }
+
+    .image-wrapper {
+        height: 170px;
+        flex: none;
+    }
+
+    .feature-image,
+    .chart-image {
+        max-height: 170px;
+        width: auto;
+        height: auto;
     }
  }
 
  @media (max-width: 576px) {
     .dashboard-grid{
         grid-template-columns: 1fr;
+    }
+
+    .dashboard-card {
+        min-height: 320px;
+    }
+
+    .image-wrapper {
+        height: 220px;
+    }
+ }
+
+ @media (max-width: 1366px) {
+    .landing-grid {
+    height: calc(100vh - 190px);
+    }
+
+    .dashboard-grid {
+    grid-template-rows: repeat(2, 250px);
+    }
+
+    .dashboard-card {
+        height: 250px;
+    }
+
+    .image-wrapper {
+        height: 150px;
+        flex: none;
     }
  }
