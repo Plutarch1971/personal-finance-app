@@ -1,7 +1,7 @@
 export default function Footer(){
     return (
             <footer className="text-light py-2 mt-auto border-top">
-            <div className="container-fluit d-flex justify-content-between px-4">
+            <div className="container-fluid d-flex justify-content-between px-4">
                 
                 <div>
                 <img src="/pwa-1024.webp" alt="Smart Book logo" style={{height: "32px"}} />

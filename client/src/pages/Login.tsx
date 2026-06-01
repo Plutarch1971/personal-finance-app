@@ -38,7 +38,7 @@ export default function Login() {
          {/* ===== HEADER SECTION ======= */}
           <div className="login-header mt-4">
             <img src="pwa-192.webp" alt="smarbooks-logo" className="logo-sm"/>
-            <h1 className="text-warning display-5 fw-bold mb-0 login-title">SmartBooksFinance</h1> 
+            <h3 className="text-warning display-5 fw-bold mb-0 login-title">SmartBooksFinance</h3> 
           </div>
 
           {/* ======  LANDING GRID STARTS =========*/}
@@ -61,65 +61,65 @@ export default function Login() {
               {/* ============ CENTER PANEL ============= */}
             <div className="center-panel">
                     <div className="dashboard-grid">
-                          <div>
-                            <div className="dashboard-card h-100">
+
+                            {/* =============== Track Expense Card============ */}
+                            <div className="dashboard-card">
                               <h5 className="text-primary fw-bold text-center"> 📊 Track Expenses</h5>
                               <div className="image-wrapper">
                                 <img src="expense-barchart.jpg" alt="expenses" className="feature-image" />
                               </div>
                               <p>Build better money habits with a clear view of your spending. </p>
                             </div>
-                          </div>
                     
-                          <div>
-                              <div className="dashboard-card h-100">
+                            {/* =============== Income Donut Card============ */}
+                              <div className="dashboard-card">
                                 <h5 className="text-primary fw-bold text-center">Income donut</h5>
                                 <div className="image-wrapper">
-                                  <img  src="income-donut.png" alt="income" className="chart-image"/>
+                                  <img  src="income-donut.png" alt="income" className="feature-image"/>
                                 </div>
                                 <p>Monitor your income from various sources</p>
                               </div>
-                          </div>
+                         
                       
-                            <div>
-                                <div className="dashboard-card h-100">
+                             {/* =============== Expense Piechart Card============ */}
+                                <div className="dashboard-card">
                                   <h5 className="text-primary fw-bold text-center"> View expenses by percentage</h5>
                                   <div className="image-wrapper">
-                                      <img src="expense-piechart.png" alt="expense-piechart" className="chart-image" />  
+                                      <img src="expense-piechart.png" alt="expense-piechart" className="feature-image" />  
                                   </div>
                                   <p>Track where money goes.</p>
                                 </div>
-                            </div>
+                            
                     
-                            <div>
-                                <div className="dashboard-card h-100">
+                               {/* =============== Reports Card============ */}
+                                <div className="dashboard-card reports-card">
                                   <h5 className="text-primary fw-bold text-center">📈 Reports</h5>
                                   <div className="image-wrapper">
                                    <img src="report-page.png" alt="report-page" className="feature-image"/>
                                   </div>
                                   <p>Analyze your finances using various Reports</p>
                                 </div>
-                            </div>
+                            
 
-                            <div>
-                                <div className="dashboard-card h-100">
+                                 {/* =============== Dashboard Screenshot Card============ */}
+                                <div className="dashboard-card dashboard-card-large">
                                   <h5 className="text-primary fw-bold text-center">Dashboard</h5>
                                   <div className="image-wrapper">
                                     <img src="dashboard.png" alt="dashboard" className="feature-image"/>
                                   </div>
                                   <p>View current monthly summaries and navigate quickly</p> 
                                 </div>
-                            </div>
+                            
 
-                            <div>
-                                <div className="dashboard-card h-100">
+                                 {/* =============== Budget Menu Screenshot Card============ */}
+                                <div className="dashboard-card budget-card">
                                   <h5 className="text-primary fw-bold text-center">View Budget Features</h5>
                                   <div className="image-wrapper">
                                     <img src="budget-page.png" alt="budget-page" className="feature-image"/>
                                   </div>
                                   <p>Auto generate budget or make your own budget</p>
                                 </div>
-                            </div>
+                            
                   </div>
             </div>
                 

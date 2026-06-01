@@ -1,7 +1,12 @@
 /* ========== Page ========= */
 
 .landing-page {
+    /* min-height: auto; */
+    /* height: auto; */
+    /* min-height: 100%; */
+    /* height: 100%; */
     min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -10,13 +15,6 @@
 
 /* ========== Header ========= */
 
-.login-header {
-    display: flex;
-    flex-shrink: 0;
-    min-height: 120px;
-    padding: 2rem 3rem;
-    gap: 1rem;
-}
 
 /* ========== Main Area ========= */
  
@@ -26,20 +24,62 @@
  .landing-grid{
     flex: 1;
     display: grid;
+    min-height: 0;
+    /* flex: 0 0 auto; */
+    /* height: auto; */
     grid-template-columns: 320px 1fr 280px;
     gap: 1rem;
-    height: calc(100vh - 190px);
     overflow: hidden;
  }
 
+ .login-header {
+    display: flex;
+    flex-shrink: 0;
+    min-height: 90px;
+    padding: 1rem 2rem;
+    gap: 1.5rem;
+}
+
+
  .dashboard-grid {
+    flex: 1;
+    min-height: 0;
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 250px);
-    gap: .75rem;
-    height: 100%;
-    /* align-content: start; */
+    /* grid-template-rows: repeat(2, 1fr); */
+    grid-template-rows: repeat(2, minmax(140px, 1fr)); 
+    /* grid-template-rows: 250px; */
+    gap: 0.5rem;
+    align-content: stretch;
+    
+    /* border: 5px solid yellow; */
  }
+
+ /* ========== CARD STYLING ======== */
+ .dashboard-card {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    /* align-content: start; */
+    background: white;
+    border-radius: 20px;
+    padding: 0.5rem;
+    overflow: hidden;
+    
+}
+.dashboard-card h5 {
+    flex-shrink: 0;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+}
+
+.dashboard-card p {
+    flex-shrink: 0;
+    margin: 0.25rem 0 0;
+    font-size: 0.82rem;
+}
 
  /* =========== PANELS =========== */
 
@@ -70,18 +110,16 @@
     height: auto;
  }
 
-/* ========== CARD STYLING ======== */
-
-.dashboard-card {
+ .center-panel {
     display: flex;
     flex-direction: column;
-    background: white;
-    border-radius: 20px;
-    padding: 0.75rem;
-    height: 250px;
-}
+    min-height: 0;
+    /* align-self: start; */
+    /* border: 5px solid red; */
+ }
 
-/* ========== IMAGES ======== */
+
+/* ========== IMAGES STYLING ======== */
 
 .feature-image,
 .chart-image {
@@ -89,13 +127,17 @@
     height: 100%;
     object-fit: contain;
 }
-
+.reports-card .image-wrapper,
+.dashboard-card-large .image-wrapper,
+.budget-card .image-wrapper {
+    height: 120px;
+}
 .image-wrapper{
-    height: 150px;
+    flex: 1;
+    min-height: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex: none;
+    align-items: center; 
 }
 
 /* ========== FOOTER ======== */
@@ -105,29 +147,37 @@
   height: 80px;
 }
 
+@media (min-width: 993px) and (max-width: 1366px) {
+     
+    .dashboard-grid {
+        /* grid-template-rows: minmax(160px, 220px); */
+        grid-template-rows: repeat(2, minmax(130px, 1fr));
+        gap: 0.5rem;
 
- @media (max-width: 992px) {
+    }
+
+    .dashboard-card {
+        height: 100%;
+        padding: 0.4rem;
+    }  
+
+    .image-wrapper {
+        min-height: 90px;
+    }
+}
+@media (max-width: 992px) {
 
     .landing-page {
-        overflow-y: auto;
+        height: 100%;
+        min-height: 100%;
+        overflow-y: hidden;
     }
 
     .landing-grid {
         display: flex;
         flex-direction: column;
-        height: auto;
-    }
-
-    .dashboard-grid{
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-        gap: 0.75rem;
-        height: auto;
-    }
-
-    .dashboard-card {
-        height: auto;
-        min-height: 260;
+        min-height: 0;
+        height: 100%;
     }
 
     .left-panel,
@@ -138,55 +188,62 @@
 
     .right-panel {
         order: -1;
-    }
-
-    .login-header {
-        text-align: center;
-        justify-content: center;
-    }
-
-    .image-wrapper {
-        height: 170px;
-        flex: none;
-    }
-
-    .feature-image,
-    .chart-image {
-        max-height: 170px;
-        width: auto;
-        height: auto;
-    }
- }
-
- @media (max-width: 576px) {
-    .dashboard-grid{
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-card {
-        min-height: 320px;
-    }
-
-    .image-wrapper {
-        height: 220px;
-    }
- }
-
- @media (max-width: 1366px) {
-    .landing-grid {
-    height: calc(100vh - 190px);
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .dashboard-grid {
-    grid-template-rows: repeat(2, 250px);
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: auto;
+        height: auto;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .login-header {
+        padding: 1rem;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .logo-sm {
+        width: 60px;
+        height: 60px;
+    }
+
+    .login-header h1 {
+        font-size: 2rem;
+        line-height: 1.1;
+        word-break: break-word;
+
+    }
+    .dashboard-grid{
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(140px, auto);
+        gap: 0.75rem;
     }
 
     .dashboard-card {
-        height: 250px;
+        /* min-height: 500px; */
+        min-height: 140px;
+        padding: 0.4rem;
     }
-
+    .dashboard-card h5 {
+        flex-shrink: 0;
+        margin-top: 0;
+    }
     .image-wrapper {
-        height: 150px;
-        flex: none;
+        /* height: 500px; */
+        height: 90px;
+    }
+    .center-panel {
+        padding: 1rem;
     }
  }
+
+ 
