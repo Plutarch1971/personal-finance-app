@@ -69,7 +69,7 @@ export default function Register(){
                             <h3 className="fw-bold fs-4 mb-3 text-center text-primary login-card-title">
                               📊 Track your expenses
                             </h3>
-                            <img src="expense-piechart.png" className="mb-2" alt="expense-barchart" />
+                            <img src="/expense-piechart.png" className="mb-2" alt="expense-barchart" />
                             <p className="text-muted fw-semibold mb-3 login-card-text">
                               Build better money habits with a clear view of your daily spending.
                             </p>
@@ -82,7 +82,7 @@ export default function Register(){
                           <div className="card-body p-3 p-lg-4 d-flex flex-column">
                            <h4 className="fw-bold fs-4 text-center text-primary login-card-title mb-3">
                             📈 Monitor your Finances</h4>
-                            <img src="add-transaction-page.png" alt="income-donut" className="img-fluid mb-2" style={{height: "500px"}} />
+                            <img src="/add-transaction-page.png" alt="income-donut" className="img-fluid mb-2" style={{height: "500px"}} />
                               <p className="text-muted fw-semibold mb-3 login-card-text">
                                 Understand how your money moves with visual and time-based insights.
                               </p>

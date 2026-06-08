@@ -49,7 +49,7 @@ export default function Login() {
               <div className="text-white">
                 <h5 className="text-white fw-bold">Overview</h5>
                   {/* <div className="image-wrapper">
-                    <img src="add-transaction.png" alt="transaction-page" className="feature-image" />
+                    <img src="/add-transaction.png" alt="transaction-page" className="feature-image" />
                   </div> */}
                   <ul>
                   <li><p>Create expenses, income and transfers</p></li>
@@ -75,7 +75,7 @@ export default function Login() {
                               <div className="dashboard-card">
                                 <h5 className="text-primary fw-bold text-center">Income donut</h5>
                                 <div className="image-wrapper">
-                                  <img  src="income-donut.png" alt="income" className="feature-image"/>
+                                  <img  src="/income-donut.png" alt="income" className="feature-image"/>
                                 </div>
                                 <p>Monitor your income from various sources</p>
                               </div>
@@ -85,7 +85,7 @@ export default function Login() {
                                 <div className="dashboard-card">
                                   <h5 className="text-primary fw-bold text-center"> View expenses by percentage</h5>
                                   <div className="image-wrapper">
-                                      <img src="expense-piechart.png" alt="expense-piechart" className="feature-image" />  
+                                      <img src="/expense-piechart.png" alt="expense-piechart" className="feature-image" />  
                                   </div>
                                   <p>Track where money goes.</p>
                                 </div>
@@ -95,7 +95,7 @@ export default function Login() {
                                 <div className="dashboard-card reports-card">
                                   <h5 className="text-primary fw-bold text-center">📈 Reports</h5>
                                   <div className="image-wrapper">
-                                   <img src="report-page.png" alt="report-page" className="feature-image"/>
+                                   <img src="/report-page.png" alt="report-page" className="feature-image"/>
                                   </div>
                                   <p>Analyze your finances using various Reports</p>
                                 </div>
@@ -105,7 +105,7 @@ export default function Login() {
                                 <div className="dashboard-card dashboard-card-large">
                                   <h5 className="text-primary fw-bold text-center">Dashboard</h5>
                                   <div className="image-wrapper">
-                                    <img src="dashboard.png" alt="dashboard" className="feature-image"/>
+                                    <img src="/dashboard.png" alt="dashboard" className="feature-image"/>
                                   </div>
                                   <p>View current monthly summaries and navigate quickly</p> 
                                 </div>
@@ -115,7 +115,7 @@ export default function Login() {
                                 <div className="dashboard-card budget-card">
                                   <h5 className="text-primary fw-bold text-center">View Budget Features</h5>
                                   <div className="image-wrapper">
-                                    <img src="budget-page.png" alt="budget-page" className="feature-image"/>
+                                    <img src="/budget-page.png" alt="budget-page" className="feature-image"/>
                                   </div>
                                   <p>Auto generate budget or make your own budget</p>
                                 </div>
