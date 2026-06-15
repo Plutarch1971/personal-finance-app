@@ -66,7 +66,7 @@ export default function Login() {
                             <div className="dashboard-card">
                               <h5 className="text-primary fw-bold text-center"> 📊 Track Expenses</h5>
                               <div className="image-wrapper">
-                                <img src="expense-barchart.jpg" alt="expenses" className="feature-image" />
+                                <img src="/expense-barchart.jpg" alt="expenses" className="feature-image" />
                               </div>
                               <p>Build better money habits with a clear view of your spending. </p>
                             </div>
@@ -105,7 +105,7 @@ export default function Login() {
                                 <div className="dashboard-card dashboard-card-large">
                                   <h5 className="text-primary fw-bold text-center">Dashboard</h5>
                                   <div className="image-wrapper">
-                                    <img src="/dashboard.png" alt="dashboard" className="feature-image"/>
+                                    <img src="/dashboard.webp" alt="dashboard" className="feature-image"/>
                                   </div>
                                   <p>View current monthly summaries and navigate quickly</p> 
                                 </div>
