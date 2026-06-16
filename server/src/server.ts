@@ -11,6 +11,7 @@ async function startServer() {
   try {
     await sequelize.authenticate();
     console.log('Database authenticated');
+    console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
     await initializeModels();
     console.log('Models initialized with associations');
