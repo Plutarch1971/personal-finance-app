@@ -52,8 +52,13 @@ export default function Login() {
                     <img src="/add-transaction.png" alt="transaction-page" className="feature-image" />
                   </div> */}
                   <ul>
-                  <li><p>Create expenses, income and transfers</p></li>
+                  <li><p>Monitor your Finances</p></li>
+                  <li><p>Create transactions of expense, income and transfer</p></li>
                   <li><p>Upload receipts using file or camera</p></li>
+                  <li><p>Track your expenses</p></li>
+                  <li><p>View reports</p></li>
+                  <li><p>Understand how your money moves with visual and time-based insights.</p></li>
+                  <li><p>Build better money habits with a clear view of your daily spending</p></li>
                   </ul>
               </div>
             </div>
@@ -167,7 +172,7 @@ export default function Login() {
                         </form>
                           <div className="mt-4 text-center">
                               <p> Don’t have an account?</p>
-                              <Link to="/register">Register</Link>
+                              <Link to="/register" className="text-warning">Register</Link>
               
                               <div className="mt-3">
                               <InstallButton />
