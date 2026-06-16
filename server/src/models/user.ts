@@ -5,6 +5,8 @@ interface UserAttributes {
   username: string;
   email: string;
   passwordHash: string;
+  resetPasswordToken: string | null;
+  resetPasswordExpires: Date | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -16,6 +18,8 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   public username !:string;
   public email!: string;
   public passwordHash!: string;
+  public resetPasswordToken!: string | null;
+  public resetPasswordExpires!: Date | null;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -31,6 +35,14 @@ export function initUserModel(sequelize: Sequelize) {
     username: DataTypes.STRING,
     email: DataTypes.STRING,
     passwordHash: DataTypes.STRING,
+    resetPasswordToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    resetPasswordExpires: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   }, {
     sequelize,
     timestamps: true
