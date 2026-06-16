@@ -53,9 +53,9 @@ export default function Login() {
                   </div> */}
                   <ul>
                   <li><p>Monitor your Finances</p></li>
-                  <li><p>Create transactions of expense, income and transfer</p></li>
+                  <li><p>Track your expense, income and investment</p></li>
                   <li><p>Upload receipts using file or camera</p></li>
-                  <li><p>Track your expenses</p></li>
+                  <li><p>Auto generate budget or create your own</p></li>
                   <li><p>View reports</p></li>
                   <li><p>Understand how your money moves with visual and time-based insights.</p></li>
                   <li><p>Build better money habits with a clear view of your daily spending</p></li>
@@ -71,7 +71,7 @@ export default function Login() {
                             <div className="dashboard-card">
                               <h5 className="text-primary fw-bold text-center"> 📊 Track Expenses</h5>
                               <div className="image-wrapper">
-                                <img src="/expense-barchart.jpg" alt="expenses" className="feature-image" />
+                                <img src="/expense-barchart.webp" alt="expenses" className="feature-image" />
                               </div>
                               <p>Build better money habits with a clear view of your spending. </p>
                             </div>
@@ -80,7 +80,7 @@ export default function Login() {
                               <div className="dashboard-card">
                                 <h5 className="text-primary fw-bold text-center">Income donut</h5>
                                 <div className="image-wrapper">
-                                  <img  src="/income-donut.png" alt="income" className="feature-image"/>
+                                  <img  src="/income-donut.webp" alt="income" className="feature-image"/>
                                 </div>
                                 <p>Monitor your income from various sources</p>
                               </div>
@@ -90,7 +90,7 @@ export default function Login() {
                                 <div className="dashboard-card">
                                   <h5 className="text-primary fw-bold text-center"> View expenses by percentage</h5>
                                   <div className="image-wrapper">
-                                      <img src="/expense-piechart.png" alt="expense-piechart" className="feature-image" />  
+                                      <img src="/expense-piechart.webp" alt="expense-piechart" className="feature-image" />  
                                   </div>
                                   <p>Track where money goes.</p>
                                 </div>
@@ -100,7 +100,7 @@ export default function Login() {
                                 <div className="dashboard-card reports-card">
                                   <h5 className="text-primary fw-bold text-center">📈 Reports</h5>
                                   <div className="image-wrapper">
-                                   <img src="/report-page.png" alt="report-page" className="feature-image"/>
+                                   <img src="/report-page.webp" alt="report-page" className="feature-image"/>
                                   </div>
                                   <p>Analyze your finances using various Reports</p>
                                 </div>
@@ -120,7 +120,7 @@ export default function Login() {
                                 <div className="dashboard-card budget-card">
                                   <h5 className="text-primary fw-bold text-center">View Budget Features</h5>
                                   <div className="image-wrapper">
-                                    <img src="/budget-page.png" alt="budget-page" className="feature-image"/>
+                                    <img src="/budget-page.webp" alt="budget-page" className="feature-image"/>
                                   </div>
                                   <p>Auto generate budget or make your own budget</p>
                                 </div>
