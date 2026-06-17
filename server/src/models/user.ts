@@ -15,7 +15,7 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public id!: string;
-  public username !:string;
+  public username!:string;
   public email!: string;
   public passwordHash!: string;
   public resetPasswordToken!: string | null;
