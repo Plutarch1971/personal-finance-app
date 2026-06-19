@@ -4,7 +4,10 @@ import * as accountService from '../services/account.service';
 
 export async function createAccount(req: Request, res: Response){
   try {
-    const userId = (req.user as any).id;
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorization'});
+    }
     const { name, type, currency, initialBalance } = req.body;
     const account = await accountService.createAccount({
     userId,

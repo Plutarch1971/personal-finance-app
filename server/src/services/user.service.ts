@@ -153,7 +153,7 @@ export const resetPassword = async(token: string, password: string): Promise<voi
       });
 
       if (!user) {
-        throw new Error('INVALID TOKEN');
+        throw new Error('INVALID_TOKEN');
       }
 
       if (

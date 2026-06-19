@@ -56,74 +56,74 @@ const ResetPassword: React.FC = () => {
         }
     };
 
-    return (
-        <div className="container mt-5">
-        <div
-            className="card shadow-sm mx-auto p-4"
-            style={{ maxWidth: '450px' }}
-        >
-            <h2 className="text-center mb-4">
-            Reset Password
-            </h2>
+  return (
+    <div className="container mt-5">
+      <div
+        className="card shadow-sm mx-auto p-4"
+        style={{ maxWidth: '450px' }}
+      >
+        <h2 className="text-center mb-4">
+          Reset Password
+        </h2>
 
-            {error && (
-            <div className="alert alert-danger">
-                {error}
-            </div>
-            )}
+        {error && (
+          <div className="alert alert-danger">
+            {error}
+          </div>
+        )}
 
-            {success && (
-            <div className="alert alert-success">
-                {success}
-            </div>
-            )}
+        {success && (
+          <div className="alert alert-success">
+            {success}
+          </div>
+        )}
 
-            <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-                <label className="form-label">
-                New Password
-                </label>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">
+              New Password
+            </label>
 
-                <input
-                type="password"
-                className="form-control"
-                value={password}
-                onChange={(e) =>
-                    setPassword(e.target.value)
-                }
-                required
-                />
-            </div>
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              required
+            />
+          </div>
 
-            <div className="mb-3">
-                <label className="form-label">
-                Confirm Password
-                </label>
+          <div className="mb-3">
+            <label className="form-label">
+              Confirm Password
+            </label>
 
-                <input
-                type="password"
-                className="form-control"
-                value={confirmPassword}
-                onChange={(e) =>
-                    setConfirmPassword(e.target.value)
-                }
-                required
-                />
-            </div>
+            <input
+              type="password"
+              className="form-control"
+              value={confirmPassword}
+              onChange={(e) =>
+                setConfirmPassword(e.target.value)
+              }
+              required
+            />
+          </div>
 
-            <button
-                type="submit"
-                className="btn btn-primary w-100"
-                disabled={loading}
-            >
-                {loading
-                ? 'Resetting Password...'
-                : 'Reset Password'}
-            </button>
-            </form>
-        </div>
-        </div>
-    );
+          <button
+            type="submit"
+            className="btn btn-primary w-100"
+            disabled={loading}
+          >
+            {loading
+              ? 'Resetting Password...'
+              : 'Reset Password'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default ResetPassword;
