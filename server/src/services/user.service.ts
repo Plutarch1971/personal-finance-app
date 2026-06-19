@@ -5,6 +5,10 @@ import sequelize from '../config/connection';
 import { DEFAULT_CATEGORIES } from '../constants/categories';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import crypto from 'crypto';
+import { sendPasswordResetEmail }
+  from './email.service'
+
 
 // Default accounts for new users
 const DEFAULT_ACCOUNTS: {
@@ -110,3 +114,63 @@ export async function loginUser(email: string, password: string) {
 
   return { user, token };
 }
+
+//---------------------------FORGOT PASSWORD SERVICE ---------------------- 
+export const forgotPassword = async ( email: string): Promise<void> => {
+
+      const user = await User.findOne({
+        where: { email }
+      });
+
+      if (!user) {
+        return;
+      }
+
+      const token = crypto.randomBytes(32).toString('hex');
+
+      user.resetPasswordToken = token;
+
+      user.resetPasswordExpires = new Date(Date.now() + 3600000);
+
+      await user.save();
+
+      const resetLink =
+        `${process.env.FRONTEND_URL}/reset-password/${token}`;
+
+      await sendPasswordResetEmail(
+        user.email,
+        resetLink
+      );
+};
+
+//--------------------------- RESET PASSWORD SERVICE-------------------
+export const resetPassword = async(token: string, password: string): Promise<void> => {
+      
+      const user = await User.findOne({
+        where: {
+          resetPasswordToken: token
+         }
+      });
+
+      if (!user) {
+        throw new Error('INVALID TOKEN');
+      }
+
+      if (
+        !user.resetPasswordExpires || 
+      user.resetPasswordExpires < new Date() 
+      ) {
+        throw new Error('TOKEN_EXPIRED');
+      }
+
+      const hash = 
+          await bcrypt.hash(password, 10);
+          user.passwordHash = hash;
+
+          user.resetPasswordToken = null;
+          user.resetPasswordExpires = null;
+
+          await user.save();
+};
+
+

@@ -170,14 +170,17 @@ export default function Login() {
                             {loading ? 'Logging in...' : 'Login'}
                           </button>
                         </form>
-                          <div className="mt-4 text-center">
-                              <p> Don’t have an account?</p>
-                              <Link to="/register" className="text-warning">Register</Link>
-              
-                              <div className="mt-3">
-                              <InstallButton />
-                              </div>
-                          </div>
+
+                        <Link to="/forgot-password">Forgot Password?</Link>
+
+                            <div className="mt-4 text-center">
+                                  <p> Don’t have an account?</p>
+                                  <Link to="/register" className="text-warning">Register</Link>
+                  
+                                  <div className="mt-3">
+                                  <InstallButton />
+                            </div>
+                        </div>
                   </div>                          
         </div>
     </div>
