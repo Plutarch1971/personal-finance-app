@@ -30,9 +30,12 @@ export async function login(req: Request, res: Response) {
 //------------------------- FORGOT PASSWORD CONTROLLER ---------------------//
 export const forgotPassword = async ( req: Request, res: Response) => {
   try {
+    console.log('Forgot password route hit');
+    console.log('Forgot password request:', req.body);
     const { email } = req.body;
 
     await userService.forgotPassword(email);
+    
 
     return res.status(200).json({
       message: 'If the email exists, a reset link has been sent.'

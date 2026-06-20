@@ -12,6 +12,8 @@ import EditTransaction from './pages/EditTransaction';
 import CategoryManager  from './pages/CategoryManager';
 import AddCategory from './components/AddCategory';
 import BudgetPage from './pages/BudgetPage';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   return (
@@ -67,14 +69,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/* <Route
-         path="/receipts/capture"
-         element={
-          <ProtectedRoute>
-            <ReceiptUpload />
-          </ProtectedRoute>
-         }
-         /> */}
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+         <Route
+          path="/reset-password"
+          element={<ResetPassword />}
+        />
         <Route
           path="/add-category"
           element={
