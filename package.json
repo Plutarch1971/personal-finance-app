@@ -15,10 +15,6 @@
     "build:server": "npm run build --workspace server"
   },
   "devDependencies": {
-    "@types/nodemailer": "^8.0.1",
     "concurrently": "^9.2.1"
-  },
-  "dependencies": {
-    "nodemailer": "^9.0.0"
   }
 }

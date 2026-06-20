@@ -171,7 +171,7 @@ export default function Login() {
                           </button>
                         </form>
 
-                        <Link to="/forgot-password">Forgot Password?</Link>
+                        <Link to="/forgot-password" className="text-warning text-center mt-4">Forgot Password?</Link>
 
                             <div className="mt-4 text-center">
                                   <p> Don’t have an account?</p>

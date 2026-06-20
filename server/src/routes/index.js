@@ -1,0 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var user_routes_1 = require("./user.routes");
+var account_routes_1 = require("./account.routes");
+var category_routes_1 = require("./category.routes");
+var transaction_routes_1 = require("./transaction.routes");
+var report_routes_1 = require("./report.routes");
+var receipt_routes_1 = require("./receipt.routes");
+var auth_routes_1 = require("./auth.routes");
+var budget_routes_1 = require("./budget.routes");
+var router = (0, express_1.Router)();
+// Add routes here
+router.use('/users', user_routes_1.default);
+router.use('/accounts', account_routes_1.default);
+router.use('/categories', category_routes_1.default);
+router.use('/transactions', transaction_routes_1.default);
+router.use('/reports', report_routes_1.default);
+router.use('/receipts', receipt_routes_1.default);
+router.use('/auth', auth_routes_1.default);
+router.use('/', budget_routes_1.default);
+exports.default = router;
