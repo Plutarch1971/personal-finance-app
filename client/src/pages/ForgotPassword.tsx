@@ -9,10 +9,13 @@ const ForgotPassword: React.FC = () => {
         e.preventDefault();
         // Call API to request password reset
         try {
-            await api.post ('/auth/forgot-password',{ email });
-            console.log('Reset request submitted for:', email);
-        } catch (err) {
-            console.error(err);
+            console.log("Submitting forgot password request");
+            const response = await api.post ('/auth/forgot-password',{ email });
+            console.log('Success:', response.data);
+        } catch (err: any) {
+            console.error('Status:', err.response?.status);
+            console.error('Data:', err.response?.data);
+            console.error('Error:', err);
         }     
     };
 
