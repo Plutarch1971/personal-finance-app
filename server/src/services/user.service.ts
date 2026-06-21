@@ -137,10 +137,10 @@ export const forgotPassword = async ( email: string): Promise<void> => {
       const resetLink =
         `${process.env.FRONTEND_URL}/reset-password/${token}`;
 
-      // await sendPasswordResetEmail(
-      //   user.email,
-      //   resetLink
-      // );
+      await sendPasswordResetEmail(
+        user.email,
+        resetLink
+      );
       console.log('Reset link:',resetLink);
 };
 
