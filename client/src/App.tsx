@@ -74,7 +74,7 @@ function App() {
           element={<ForgotPassword />}
         />
          <Route
-          path="/reset-password"
+          path="/reset-password/:token"
           element={<ResetPassword />}
         />
         <Route
