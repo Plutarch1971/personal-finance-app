@@ -128,11 +128,15 @@ export const forgotPassword = async ( email: string): Promise<void> => {
 
       const token = crypto.randomBytes(32).toString('hex');
 
+      console.log('Generated token:', token);
+
       user.resetPasswordToken = token;
 
       user.resetPasswordExpires = new Date(Date.now() + 3600000);
 
       await user.save();
+      
+      console.log('Saved token:', user.resetPasswordToken);
 
       const resetLink =
         `${process.env.FRONTEND_URL}/reset-password/${token}`;
