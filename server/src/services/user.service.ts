@@ -146,12 +146,16 @@ export const forgotPassword = async ( email: string): Promise<void> => {
 
 //--------------------------- RESET PASSWORD SERVICE-------------------
 export const resetPassword = async(token: string, password: string): Promise<void> => {
-      
+
+      console.log('Backend token:', token);
+
       const user = await User.findOne({
         where: {
           resetPasswordToken: token
          }
       });
+
+      console.log('User found:', !!user);
 
       if (!user) {
         throw new Error('INVALID_TOKEN');

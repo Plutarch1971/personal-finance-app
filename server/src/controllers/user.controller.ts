@@ -54,36 +54,38 @@ export const forgotPassword = async ( req: Request, res: Response) => {
 
 //---------------------- RESET PASSWORD CONTROLLER--------------------------//
 export const resetPassword = async ( req: Request, res: Response) => {
-  try {
-  const { token } = req.params;
-  const { password } = req.body;
 
-  await userService.resetPassword(token as string, password); //cast { token } to string
-  return res.status(200).json({
-    message: 'Password reset successful'
-  });
- } catch (error) {
-  if (
-    error instanceof Error &&
-    error.message === 'INVALID_TOKEN'
-  ) {
-     return res.status(400).json({
-      message: 'Ivalid token'
-     });
-  }
-  if (
-    error instanceof Error &&
-    error.message === 'TOKEN_EXPIRED'
-  ) {
-     return res.status(400).json({
-      message: 'Token expired'
-     });
-  }
+      console.log('req.params.token:', req.params.token);
+      try {
+      const { token } = req.params;
+      const { password } = req.body;
 
-  console.error(error);
+      await userService.resetPassword(token as string, password); //cast { token } to string
+      return res.status(200).json({
+        message: 'Password reset successful'
+      });
+      } catch (error) {
+      if (
+        error instanceof Error &&
+        error.message === 'INVALID_TOKEN'
+      ) {
+        return res.status(400).json({
+          message: 'Ivalid token'
+        });
+      }
+      if (
+        error instanceof Error &&
+        error.message === 'TOKEN_EXPIRED'
+      ) {
+        return res.status(400).json({
+          message: 'Token expired'
+        });
+      }
 
-  return res.status(500).json({
-    message: 'Server error'
-  });
- }
+      console.error(error);
+
+      return res.status(500).json({
+        message: 'Server error'
+      });
+    }
 };
