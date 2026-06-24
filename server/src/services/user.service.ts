@@ -135,17 +135,22 @@ export const forgotPassword = async ( email: string): Promise<void> => {
       user.resetPasswordExpires = new Date(Date.now() + 3600000);
 
       await user.save();
-      
+
       console.log('Saved token:', user.resetPasswordToken);
 
       const resetLink =
         `${process.env.FRONTEND_URL}/reset-password/${token}`;
-
-      await sendPasswordResetEmail(
-        user.email,
-        resetLink
-      );
-      console.log('Reset link:',resetLink);
+     
+        try{
+            await sendPasswordResetEmail(
+              user.email,
+              resetLink
+            );
+        } catch(error) {
+          console.error("Email send failed", error);
+        }
+        return;
+        
 };
 
 //--------------------------- RESET PASSWORD SERVICE-------------------
