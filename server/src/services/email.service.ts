@@ -6,7 +6,7 @@ export const sendPasswordResetEmail = async (
 ) => {
 
   await resend.emails.send({
-    from: 'SmartBooks <onboarding@resend.dev>',
+    from: 'SmartBooks <noreply@smartbooksfinance.com>',
     to: email,
     subject: 'SmartBooks Password Reset',
     html: `
