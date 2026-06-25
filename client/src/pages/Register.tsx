@@ -59,13 +59,13 @@ export default function Register(){
                 <div className="text-center py-5 mt-4 login-header">
                     <h1 className="text-warning display-5 fw-bold mb-2 login-title">SmartBooksFinance</h1> 
                 </div>
-                <div className="row w-100 justify-content-center g-5 align-items-center flex-grow-1 px-4 pb-4"> 
+                <div className="row w-100 justify-content-center g-3 g-md-5 align-items-center flex-grow-1 px-2 px-md-4 pb-4"> 
                     <div className="col-12 col-lg-5 d-flex justify-content-center align-items-center">
                         <img src="/smartbooks-logo-bg-1024x500.webp" className="img-fluid mb-2" alt="expense-barchart" />
                     </div>
 
-                    <div className="col-12 col-lg-5 d-flex justify-content-center align-items-center">
-                        <div className="container bg-card mb-4 p-5 rounded-4 w-100" style={{ maxWidth: '30rem' }}>
+                    <div className="col-12 col-lg-5 d-flex justify-content-center align-items-center px-3 px-md-4">
+                        <div className="container bg-card mb-4 p-4 p-md-5 rounded-4 w-100">
                             <h2 className="text-center mb-4">Registration Form</h2>
                             {error && <div className="alert alert-danger">{error}</div>}
                             <form onSubmit={handleSubmit}>
