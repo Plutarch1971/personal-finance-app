@@ -164,3 +164,17 @@ This project demonstrates:
 •	Responsive UI
 •	Financial reporting logic
  
+# Implemented Features so far: 
+User registration and login
+✅ JWT authentication
+✅ PostgreSQL (Neon)
+✅ Render backend deployment
+✅ Vercel frontend deployment
+✅ Custom domain (smartbooksfinance.com)
+✅ PWA + Android app
+✅ Password reset using Resend
+✅ Budgets
+✅ Reports
+✅ Categories
+✅ Accounts
+✅ Transactions
