@@ -8,6 +8,7 @@ import receiptRoutes from './receipt.routes';
 import authRoutes from './auth.routes';
 import budgetRoutes from './budget.routes';
 
+
 const router = Router();
 // Add routes here
 router.use('/users', userRoutes);

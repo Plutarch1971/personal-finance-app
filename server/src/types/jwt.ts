@@ -1,5 +1,6 @@
 //jwt.ts
 export interface AuthPayload {
-    id: string;
-    email: string;
+  id: string;
+  email: string;
+  username: string;
 }

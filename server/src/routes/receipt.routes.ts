@@ -5,6 +5,7 @@ import {
     confirmReceiptToTransaction,
 } from '../controllers/receipt-ai.controller';
 import { authenticateToken } from '../middleware/auth';
+import { verifySubscription } from '../middleware/subscription.middleware';
 
 const router = Router();
 
@@ -23,7 +24,7 @@ const upload = multer({
     }
 })
 
-router.post('/extract', authenticateToken, upload.single('receipt'), extractReceipt);
-router.post('/confirm', authenticateToken, confirmReceiptToTransaction);
+router.post('/extract', authenticateToken, verifySubscription, upload.single('receipt'), extractReceipt);
+router.post('/confirm', authenticateToken, verifySubscription, confirmReceiptToTransaction);
 
 export default router;

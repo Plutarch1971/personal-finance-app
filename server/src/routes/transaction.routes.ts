@@ -7,12 +7,14 @@ import {
     getTransactionById 
 } from '../controllers/transaction.controller';
 import { authenticateToken } from '../middleware/auth';
+import { verifySubscription } from '../middleware/subscription.middleware';
 
 const router = Router();
 
-router.post('/', authenticateToken, createTransaction );
-router.get('/', authenticateToken,getTransactions);
-router.get('/:id', authenticateToken, getTransactionById);
-router.delete('/:id', authenticateToken, deleteTransaction);
-router.put('/:id', authenticateToken, updateTransaction)
+router.post('/', authenticateToken, verifySubscription, createTransaction );
+router.get('/', authenticateToken,verifySubscription, getTransactions);
+router.get('/:id', authenticateToken, verifySubscription, getTransactionById);
+router.delete('/:id', authenticateToken, verifySubscription, deleteTransaction);
+router.put('/:id', authenticateToken, verifySubscription, updateTransaction)
+
 export default router;
