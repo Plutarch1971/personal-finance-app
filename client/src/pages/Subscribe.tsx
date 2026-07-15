@@ -1,5 +1,6 @@
 // Subscribe.tsx
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 type PlanId = 'monthly' | 'yearly';
 
@@ -25,12 +26,17 @@ const plans: Plan[] = [
         name: 'Yearly',
         price: 'CAD 49.99',
         period: '/ year',
-        description: 'Full access, billed yearly. Save over 16%.',
+        description: 'Full access, billed yearly. Save 17% compared with monthly billing.',
         highlight: 'Best value',
     },
 ];
 
-export function Subscribe() {
+const Subscribe: React.FC= () => {
+
+    const auth = useAuth();
+    if (!auth) return null;
+    const { logout } = auth;
+
     const [selectedPlan, setSelectedPlan] = useState<PlanId>('yearly');
 
     return (
@@ -39,11 +45,14 @@ export function Subscribe() {
 
                 {/* ===== HEADER / MESSAGE ===== */}
                 <div className="text-center mb-4">
-                    <img src="pwa-192.webp" alt="smartbooks-logo" style={{ width: '64px', height: '64px' }} className="mb-3" />
+                    <img src="/pwa-192.webp" alt="SmartBooks Finance" style={{ width: '64px', height: '64px' }} className="mb-3" />
                     <h2 className="text-warning fw-bold mb-3">Your trial has expired</h2>
                     <p className="text-white fs-5 mb-0">
-                        Your trial of 14 days have expired, to continue using
-                        <span className="fw-bold"> SmartBooksFinance</span> you are required to subscribe.
+                        Your 14-day free trial has expired.
+                    </p>
+
+                    <p className="text-white">Choose a subscription below to continue using
+                        <span className="fw-bold text-warning"> SmartBooksFinance</span>
                     </p>
                 </div>
 
@@ -90,12 +99,24 @@ export function Subscribe() {
                     <button type="button" className="btn btn-primary btn-lg fw-bold" disabled>
                         Stripe Checkout coming soon
                     </button>
-                </div>
+              
+                    
+                <p className="text-white-50 text-center small mt-3 mb-0"> ✔  Secure payments powered by Stripe</p>
+                <p className="text-white-50 text-center small mt-3 mb-0"> ✔ Cancel anytime</p>
+                <p className="text-white-50 text-center small mt-3 mb-0"> ✔  No hidden fees</p>
+                  </div>
+                  
+                  <div className="d-flex align-items-center justify-content-center mt-3">
+                   <button className="btn btn-primary bg-danger"
+                    onClick={logout}
+                    >
+                        Logout
+                    </button>
 
-                <p className="text-white-50 text-center small mt-3 mb-0">
-                    Secure payments will be powered by Stripe.
-                </p>
+                   </div>
             </div>
         </div>
     );
 }
+
+export default Subscribe;

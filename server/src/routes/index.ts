@@ -7,6 +7,7 @@ import reportRoutes from './report.routes';
 import receiptRoutes from './receipt.routes';
 import authRoutes from './auth.routes';
 import budgetRoutes from './budget.routes';
+import subscriptionRoutes from './subscription.routes';
 
 
 const router = Router();
@@ -19,5 +20,6 @@ router.use('/reports', reportRoutes);
 router.use('/receipts', receiptRoutes);
 router.use('/auth', authRoutes);
 router.use('/', budgetRoutes);
+router.use('/subscriptions', subscriptionRoutes);
 
 export default router;
