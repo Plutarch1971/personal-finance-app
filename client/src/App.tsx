@@ -14,7 +14,7 @@ import AddCategory from "./components/AddCategory";
 import BudgetPage from "./pages/BudgetPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import { Subscribe } from "./pages/Subscribe";
+import  Subscribe  from "./pages/Subscribe";
 
 function App() {
   return (
