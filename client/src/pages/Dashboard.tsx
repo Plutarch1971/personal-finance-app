@@ -12,19 +12,7 @@ const ExpenseByThirtyCard = lazy(
 
 export default function Dashboard() {
   const auth = useAuth();
-  if (!auth) return null;
-  const { logout, token } = auth;
-
-  const username = token
-    ? (() => {
-        try {
-          const payload = JSON.parse(atob(token.split(".")[1]));
-          return payload.username ?? payload.name ?? payload.email ?? "User";
-        } catch {
-          return "User";
-        }
-      })()
-    : "User";
+  const { logout, token } = auth || { logout: () => {}, token: null };
 
   const [summary, setSummary] = useState({
     income: 0,
@@ -52,7 +40,7 @@ export default function Dashboard() {
         });
 
         setSummary(res.data);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("Failed to load monthly summary:", error);
         setSummary({ income: 0, expense: 0, net: 0 });
       } finally {
@@ -62,6 +50,19 @@ export default function Dashboard() {
 
     load();
   }, []);
+
+  if (!auth) return null;
+
+  const username = token
+    ? (() => {
+        try {
+          const payload = JSON.parse(atob(token.split(".")[1]));
+          return payload.username ?? payload.name ?? payload.email ?? "User";
+        } catch {
+          return "User";
+        }
+      })()
+    : "User";
 
   if (loading) {
     return <div className="container text-white mt-5">Loading...</div>;
