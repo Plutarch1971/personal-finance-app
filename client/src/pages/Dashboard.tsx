@@ -10,9 +10,35 @@ const ExpenseByThirtyCard = lazy(
   () => import("../components/ExpenseByThirtyCard"),
 );
 
+function formatTrialCountdown(trialEndDate?: string | null) {
+  if (!trialEndDate) return null;
+
+  const endDate = new Date(trialEndDate);
+  const now = new Date();
+  const diffMs = endDate.getTime() - now.getTime();
+
+  if (diffMs <= 0) {
+    return "Your free trial has expired.";
+  }
+
+  const totalHours = Math.ceil(diffMs / (1000 * 60 * 60));
+  const days = Math.floor(totalHours / 24);
+  const hours = totalHours % 24;
+
+  if (days > 0) {
+    return `${days} day${days > 1 ? "s" : ""} and ${hours} hour${hours === 1 ? "" : "s"} remaining in your free trial.`;
+  }
+
+  return `${hours} hour${hours === 1 ? "" : "s"} remaining in your free trial.`;
+}
+
 export default function Dashboard() {
   const auth = useAuth();
-  const { logout, token } = auth || { logout: () => {}, token: null };
+  const { logout, token, user } = auth || {
+    logout: () => {},
+    token: null,
+    user: null,
+  };
 
   const [summary, setSummary] = useState({
     income: 0,
@@ -64,6 +90,11 @@ export default function Dashboard() {
       })()
     : "User";
 
+  const trialMessage =
+    user?.subscriptionStatus === "trial"
+      ? formatTrialCountdown(user?.trialEndDate)
+      : null;
+
   if (loading) {
     return <div className="container text-white mt-5">Loading...</div>;
   }
@@ -75,7 +106,14 @@ export default function Dashboard() {
           <span className="fw-normal">Welcome</span>
           <strong className="ms-2">{username}</strong>
         </p>
-        <h2 className="text-center text-white fs-1 mt-2 mb-5">Dashboard</h2>
+        <h2 className="text-center text-white fs-1 mt-2 mb-3">Dashboard</h2>
+        {trialMessage && (
+          <div className="text-center mb-4">
+            <span className="badge bg-warning text-dark px-3 py-2 fs-6">
+              ⏳ {trialMessage}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="row mt-4">
