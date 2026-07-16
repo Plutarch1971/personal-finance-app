@@ -1,6 +1,7 @@
 // Subscribe.tsx
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 type PlanId = 'monthly' | 'yearly';
 
@@ -33,11 +34,13 @@ const plans: Plan[] = [
 
 const Subscribe: React.FC= () => {
 
+    const navigate = useNavigate();
+
+    const [selectedPlan, setSelectedPlan] = useState<PlanId>('yearly');
+
     const auth = useAuth();
     if (!auth) return null;
     const { logout } = auth;
-
-    const [selectedPlan, setSelectedPlan] = useState<PlanId>('yearly');
 
     return (
         <div className="d-flex justify-content-center align-items-start px-3 py-5" style={{ minHeight: '100vh' }}>
@@ -107,6 +110,14 @@ const Subscribe: React.FC= () => {
                   </div>
                   
                   <div className="d-flex align-items-center justify-content-center mt-3">
+
+                    <button
+                        className="btn btn-outline-light"
+                        onClick={() => navigate("/dashboard")}
+                    >
+                        Dashboard
+                    </button>
+
                    <button className="btn btn-primary bg-danger"
                     onClick={logout}
                     >
