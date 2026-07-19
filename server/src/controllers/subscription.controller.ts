@@ -3,7 +3,14 @@ import { Request, Response } from "express";
 import * as subscriptionService from "../services/subscription.service";
 
 export async function createCheckoutSession(req: Request, res: Response) {
+
   try {
+     if (!req.user) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
     const { plan } = req.body;
 
     if (plan !== "monthly" && plan !== "yearly") {
@@ -12,21 +19,13 @@ export async function createCheckoutSession(req: Request, res: Response) {
       });
     }
 
-    if (!req.user) {
-      return res.status(401).json({
-        message: "Unauthorized",
-      });
-    }
-
-    const checkoutUrl = await subscriptionService.createCheckoutSession(
+    const url = await subscriptionService.createCheckoutSession(
       req.user.id,
       req.user.email,
       plan,
     );
 
-    return res.json({
-      url: checkoutUrl,
-    });
+    return res.json({ url });
   } catch (error) {
     console.error(error);
 

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
 
 type PlanId = "monthly" | "yearly";
 
@@ -37,11 +38,41 @@ const Subscribe: React.FC = () => {
   const navigate = useNavigate();
 
   const [selectedPlan, setSelectedPlan] = useState<PlanId>("yearly");
+  const [loading, setLoading] = useState(false);
+  const [, setError] = useState("");
 
   const auth = useAuth();
   if (!auth) return null;
   const { logout } = auth;
 
+  const handleSubscribe = async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await api.post(
+        "/subscriptions/create-checkout-session",
+        {
+          plan: selectedPlan,
+        },
+      );
+
+      const checkoutUrl = response.data.url;
+
+      if (!checkoutUrl) {
+        setError("Checkout URL not found");
+        return;
+      }
+
+      window.location.href = checkoutUrl;
+    } catch (err: unknown) {
+      console.error(err);
+      setError("Unable to start checkout");
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div
       className="d-flex justify-content-center align-items-start px-3 py-5"
@@ -115,11 +146,12 @@ const Subscribe: React.FC = () => {
         {/* ===== CTA ===== */}
         <div className="d-grid">
           <button
+            disabled={loading}
             type="button"
             className="btn btn-primary btn-lg fw-bold"
-            disabled
+            onClick={handleSubscribe}
           >
-            Stripe Checkout coming soon
+            {loading ? "Redirecting....." : "Subscribe Now"}
           </button>
 
           <p className="text-white-50 text-center small mt-3 mb-0">
