@@ -1,5 +1,6 @@
 //subscription.service.ts
 import Stripe from "stripe";
+import { User } from '../models/user';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -44,3 +45,4 @@ export async function createCheckoutSession(
 
   return session.url;
 }
+

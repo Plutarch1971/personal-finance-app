@@ -15,6 +15,8 @@ import BudgetPage from "./pages/BudgetPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import  Subscribe  from "./pages/Subscribe";
+import SubscriptionSuccess from "./pages/SubscriptionSuccess";
+import SubscriptionCancel from "./pages/SubscriptionCancel";
 
 function App() {
   return (
@@ -25,6 +27,16 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          
+          <Route
+            path="/subscription-success"
+            element={<SubscriptionSuccess />}
+          />
+
+          <Route
+            path="/subscription-cancel"
+            element={<SubscriptionCancel />}
+          />
 
           <Route
             path="/report"
