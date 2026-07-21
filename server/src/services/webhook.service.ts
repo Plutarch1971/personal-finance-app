@@ -37,6 +37,12 @@ export async function handleWebhookEvent(event: Stripe.Event) {
       break;
     }
 
+    case "customer.subscription.updated": {
+        const subscription = event.data.object as Stripe.Subscription;
+
+        console.log("Subscription update:", subscription.id);
+    }
+
     default:
       console.log(`Unhandled event: ${event.type}`);
   }
