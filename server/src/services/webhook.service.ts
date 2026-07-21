@@ -15,13 +15,13 @@ export async function handleWebhookEvent(event: Stripe.Event) {
       }
 
       const stripeCustomerId = session.customer as string;
-      const stripeSubscriptionId = session.subscription as string;
+      const subscriptionId = session.subscription as string;
 
       const [updatedRows] = await User.update(
         {
           subscriptionStatus: "active",
           stripeCustomerId,
-          stripeSubscriptionId,
+          subscriptionId,
         },
         {
           where: { id: userId },
