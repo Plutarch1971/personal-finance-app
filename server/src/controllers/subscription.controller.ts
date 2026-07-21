@@ -2,10 +2,11 @@
 import { Request, Response } from "express";
 import * as subscriptionService from "../services/subscription.service";
 
-export async function createCheckoutSession(req: Request, res: Response) {
+class SubscriptionExistsError extends Error {}
 
+export async function createCheckoutSession(req: Request, res: Response) {
   try {
-     if (!req.user) {
+    if (!req.user) {
       return res.status(401).json({
         message: "Unauthorized",
       });
@@ -28,6 +29,15 @@ export async function createCheckoutSession(req: Request, res: Response) {
     return res.json({ url });
   } catch (error) {
     console.error(error);
+
+    if (
+      error instanceof Error &&
+      error.message === "You already have an active subscription."
+    ) {
+      return res.status(409).json({
+        message: error.message,
+      });
+    }
 
     return res.status(500).json({
       message: "Unable to create checkout session",
