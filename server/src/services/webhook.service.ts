@@ -38,9 +38,59 @@ export async function handleWebhookEvent(event: Stripe.Event) {
     }
 
     case "customer.subscription.updated": {
-        const subscription = event.data.object as Stripe.Subscription;
+      const subscription = event.data.object as Stripe.Subscription;
 
-        console.log("Subscription update:", subscription.id);
+      console.log(
+        "Subscription update:",
+        subscription.id,
+        "Status:",
+        subscription.status,
+      );
+
+      let subscriptionStatus: string;
+
+      switch (subscription.status) {
+        case "active":
+        case "trialing":
+          subscriptionStatus = "active";
+          break;
+
+        case "past_due":
+          subscriptionStatus = "past_due";
+          break;
+
+        case "canceled":
+          subscriptionStatus = "cancelled";
+          break;
+
+        case "unpaid":
+          subscriptionStatus = "inactive";
+          break;
+
+        default:
+          subscriptionStatus = "inactive";
+      }
+
+        const [updatedRows] = await User.update(
+            { subscriptionStatus},
+            {
+                where: {
+                    subscriptionId: subscription.id,
+                },
+            },
+        );
+
+        if (updatedRows === 0) {
+            console.warn(
+                `No user found with ${subscription.id}`,
+            );
+        }
+
+        console.log(
+            `Subscription ${subscription.id} updated to ${subscriptionStatus}`,
+        )
+
+      break;
     }
 
     default:
