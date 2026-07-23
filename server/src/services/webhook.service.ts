@@ -93,6 +93,36 @@ export async function handleWebhookEvent(event: Stripe.Event) {
       break;
     }
 
+    case "customer.subscription.deleted": {
+        const subscription = event.data.object as Stripe.Subscription;
+
+        console.log(
+            "Subscription deleted:", 
+            subscription.id,
+        );
+
+        const [updatedRows] = await User.update(
+            {
+                subscriptionStatus: "cancelled",
+                subscriptionId: null,
+            }, {
+                where: {
+                    subscriptionId: subscription.id,
+                },
+            },
+        );
+        if (updatedRows === 0) {
+            console.warn(
+            `No user found with subscriptionId ${subscription.id}`,
+            );
+            }
+
+            console.log(
+            `Subscription ${subscription.id} cancelled.`,
+            );
+
+        break;
+    }
     default:
       console.log(`Unhandled event: ${event.type}`);
   }
