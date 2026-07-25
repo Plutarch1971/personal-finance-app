@@ -49,6 +49,14 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const handleManageSubscription = async () => {
+    const response = await api.post(
+      "/customer-portal/createCustomerPortalSession",
+    );
+
+    window.location.href = response.data.url;
+  };
+
   useEffect(() => {
     async function load() {
       setLoading(true);
@@ -162,6 +170,16 @@ export default function Dashboard() {
             >
               Subscription Page
             </button>
+
+            {user?.subscriptionStatus === "active" && (
+              <button
+                className="btn btn-warning py-2"
+                onClick={handleManageSubscription}
+              >
+                Manage Subscription
+              </button>
+            )}
+
             <button className="btn btn-danger mt-3 py-2" onClick={logout}>
               Logout
             </button>

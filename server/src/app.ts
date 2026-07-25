@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import routes from "./routes";
 import webhookRoutes from "./routes/webhook.routes";
+import customerPortalRoutes from "./routes/customerPortal.routes";
 
 const app = express();
 
@@ -24,5 +25,10 @@ app.use(
 app.use(express.json());
 
 app.use("/api", routes);
+
+app.use(
+  "/api/customer-portal",
+  customerPortalRoutes,
+)
 
 export default app;
