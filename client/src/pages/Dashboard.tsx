@@ -100,7 +100,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="container-fluid py-2">
+    <div className="px-3 px-md-4">
       <div className="mb-4 mt-4">
         <p className="text-white text-end pe-3 fs-5 m-0">
           <span className="fw-normal">Welcome</span>

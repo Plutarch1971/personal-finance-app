@@ -74,10 +74,7 @@ const Subscribe: React.FC = () => {
     }
   };
   return (
-    <div
-      className="d-flex justify-content-center align-items-start px-3 py-5"
-      style={{ minHeight: "100vh" }}
-    >
+    <div className="d-flex justify-content-center align-items-start px-3 py-5">
       <div className="w-100" style={{ maxWidth: "720px" }}>
         {/* ===== HEADER / MESSAGE ===== */}
         <div className="text-center mb-4">

@@ -14,7 +14,7 @@ import AddCategory from "./components/AddCategory";
 import BudgetPage from "./pages/BudgetPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import  Subscribe  from "./pages/Subscribe";
+import Subscribe from "./pages/Subscribe";
 import SubscriptionSuccess from "./pages/SubscriptionSuccess";
 import SubscriptionCancel from "./pages/SubscriptionCancel";
 
@@ -23,99 +23,100 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          
-          <Route
-            path="/subscription-success"
-            element={<SubscriptionSuccess />}
-          />
+          <Route element={<Layout />}>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-          <Route
-            path="/subscription-cancel"
-            element={<SubscriptionCancel />}
-          />
+            <Route
+              path="/subscription-success"
+              element={<SubscriptionSuccess />}
+            />
 
-          <Route
-            path="/report"
-            element={
-              <ProtectedRoute>
-                <Report />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/subscription-cancel"
+              element={<SubscriptionCancel />}
+            />
 
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/transactions/new"
-            element={
-              <ProtectedRoute>
-                <AddTransaction />
-              </ProtectedRoute>
-            }
-          />
-          {/**To add a new transaction */}
-          <Route
-            path="/transactions"
-            element={
-              <ProtectedRoute>
-                <Transactions />
-              </ProtectedRoute>
-            }
-          />
-          {/* To view all the transactions*/}
-          <Route
-            path="transactions/:id/edit"
-            element={
-              <ProtectedRoute>
-                <EditTransaction />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/categories"
-            element={
-              <ProtectedRoute>
-                <CategoryManager />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route
-            path="/add-category"
-            element={
-              <ProtectedRoute>
-                <AddCategory onClose={() => window.history.back()} />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/budget"
-            element={
-              <ProtectedRoute>
-                <BudgetPage />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/report"
+              element={
+                <ProtectedRoute>
+                  <Report />
+                </ProtectedRoute>
+              }
+            />
 
-          <Route
-            path="/subscribe"
-            element={
-              <ProtectedRoute>
-                <Subscribe />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/transactions/new"
+              element={
+                <ProtectedRoute>
+                  <AddTransaction />
+                </ProtectedRoute>
+              }
+            />
+            {/**To add a new transaction */}
+            <Route
+              path="/transactions"
+              element={
+                <ProtectedRoute>
+                  <Transactions />
+                </ProtectedRoute>
+              }
+            />
+            {/* To view all the transactions*/}
+            <Route
+              path="transactions/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <EditTransaction />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/categories"
+              element={
+                <ProtectedRoute>
+                  <CategoryManager />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route
+              path="/add-category"
+              element={
+                <ProtectedRoute>
+                  <AddCategory onClose={() => window.history.back()} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/budget"
+              element={
+                <ProtectedRoute>
+                  <BudgetPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/subscribe"
+              element={
+                <ProtectedRoute>
+                  <Subscribe />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

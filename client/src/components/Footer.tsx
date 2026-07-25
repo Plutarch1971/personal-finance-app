@@ -1,10 +1,10 @@
 export default function Footer() {
   return (
-    <footer className="text-light py-2 mt-auto border-top">
+    <footer className="w-100 text-light py-2 mt-auto border-top">
       <div className="container-fluid d-flex justify-content-between px-4">
-        <div>
+        <div className="d-flex align-items-center gap-3">
           <img
-            src="/pwa-1024.webp"
+            src="/pwa-512.webp"
             alt="Smart Book logo"
             style={{ height: "32px" }}
           />
@@ -12,7 +12,7 @@ export default function Footer() {
         </div>
 
         <div className="d-flex flex-column">
-          <h6>© 2026 Matt-solutions</h6>
+          <h6>©matt-solutions</h6>
           <p>Email: smartbooksfinanceapp@gmail.com</p>
         </div>
       </div>
