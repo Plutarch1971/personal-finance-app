@@ -49,7 +49,7 @@ export default function Register() {
     }
   };
   return (
-    <div className="container-fluid d-flex flex-column">
+    <div className="container-fluid d-flex flex-column h-100 overflow-hidden">
       {/* removed : h-100 overflow-hidden in the first div to allow footer to appear */}
       <div className="text-center py-5 mt-4 login-header">
         <h1 className="text-warning display-5 fw-bold mb-2 login-title">
