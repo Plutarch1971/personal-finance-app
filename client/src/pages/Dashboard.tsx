@@ -50,8 +50,9 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   const handleManageSubscription = async () => {
+    console.log("Calling new customer portal endpoint");
     const response = await api.post(
-      "/customer-portal/createCustomerPortalSession",
+      "/customer-portal/create-customer-portal-session",
     );
 
     window.location.href = response.data.url;
