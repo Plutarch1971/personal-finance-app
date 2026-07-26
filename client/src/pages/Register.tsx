@@ -49,9 +49,8 @@ export default function Register() {
     }
   };
   return (
-    <div className="container-fluid d-flex flex-column h-100 overflow-hidden">
-      {/* removed : h-100 overflow-hidden in the first div to allow footer to appear */}
-      <div className="text-center py-5 mt-4 login-header">
+    <div className="container-fluid d-flex flex-column">
+      <div className="text-center py-3 mt-2 login-header">
         <h1 className="text-warning display-5 fw-bold mb-2 login-title">
           SmartBooksFinance
         </h1>
@@ -59,14 +58,17 @@ export default function Register() {
       <div className="row w-100 justify-content-center g-3 g-md-5 align-items-center flex-grow-1 px-2 px-md-4 pb-4">
         <div className="col-12 col-lg-5 d-flex justify-content-center align-items-center">
           <img
-            src="/smartbooks-logo-bg-1024x500.webp"
+            src="/pwa-512.webp"
             className="img-fluid mb-2"
             alt="expense-barchart"
           />
         </div>
 
         <div className="col-12 col-lg-5 d-flex justify-content-center align-items-center px-3 px-md-4">
-          <div className="container bg-card mb-4 p-4 p-md-5 rounded-4 w-100">
+          <div
+            className="container card bg-card mb-3 p-3 p-md-4 rounded-4"
+            style={{ maxWidth: "70%" }}
+          >
             <h2 className="text-center mb-4">Registration Form</h2>
             {error && <div className="alert alert-danger">{error}</div>}
             <form onSubmit={handleSubmit}>

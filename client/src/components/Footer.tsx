@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="w-100 text-light py-2 mt-auto border-top">
+    <footer className="w-100 text-light py-2 mt-2 border-top">
       <div className="container-fluid d-flex justify-content-between px-4">
         <div className="d-flex align-items-center gap-3">
           <img

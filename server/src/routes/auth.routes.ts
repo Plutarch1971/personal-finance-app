@@ -1,3 +1,4 @@
+//auth.routs.ts
 import { Router } from 'express';
 import { register, login, forgotPassword, resetPassword } from '../controllers/user.controller';
 

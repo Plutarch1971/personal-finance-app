@@ -1,3 +1,4 @@
+//Dashboard.tsx
 import { lazy, Suspense, useEffect, useState } from "react";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
@@ -104,6 +105,11 @@ export default function Dashboard() {
       ? formatTrialCountdown(user?.trialEndDate)
       : null;
 
+  const trialExpired =
+    user?.subscriptionStatus === "trial" &&
+    !!user?.trialEndDate &&
+    new Date(user.trialEndDate) <= new Date();
+
   if (loading) {
     return <div className="container text-white mt-5">Loading...</div>;
   }
@@ -116,12 +122,25 @@ export default function Dashboard() {
           <strong className="ms-2">{username}</strong>
         </p>
         <h2 className="text-center text-white fs-1 mt-2 mb-3">Dashboard</h2>
-        {trialMessage && (
-          <div className="text-center mb-4">
-            <span className="badge bg-warning text-dark px-3 py-2 fs-6">
-              ⏳ {trialMessage}
-            </span>
+        {trialExpired ? (
+          <div className="alert alert-danger text-center mb-w">
+            <h5>Your 14-day free trial has expired</h5>
+            <p>Subscribe to continue using SmartBooks Finance</p>
+            <button
+              className="btn btn-success"
+              onClick={() => navigate("/subscribe")}
+            >
+              Subscribe
+            </button>
           </div>
+        ) : (
+          trialMessage && (
+            <div className="text-center mb-4">
+              <span className="badge bg-warning text-dark px-3 py-2 fs-6">
+                ⏳ {trialMessage}
+              </span>
+            </div>
+          )
         )}
       </div>
 
@@ -133,6 +152,12 @@ export default function Dashboard() {
           <div className="d-flex flex-column flex-wrap gap-2 justify-content-center justify-content-lg-start">
             <button
               className="btn btn-outline-light py-2"
+              disabled={trialExpired}
+              title={ 
+                trialExpired 
+                ? "Your trial has expired"
+                : ""
+              }
               onClick={() => navigate("/transactions/new")}
             >
               Transaction Page
@@ -140,6 +165,12 @@ export default function Dashboard() {
 
             <button
               className="btn btn-outline-light py-2"
+              disabled={trialExpired}
+              title={ 
+                trialExpired 
+                ? "Your trial has expired"
+                : ""
+              }
               onClick={() => navigate("/transactions")}
             >
               View Transactions
@@ -147,6 +178,12 @@ export default function Dashboard() {
 
             <button
               className="btn btn-outline-light py-2"
+              disabled={trialExpired}
+              title={ 
+                trialExpired 
+                ? "Your trial has expired"
+                : ""
+              }
               onClick={() => navigate("/report")}
             >
               View Reports
@@ -154,6 +191,12 @@ export default function Dashboard() {
 
             <button
               className="btn btn-outline-light py-2"
+              disabled={trialExpired}
+              title={ 
+                trialExpired 
+                ? "Your trial has expired"
+                : ""
+              }
               onClick={() => navigate("/categories")}
             >
               Manage Category
@@ -161,6 +204,12 @@ export default function Dashboard() {
 
             <button
               className="btn btn-outline-light py-2"
+              disabled={trialExpired}
+              title={ 
+                trialExpired 
+                ? "Your trial has expired"
+                : ""
+              }
               onClick={() => navigate("/budget")}
             >
               Manage Budget
@@ -175,6 +224,7 @@ export default function Dashboard() {
             {user?.subscriptionStatus === "active" && (
               <button
                 className="btn btn-warning py-2"
+                disabled={trialExpired}
                 onClick={handleManageSubscription}
               >
                 Manage Subscription
