@@ -115,7 +115,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="px-3 px-md-4">
+    <div className="px-3 px-md-4 py-4">
       <div className="mb-4 mt-4">
         <p className="text-white text-end pe-3 fs-5 m-0">
           <span className="fw-normal">Welcome</span>
@@ -153,11 +153,7 @@ export default function Dashboard() {
             <button
               className="btn btn-outline-light py-2"
               disabled={trialExpired}
-              title={ 
-                trialExpired 
-                ? "Your trial has expired"
-                : ""
-              }
+              title={trialExpired ? "Your trial has expired" : ""}
               onClick={() => navigate("/transactions/new")}
             >
               Transaction Page
@@ -166,11 +162,7 @@ export default function Dashboard() {
             <button
               className="btn btn-outline-light py-2"
               disabled={trialExpired}
-              title={ 
-                trialExpired 
-                ? "Your trial has expired"
-                : ""
-              }
+              title={trialExpired ? "Your trial has expired" : ""}
               onClick={() => navigate("/transactions")}
             >
               View Transactions
@@ -179,11 +171,7 @@ export default function Dashboard() {
             <button
               className="btn btn-outline-light py-2"
               disabled={trialExpired}
-              title={ 
-                trialExpired 
-                ? "Your trial has expired"
-                : ""
-              }
+              title={trialExpired ? "Your trial has expired" : ""}
               onClick={() => navigate("/report")}
             >
               View Reports
@@ -192,11 +180,7 @@ export default function Dashboard() {
             <button
               className="btn btn-outline-light py-2"
               disabled={trialExpired}
-              title={ 
-                trialExpired 
-                ? "Your trial has expired"
-                : ""
-              }
+              title={trialExpired ? "Your trial has expired" : ""}
               onClick={() => navigate("/categories")}
             >
               Manage Category
@@ -205,11 +189,7 @@ export default function Dashboard() {
             <button
               className="btn btn-outline-light py-2"
               disabled={trialExpired}
-              title={ 
-                trialExpired 
-                ? "Your trial has expired"
-                : ""
-              }
+              title={trialExpired ? "Your trial has expired" : ""}
               onClick={() => navigate("/budget")}
             >
               Manage Budget

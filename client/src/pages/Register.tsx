@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
+import Footer from "../components/Footer";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -66,8 +67,8 @@ export default function Register() {
 
         <div className="col-12 col-lg-5 d-flex justify-content-center align-items-center px-3 px-md-4">
           <div
-            className="container card bg-card mb-3 p-3 p-md-4 rounded-4"
-            style={{ maxWidth: "70%" }}
+            className="card bg-card mb-3 p-3 p-md-4 rounded-4 w-100"
+            style={{ maxWidth: "540px" }}
           >
             <h2 className="text-center mb-4">Registration Form</h2>
             {error && <div className="alert alert-danger">{error}</div>}
@@ -111,6 +112,11 @@ export default function Register() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
+              <p className="small text-center mt-3">
+                By creating an account you agree to our{" "}
+                <Link to="/terms">Terms of Service</Link> and{" "}
+                <Link to="/privacy">Privacy Policy</Link>.
+              </p>
 
               <button
                 className="btn btn-primary w-100 fs-4 fw-semibold"
@@ -127,4 +133,6 @@ export default function Register() {
       </div>
     </div>
   );
+
+  <Footer />;
 }
