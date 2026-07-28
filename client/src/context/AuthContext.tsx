@@ -1,22 +1,6 @@
 //AuthContext.tsx
-import { createContext, useContext, useState } from 'react';
-
-interface AuthUser {
-  id?: number;
-  username?: string;
-  email?: string;
-  trialEndDate?: string | null;
-  subscriptionStatus?: string;
-}
-
-interface AuthContextType {
-  token: string | null;
-  user: AuthUser | null;
-  login: (token: string, user?: AuthUser | null) => void;
-  logout: () => void;
-}
-
-const AuthContext = createContext<AuthContextType | null>(null);
+import { useState } from 'react';
+import { AuthContext, type AuthUser } from "../context/auth-context";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
@@ -44,6 +28,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const updateUser = (userData: AuthUser) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -52,10 +41,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logout }}>
+    <AuthContext.Provider 
+    value={{ token, user, login, logout, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);

@@ -4,7 +4,7 @@ import MonthlySummaryCard from '../components/MonthlySummaryCard';
 //import PieChartReport from '../components/PiechartReport';
 import AccountTable from '../components/AccountTable';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; 
+import { useAuth } from '../context/useAuth'; 
 const PieChartReport = lazy(() => import('../components/PiechartReport'));
 
 export default function Report(){

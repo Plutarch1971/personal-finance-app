@@ -1,8 +1,11 @@
 import { Router } from 'express';
+import { getCurrentUser } from "../controllers/user.controller";
+import { authenticateToken } from "../middleware/auth.middleware";
+
 
 const router = Router();
 
-// User CRUD routes will go here
+router.get("/me", authenticateToken, getCurrentUser);
 
 export default router;
 

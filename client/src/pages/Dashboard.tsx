@@ -1,7 +1,7 @@
 //Dashboard.tsx
 import { lazy, Suspense, useEffect, useState } from "react";
 import api from "../api/axios";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import SummaryCards from "../components/SummaryCards";
 import { useNavigate } from "react-router-dom";
 

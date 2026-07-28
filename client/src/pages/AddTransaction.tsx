@@ -1,10 +1,9 @@
 // AddTransaction.tsx , this is the transaction landing page with transaction operation buttons
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import api from "../api/axios";
 import TransactionForm from "../components/TransactionForm";
-
 
 export default function AddTransaction() {
   const navigate = useNavigate();
