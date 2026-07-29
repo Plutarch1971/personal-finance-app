@@ -6,43 +6,37 @@ import { useAuth } from "../context/useAuth";
 
 export default function SubscriptionSuccess() {
   const navigate = useNavigate();
-  const auth = useAuth();
-  const updateUser = auth?.updateUser;
+  const { updateUser } = useAuth();
 
   useEffect(() => {
     let cancelled = false;
     let redirectTimer: ReturnType<typeof setTimeout> | undefined;
 
     async function refreshUser() {
-      // Give the Stripe webhook time to update Neon.
-      for (let attempt = 0; attempt < 5; attempt++) {
-        try {
-          const response = await api.get("/users/me");
-
-          if (cancelled) return;
-
-          if (response.data.subscriptionStatus === "active") {
-            updateUser?.(response.data);
-
-            redirectTimer = setTimeout(() => {
-              if (!cancelled) {
-                navigate("/dashboard");
-              }
-            }, 1500);
-
-            return;
-          }
-        } catch (error) {
-          console.error("Failed to refresh user:", error);
-        }
-
-        // Wait one second before checking again.
+      try {
+        // Give the Stripe webhook a moment to finish updating the database.
         await new Promise((resolve) => setTimeout(resolve, 1000));
-      }
 
-      // Don't leave the customer stuck on this page.
-      if (!cancelled) {
-        navigate("/dashboard");
+        if (cancelled) return;
+
+        const response = await api.get("/users/me");
+
+        if (cancelled) return;
+
+        updateUser(response.data);
+
+        redirectTimer = setTimeout(() => {
+          if (!cancelled) {
+            navigate("/dashboard");
+          }
+        }, 1000);
+      } catch (error) {
+        console.error("Failed to refresh user:", error);
+
+        // Still send the customer to the dashboard.
+        if (!cancelled) {
+          navigate("/dashboard");
+        }
       }
     }
 
