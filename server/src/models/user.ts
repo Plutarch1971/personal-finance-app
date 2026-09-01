@@ -1,4 +1,4 @@
-import { Model, DataTypes, Optional, Sequelize } from 'sequelize';
+import { Model, DataTypes, Optional, Sequelize } from "sequelize";
 
 interface UserAttributes {
   id: string;
@@ -16,30 +16,30 @@ interface UserAttributes {
   subscriptionId: string | null;
 
   stripeCustomerId: string | null;
-  stripeSubscriptionId: string | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-interface UserCreationAttributes extends Optional<UserAttributes, 
-    | 'id'
-    | 'resetPasswordToken'
-    | 'resetPasswordExpires'
-    | 'trialStartDate'
-    | 'trialEndDate'
-    | 'subscriptionStatus'
-    | 'subscriptionId'
-    | 'stripeCustomerId'
-    | 'stripeSubscriptionId'
-    | 'createdAt'
-    | 'updatedAt'
+interface UserCreationAttributes extends Optional<
+  UserAttributes,
+  | "id"
+  | "resetPasswordToken"
+  | "resetPasswordExpires"
+  | "trialStartDate"
+  | "trialEndDate"
+  | "subscriptionStatus"
+  | "subscriptionId"
+  | "stripeCustomerId"
+  | "createdAt"
+  | "updatedAt"
 > {}
 
-export class User extends Model<UserAttributes, UserCreationAttributes> 
-implements UserAttributes 
+export class User
+  extends Model<UserAttributes, UserCreationAttributes>
+  implements UserAttributes
 {
   public id!: string;
-  public username!:string;
+  public username!: string;
   public email!: string;
   public passwordHash!: string;
   public resetPasswordToken!: string | null;
@@ -50,39 +50,38 @@ implements UserAttributes
   public subscriptionStatus!: string;
   public subscriptionId!: string | null;
   public stripeCustomerId!: string | null;
-  public stripeSubscriptionId!: string | null;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
+  static associate(models: any) {
+    User.hasMany(models.Account, {
+      foreignKey: "userId",
+      as: "accounts",
+    });
 
-    static associate(models: any) {
-      User.hasMany(models.Account, {
-        foreignKey: 'userId',
-        as: 'accounts',
-      });
+    User.hasMany(models.Transaction, {
+      foreignKey: "userId",
+      as: "transactions",
+    });
+    User.hasMany(models.Category, {
+      foreignKey: "userId",
+      as: "categories",
+    });
 
-      User.hasMany(models.Transaction, {
-        foreignKey: 'userId',
-        as: 'transactions',
-      });
-      User.hasMany(models.Category, {
-        foreignKey: 'userId',
-        as: 'categories',
-      });
-
-      User.hasMany(models.Budget, {
-        foreignKey: 'userId',
-        as: 'budgets',
-        });
-      }
-    }
-  export function initUserModel(sequelize: Sequelize) {
-    User.init({
-      id: { 
-        type: DataTypes.UUID, 
+    User.hasMany(models.Budget, {
+      foreignKey: "userId",
+      as: "budgets",
+    });
+  }
+}
+export function initUserModel(sequelize: Sequelize) {
+  User.init(
+    {
+      id: {
+        type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        primaryKey: true 
+        primaryKey: true,
       },
       username: {
         type: DataTypes.STRING,
@@ -95,10 +94,10 @@ implements UserAttributes
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        },
+      },
       passwordHash: {
-        type:DataTypes.STRING,
-        allowNull: false,  
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       resetPasswordToken: {
         type: DataTypes.STRING,
@@ -119,7 +118,7 @@ implements UserAttributes
       subscriptionStatus: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 'trial',
+        defaultValue: "trial",
       },
       subscriptionId: {
         type: DataTypes.STRING,
@@ -129,19 +128,13 @@ implements UserAttributes
         type: DataTypes.STRING,
         allowNull: true,
       },
-        stripeSubscriptionId: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-
-  }, {
-    sequelize,
-    modelName: 'User',
-    tableName: 'Users',
-    timestamps: true
-  }
+    },
+    {
+      sequelize,
+      modelName: "User",
+      tableName: "Users",
+      timestamps: true,
+    },
   );
   return User;
-  }
-
-
+}

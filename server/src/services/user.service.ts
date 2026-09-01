@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { sendPasswordResetEmail } from "./email.service";
-import { SUBSCRIPTION_STATUS } from '../constants/subscription';
+import { SUBSCRIPTION_STATUS } from "../constants/subscription";
 
 // Default accounts for new users
 const DEFAULT_ACCOUNTS: {
@@ -38,7 +38,7 @@ export async function registerUser(data: {
     const hash = await bcrypt.hash(data.password, 10);
 
     const normalizedEmail = data.email.trim().toLowerCase();
-    
+
     const existing = await User.findOne({
       where: { email: normalizedEmail },
       transaction: t,
@@ -49,7 +49,7 @@ export async function registerUser(data: {
     const trialStartDate = new Date();
 
     const trialEndDate = new Date();
-    trialEndDate.setDate(trialEndDate.getDate() +14);
+    trialEndDate.setDate(trialEndDate.getDate() + 14);
 
     const user = await User.create(
       {
@@ -60,11 +60,9 @@ export async function registerUser(data: {
         trialStartDate,
         trialEndDate,
 
-        subscriptionStatus: SUBSCRIPTION_STATUS.TRIAL, 
-
+        subscriptionStatus: SUBSCRIPTION_STATUS.TRIAL,
         subscriptionId: null,
         stripeCustomerId: null,
-        stripeSubscriptionId: null,
       },
       { transaction: t },
     );
