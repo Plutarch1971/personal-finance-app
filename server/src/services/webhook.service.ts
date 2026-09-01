@@ -82,9 +82,7 @@ export async function handleWebhookEvent(event: Stripe.Event) {
       );
       if (updatedRows === 0) {
         [updatedRows] = await User.update(
-          { subscriptionStatus,
-            subscriptionId: subscription.id,
-           },
+          { subscriptionStatus, subscriptionId: subscription.id },
           {
             where: {
               stripeCustomerId: subscription.customer as string,
@@ -140,6 +138,52 @@ export async function handleWebhookEvent(event: Stripe.Event) {
         );
       }
       console.log(`Subscription ${subscription.id} cancelled.`);
+
+      break;
+    }
+    case "invoice.payment_failed": {
+      const invoice = event.data.object as Stripe.Invoice;
+
+      await User.update(
+        {
+          subscriptionStatus: SUBSCRIPTION_STATUS.PAST_DUE,
+        },
+        {
+          where: {
+            stripeCustomerId: invoice.customer as string,
+          },
+        },
+      );
+
+      console.log(`Payment failed for customer ${invoice.customer}`);
+      break;
+    }
+
+    case "invoice.paid": {
+      const invoice = event.data.object as Stripe.Invoice;
+
+      const customerId = invoice.customer as string;
+
+      const [updatedRows] = await User.update(
+        {
+          subscriptionStatus: SUBSCRIPTION_STATUS.ACTIVE,
+        },
+        {
+          where: {
+            stripeCustomerId: customerId,
+          },
+        },
+      );
+
+      if (updatedRows === 0) {
+        console.warn (
+          `No user found for paid invoice customer ${customerId}`,
+        );
+      }
+
+      console.log(
+        `Invoice paid. Customer ${customerId} subscription set to active.`,
+      );
 
       break;
     }
