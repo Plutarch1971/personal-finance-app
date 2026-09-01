@@ -82,7 +82,9 @@ export async function handleWebhookEvent(event: Stripe.Event) {
       );
       if (updatedRows === 0) {
         [updatedRows] = await User.update(
-          { subscriptionStatus },
+          { subscriptionStatus,
+            subscriptionId: subscription.id,
+           },
           {
             where: {
               stripeCustomerId: subscription.customer as string,
@@ -109,7 +111,7 @@ export async function handleWebhookEvent(event: Stripe.Event) {
 
       let [updatedRows] = await User.update(
         {
-          subscriptionStatus: "cancelled",
+          subscriptionStatus: SUBSCRIPTION_STATUS.CANCELLED,
           subscriptionId: null,
         },
         {
