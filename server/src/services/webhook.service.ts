@@ -18,6 +18,11 @@ export async function handleWebhookEvent(event: Stripe.Event) {
       const stripeCustomerId = session.customer as string;
       const subscriptionId = session.subscription as string;
 
+      console.log("=== CHECKOUT SESSION COMPLETED ===");
+      console.log("userId:", userId);
+      console.log("customer:", stripeCustomerId);
+      console.log("subscription:", subscriptionId);
+
       const [updatedRows] = await User.update(
         {
           subscriptionStatus: SUBSCRIPTION_STATUS.ACTIVE,
@@ -28,6 +33,8 @@ export async function handleWebhookEvent(event: Stripe.Event) {
           where: { id: userId },
         },
       );
+
+      console.log("Rows updated:", updatedRows);
 
       if (updatedRows === 0) {
         console.error(`User ${userId} not found`);
@@ -80,6 +87,7 @@ export async function handleWebhookEvent(event: Stripe.Event) {
           },
         },
       );
+
       if (updatedRows === 0) {
         [updatedRows] = await User.update(
           { subscriptionStatus, subscriptionId: subscription.id },
@@ -94,6 +102,7 @@ export async function handleWebhookEvent(event: Stripe.Event) {
       if (updatedRows === 0) {
         console.warn(`No user found with subscriptionId: ${subscription.id}`);
       }
+      console.log("Rows updated by subscription update:", updatedRows);
 
       console.log(
         `Subscription ${subscription.id} updated to ${subscriptionStatus}`,
@@ -105,7 +114,13 @@ export async function handleWebhookEvent(event: Stripe.Event) {
     case "customer.subscription.deleted": {
       const subscription = event.data.object as Stripe.Subscription;
 
+      console.log("=== SUBSCRIPTION DELETED ===");
+      console.log("subscription:", subscription.id);
+      console.log("customer:", subscription.customer);
+
       console.log("Subscription deleted:", subscription.id);
+
+      console.log("Looking up by subscriptionId:", subscription.id);
 
       let [updatedRows] = await User.update(
         {
@@ -118,10 +133,15 @@ export async function handleWebhookEvent(event: Stripe.Event) {
           },
         },
       );
+
+      console.log("Rows updated by subscriptionId:", updatedRows);
+
       if (updatedRows === 0) {
+        console.log("Looking up by customer:", subscription.customer);
+
         [updatedRows] = await User.update(
           {
-            subscriptionStatus: "cancelled",
+            subscriptionStatus: SUBSCRIPTION_STATUS.CANCELLED,
             subscriptionId: null,
           },
           {
@@ -130,6 +150,8 @@ export async function handleWebhookEvent(event: Stripe.Event) {
             },
           },
         );
+
+        console.log("Rows updated by customer:", updatedRows);
       }
 
       if (updatedRows === 0) {
@@ -138,7 +160,7 @@ export async function handleWebhookEvent(event: Stripe.Event) {
         );
       }
       console.log(`Subscription ${subscription.id} cancelled.`);
-
+     
       break;
     }
     case "invoice.payment_failed": {
@@ -176,9 +198,7 @@ export async function handleWebhookEvent(event: Stripe.Event) {
       );
 
       if (updatedRows === 0) {
-        console.warn (
-          `No user found for paid invoice customer ${customerId}`,
-        );
+        console.warn(`No user found for paid invoice customer ${customerId}`);
       }
 
       console.log(
