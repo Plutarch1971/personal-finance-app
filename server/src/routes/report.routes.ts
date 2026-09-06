@@ -1,3 +1,4 @@
+//report.routes.ts
 import { Router } from "express";
 import { authenticateToken } from "../middleware/auth.middleware";
 import * as controller from "../controllers/report.controller";

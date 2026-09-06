@@ -58,11 +58,7 @@ export async function seedDefaultCategories(userId: string) {
 
     await Category.bulkCreate(rows);
 }
-// For user creates categories
-// export async function createCategoryByUser( data: CreateCategoryInput)
-// {
-//     return Category.create(data);
-// }
+
 
 // For user to delete category
 export async function deleteCategory(categoryId: string, userId: string){
