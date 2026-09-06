@@ -120,16 +120,6 @@ export default function ExpensesByCategoryCard({ onClose }: Props) {
                           <td>${item.totalExpense}</td>
                         </tr>
                       ))}
-                      <tr className="table-primary fw-bold">
-                        <td>Building Project Total</td>
-                        <td>
-                          $
-                          {buildingProjectTotal.toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </td>
-                      </tr>
                     </tbody>
                   </table>
 
