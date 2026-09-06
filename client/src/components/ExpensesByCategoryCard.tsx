@@ -1,117 +1,157 @@
-import { useState } from 'react';
-import api from '../api/axios';
+//ExpensesByCategoryCard.tsx
+import { useState } from "react";
+import api from "../api/axios";
 
-interface ExpenseCategory{
-    categoryName: string;
-    totalExpense: number;
-    
+interface ExpenseCategory {
+  categoryName: string;
+  totalExpense: number;
 }
 interface ExpenseCategoryAPI {
-    name: string;
-    value:string | number;
+  name: string;
+  value: string | number;
 }
 interface Props {
-        onClose: () => void;
-        
-    }
+  onClose: () => void;
+}
 
-export default function ExpensesByCategoryCard({onClose} : Props){
+export default function ExpensesByCategoryCard({ onClose }: Props) {
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [expenseByCategory, setExpenseByCategory] = useState<ExpenseCategory[]>(
+    [],
+  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-    const [ startDate, setStartDate ] = useState('');
-    const [ endDate, setEndDate ] = useState('');
-    const [ expenseByCategory, setExpenseByCategory] = useState<ExpenseCategory[]>([]);
-    const [ loading, setLoading ] = useState(false);
-    const [ error, setError ] = useState('');
-    
-    
-    const handleCategorySubmit = async (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        try{
-            const expenseByCategoryRes = await api.get('/reports/expenses-by-category', {
-                params: { startDate, endDate }
-            
-            });
-            const data = (expenseByCategoryRes.data ?? []).map((item: ExpenseCategoryAPI) =>({
-                categoryName: item.name,
-                totalExpense: Number(item.value)
+  const handleCategorySubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const expenseByCategoryRes = await api.get(
+        "/reports/expenses-by-category",
+        {
+          params: { startDate, endDate },
+        },
+      );
+      const data = (expenseByCategoryRes.data ?? [])
+        .map((item: ExpenseCategoryAPI) => ({
+          categoryName: item.name,
+          totalExpense: Number(item.value),
         }))
-        .filter((row: any) => row.categoryName && Number.isFinite(row.totalExpense));
-            
-            setExpenseByCategory(data);
-            setError('');
-        } catch (error) {
-            setError('Error fetching expenses by category');
-        } finally {
-            setLoading(false);
-        }
-    };
+        .filter(
+          (row: any) => row.categoryName && Number.isFinite(row.totalExpense),
+        );
 
-    return (
+      setExpenseByCategory(data);
+      setError("");
+    } catch (error) {
+      setError("Error fetching expenses by category");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const buildingProjectCategories = [
+    "Building Electrical Expense",
+    "Building Engineer's Payment",
+    "Building Materials",
+    "Building Transportation",
+    "Carpenter's Payment",
+    "Contractor's Payment",
+    "Misc",
+    "Personal Expense- Building Supervisors",
+    "Snacks for workers",
+    "Workers' Payment",
+  ];
+
+  const buildingProjectTotal = expenseByCategory
+    .filter((item) => buildingProjectCategories.includes(item.categoryName))
+    .reduce((sum, item) => sum + item.totalExpense, 0);
+
+  return (
     <>
-                <div className="col-10 mt-3">
-                    <div className="d-flex justify-content-center">
-                        <div style={{ width: '100%', maxWidth: '500px'}}>
-                            <div className="card rounded-4">
-                                <h3 className="text-center mt-4">Expenses By Categories</h3>
-                                <div className="card-body">
-                                    <div className="card-title"><strong>Table Format</strong></div>
-                                    <form onSubmit={handleCategorySubmit}>
-                                    <label className="form-label">Select start date:</label>
-                                    <input type="date" 
-                                            value={startDate} 
-                                            className="form-control"
-                                            onChange={(e) => 
-                                                setStartDate(e.target.value)
-                                            }
-                                    />
-                                    <label className="form-label">Select end date:</label>
-                                    <input type="date"
-                                            className="form-control"
-                                            value={endDate}
-                                            onChange={(e) => 
-                                                setEndDate(e.target.value)
-                                            }
-                                    />
-                                 {error && <div className="alert alert-danger">{error}</div>}
-                                <table className="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Category Name</th>
-                                            <th scope="col">Total Expense</th>
-                                        </tr>
-                                    </thead>
-                                   
-                                    <tbody>
-                                    {expenseByCategory.map((item,index) => (
-                                        <tr key={index}>
-                                            <td>{item.categoryName}</td>
-                                            <td>${item.totalExpense}</td>
-                                        </tr>
-                                    ))} 
-                                    
-                                    </tbody>
-                                </table>
-
-                                    <div className="d-flex align-items-center justify-content-between mb-3">
-                                    <button className="btn btn-primary" type="submit">
-                                    { loading ? 'Loading...' : 'Get Expenses by Categories'}
-                                    </button>
-
-                                    <button className="btn btn-danger w-25" 
-                                        type="button"
-                                        onClick={onClose}
-                                    >       
-                                            Close
-                                    </button>
-                                    </div>
-
-                                </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <div className="col-10 mt-3">
+        <div className="d-flex justify-content-center">
+          <div style={{ width: "100%", maxWidth: "500px" }}>
+            <div className="card rounded-4">
+              <h3 className="text-center mt-4">Expenses By Categories</h3>
+              <div className="card-body">
+                <div className="card-title">
+                  <strong>Table Format</strong>
                 </div>
+                <form onSubmit={handleCategorySubmit}>
+                  <label className="form-label">Select start date:</label>
+                  <input
+                    type="date"
+                    value={startDate}
+                    className="form-control"
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                  <label className="form-label">Select end date:</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                  {error && <div className="alert alert-danger">{error}</div>}
+                  {buildingProjectTotal > 0 && (
+                    <div className="alert alert-info text-center">
+                      <strong>
+                        Building Project Total: $
+                        {buildingProjectTotal.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </strong>
+                    </div>
+                  )}
+                  <table className="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">Total Expense</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {expenseByCategory.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.categoryName}</td>
+                          <td>${item.totalExpense}</td>
+                        </tr>
+                      ))}
+                      <tr className="table-primary fw-bold">
+                        <td>Building Project Total</td>
+                        <td>
+                          $
+                          {buildingProjectTotal.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div className="d-flex align-items-center justify-content-between mb-3">
+                    <button className="btn btn-primary" type="submit">
+                      {loading ? "Loading..." : "Get Expenses by Categories"}
+                    </button>
+
+                    <button
+                      className="btn btn-danger w-25"
+                      type="button"
+                      onClick={onClose}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
-    )
+  );
 }
