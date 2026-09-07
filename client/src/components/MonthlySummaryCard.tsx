@@ -1,91 +1,101 @@
-import { useState } from 'react';
-import api from '../api/axios';
+import { useState } from "react";
+import api from "../api/axios";
 
 interface monthlySummary {
-    income: number;
-    expense: number;
-    net: number;
+  income: number;
+  expense: number;
+  net: number;
 }
 
 interface Props {
-    onClose: () => void;
+  onClose: () => void;
 }
 
-export default function MonthlySummaryCard({onClose}: Props) {
-    const [monthlySummary, setMonthlySummary] = useState<monthlySummary>({
-        income: 0,
-        expense: 0,
-        net: 0,
-    });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+export default function MonthlySummaryCard({ onClose }: Props) {
+  const [monthlySummary, setMonthlySummary] = useState<monthlySummary>({
+    income: 0,
+    expense: 0,
+    net: 0,
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
-    const handleSubmit = async (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            const res = await api.get('/reports/monthly-summary', {
-                params: { startDate, endDate }
-            });
-            setMonthlySummary(res.data);
-            setError('');
-        } catch (error) {
-            setError('Error fetching monthly summary');
-        } finally {
-            setLoading(false);
-        }
-    };
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await api.get("/reports/monthly-summary", {
+        params: { startDate, endDate },
+      });
+      setMonthlySummary(res.data);
+      setError("");
+    } catch (error) {
+      setError("Error fetching monthly summary");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <>
-            <div className="col-10 mt-3">
-            <div className="d-flex justify-content-center">
-                <div style={{ width: '100%', maxWidth:'500px' }}>  
-                    <div className="card rounded-4">
-                        <h3 className="text-center mt-4">Monthly Summary</h3>
-                    <div className="card-body">
-                        <div className="card-title">
-                            <strong>Select a Month</strong>
-                            </div>
-                        <form onSubmit={handleSubmit}>
-                            <label className="form-control">Enter start date:</label>
-                            <input className="form-control" type="date"
-                                value={startDate} onChange={(e) => setStartDate(e.target.value)}
-                            />
-                            <label className="form-control">Enter end date:</label>
-                            <input className="form-control" type="date"
-                                value={endDate} onChange={(e) => setEndDate(e.target.value)}
-                            />
-
-                            {error && <div className="alert alert-danger">{error}</div>}
-                            <div className="card-body">
-                                <p><strong>Income:</strong>${monthlySummary.income}</p>
-                                <p><strong>Expense:</strong> ${monthlySummary.expense}</p>
-                                <p><strong>Net:</strong> ${monthlySummary.net}</p>
-                            </div>
-
-                            <div className="d-flex align-items-center justify-content-between">
-                            <button className="btn btn-primary" type="submit">
-                                {loading ? 'Loading...' : 'Get Summary'}
-                            </button>
-                            <button className="btn btn-danger w-25" 
-                                    type="button"
-                                    onClick={onClose}
-                                    
-                            >           
-                                    Close
-                            </button>
-                            </div>
-
-                        </form>
-                    
-                    </div>
-                    </div>
+  return (
+    <>
+      <div className="col-10 mt-3">
+        <div className="d-flex justify-content-center">
+          <div style={{ width: "100%", maxWidth: "500px" }}>
+            <div className="card rounded-4">
+              <h3 className="text-center mt-4">Monthly Expense Summary</h3>
+              <div className="card-body">
+                <div className="card-title">
+                  <strong>Select a Month</strong>
                 </div>
+                <form onSubmit={handleSubmit}>
+                  <label className="form-control">Enter start date:</label>
+                  <input
+                    className="form-control"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                  <label className="form-control">Enter end date:</label>
+                  <input
+                    className="form-control"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+
+                  {error && <div className="alert alert-danger">{error}</div>}
+                  <div className="card-body">
+                    <p>
+                      <strong>Income:</strong>${monthlySummary.income}
+                    </p>
+                    <p>
+                      <strong>Expense:</strong> ${monthlySummary.expense}
+                    </p>
+                    <p>
+                      <strong>Net:</strong> ${monthlySummary.net}
+                    </p>
+                  </div>
+
+                  <div className="d-flex align-items-center justify-content-between">
+                    <button className="btn btn-primary" type="submit">
+                      {loading ? "Loading..." : "Get Summary"}
+                    </button>
+                    <button
+                      className="btn btn-danger w-25"
+                      type="button"
+                      onClick={onClose}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-            </div>
+          </div>
+        </div>
+      </div>
     </>
-    );
+  );
 }

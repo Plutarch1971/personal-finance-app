@@ -116,7 +116,34 @@ export async function getMonthlySummary(
   };
 }
 
-export async function getIncomeByCategory(userId: string) {
+export async function getIncomeByCategory(
+  userId: string,
+  startDate: string,
+  endDate: string,
+) {
+  return Transaction.findAll({
+    where: {
+      userId,
+      type: "income",
+      amount: { [Op.gt]: 0 },
+      transactionDate: {
+        [Op.between]: [startDate, endDate],
+      },
+    },
+    include: [
+      {
+        model: Category,
+        as: "category",
+        attributes: ["name"],
+      },
+    ],
+    attributes: [[fn("SUM", col("amount")), "total"]],
+    group: ["category.id", "category.name"],
+    raw: true,
+  });
+}
+//To show income of las thirty days in piechart in Dashboard
+export async function getIncomeByCategory30(userId: string) {
   const end = new Date(); //today
   const start = new Date(end);
   start.setDate(end.getDate() - 30);

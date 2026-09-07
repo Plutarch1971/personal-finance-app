@@ -58,8 +58,16 @@ export async function getMonthlySummary( req: Request, res: Response) {
 export async function getIncomeByCategory(req: Request, res: Response){
     try {
         const userId = req.user!.id;
+        const startDate = req.query.startDate as string;
+        const endDate = req.query.endDate as string;
 
-        const data = await reportService.getIncomeByCategory(userId);
+        if (!startDate || !endDate) {
+            return res.status(400).json({
+                error: "Start date and End date are required",
+            });
+        }
+
+        const data = await reportService.getIncomeByCategory(userId, startDate, endDate);
 
         res.json(data);
     } catch (error: unknown) {
