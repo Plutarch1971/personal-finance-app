@@ -2,7 +2,7 @@
 import { lazy, Suspense, useState } from "react";
 import ExpensesByCategoryCard from "../components/ExpensesByCategoryCard";
 import MonthlySummaryCard from "../components/MonthlySummaryCard";
-import IncomePieChart from '../components/IncomePieChart';
+import IncomePieChart from "../components/IncomePieChart";
 import AccountTable from "../components/AccountTable";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
@@ -12,7 +12,7 @@ export default function Report() {
   const auth = useAuth();
   const navigate = useNavigate();
   const [activeView, setActiveView] = useState<
-    "expense-summary" | "income-summary"| "table" | "chart" | "account" | null
+    "expense-summary" | "income-summary" | "table" | "chart" | "account" | null
   >(null);
   if (!auth) return null;
   const { logout } = auth;
@@ -59,7 +59,7 @@ export default function Report() {
               className="btn btn-outline-light"
               onClick={() => setActiveView("income-summary")}
             >
-              Monthly Income Summary
+              Income Summary
             </button>
 
             <button

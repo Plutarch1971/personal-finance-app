@@ -234,10 +234,8 @@ export default function Dashboard() {
                       Income by Category:
                     </h2>
                     <p className="small">Last 30 Days</p>
-                    {/* <p className="card-text">
-                    For last 30 days.
-                  </p> */}
-                    <IncomePieChart />
+                    <p className="card-text">For last 30 days.</p>
+                    {/* <IncomePieChart /> */}
                   </div>
                 </div>
               </div>
