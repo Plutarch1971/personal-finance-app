@@ -1,116 +1,140 @@
-import { Request, Response } from 'express';
-import *  as reportService from '../services/report.service';
+import { Request, Response } from "express";
+import * as reportService from "../services/report.service";
 
-export async function getMonthlyExpensesByCategory(req: Request, res: Response) {
-    try {
-        const userId = (req.user as any).id;
-        const startDate = req.query.startDate as string;
-        const endDate = req.query.endDate as string;
+export async function getMonthlyExpensesByCategory(
+  req: Request,
+  res: Response,
+) {
+  try {
+    const userId = (req.user as any).id;
+    const startDate = req.query.startDate as string;
+    const endDate = req.query.endDate as string;
 
-        if(!startDate || !endDate) {
-            return res.status(400).json( { error: 'startDate and endDate required'});
-        }
-
-        const data = await reportService.getMonthlyExpensesByCategory(
-            userId,
-            startDate,
-            endDate
-        );
-        res.json(data);
-    } catch (error: any) {
-        res.status(500).json({ error: error.message });
+    if (!startDate || !endDate) {
+      return res.status(400).json({ error: "startDate and endDate required" });
     }
+
+    const data = await reportService.getMonthlyExpensesByCategory(
+      userId,
+      startDate,
+      endDate,
+    );
+    res.json(data);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
 }
 
 export async function getExpensesByCategory(req: Request, res: Response) {
-    try {
-        const userId = (req.user as any).id;
-        const startDate = req.query.startDate as string;
-        const endDate = req.query.endDate as string;
+  try {
+    const userId = (req.user as any).id;
+    const startDate = req.query.startDate as string;
+    const endDate = req.query.endDate as string;
 
-        if(!startDate || !endDate) {
-            return res.status(400).json({error: "Start date and End date is required"});
-        }
-        const data = await reportService.getExpensesByCategory(
-            userId,
-            startDate,
-            endDate
-        );
-        res.json(data);
-    } catch (error: any) {
-        res.status(400).json({ error: error.message });
+    if (!startDate || !endDate) {
+      return res
+        .status(400)
+        .json({ error: "Start date and End date is required" });
     }
+    const data = await reportService.getExpensesByCategory(
+      userId,
+      startDate,
+      endDate,
+    );
+    res.json(data);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
 }
 
-export async function getMonthlySummary( req: Request, res: Response) {
-    try {
-        const userId = (req.user as any).id
-        const startDate = req.query.startDate as string | undefined;
-        const endDate = req.query.endDate as string | undefined;
+export async function getMonthlySummary(req: Request, res: Response) {
+  try {
+    const userId = (req.user as any).id;
+    const startDate = req.query.startDate as string | undefined;
+    const endDate = req.query.endDate as string | undefined;
 
-        const data = await reportService.getMonthlySummary(userId, startDate, endDate);
-        res.json(data);
-    } catch (error: any) {
-        res.status(500).json({ error: error.message})
-    }
+    const data = await reportService.getMonthlySummary(
+      userId,
+      startDate,
+      endDate,
+    );
+    res.json(data);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
 }
 
-export async function getIncomeByCategory(req: Request, res: Response){
-    try {
-        const userId = req.user!.id;
-        const startDate = req.query.startDate as string;
-        const endDate = req.query.endDate as string;
+export async function getIncomeByCategory(req: Request, res: Response) {
+  try {
+    const userId = req.user!.id;
+    const startDate = req.query.startDate as string;
+    const endDate = req.query.endDate as string;
 
-        if (!startDate || !endDate) {
-            return res.status(400).json({
-                error: "Start date and End date are required",
-            });
-        }
-
-        const data = await reportService.getIncomeByCategory(userId, startDate, endDate);
-
-        res.json(data);
-    } catch (error: unknown) {
-        const message = error instanceof Error ? error.message : 'Internal server error';
-        res.status(500).json({ error: message});
+    if (!startDate || !endDate) {
+      return res.status(400).json({
+        error: "Start date and End date are required",
+      });
     }
+
+    const data = await reportService.getIncomeByCategory(
+      userId,
+      startDate,
+      endDate,
+    );
+
+    res.json(data);
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Internal server error";
+    res.status(500).json({ error: message });
+  }
 }
 
-export async function getAccountBalances( req: Request, res: Response) {
-    try {
-        const userId = req.user!.id;
-        const accounts = await reportService.getAccountBalances(userId);
-        res.json(accounts);
-    } catch (error: any){
-        res.status(400).json({ error: error.message });
-    }
+export async function getIncomeByCategory30(req: Request, res: Response) {
+  try {
+    const userId = req.user!.id;
+    const data = await reportService.getIncomeByCategory30(userId);
+
+    res.json(data);
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Internal server error";
+    res.status(500).json({ error: message });
+  }
+}
+export async function getAccountBalances(req: Request, res: Response) {
+  try {
+    const userId = req.user!.id;
+    const accounts = await reportService.getAccountBalances(userId);
+    res.json(accounts);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
 }
 
-export async function getExpenseThirty(req: Request, res: Response){
-    try {
-          const userId = req.user!.id;
-          const result = await reportService.getExpenseThirty(userId);
+export async function getExpenseThirty(req: Request, res: Response) {
+  try {
+    const userId = req.user!.id;
+    const result = await reportService.getExpenseThirty(userId);
 
-        if(!result) {
-            return res.status(404).json({error: 'No data found.'})
-        }
-        res.json(result);
-
-    } catch (error: any){
-        return res.status(500).json(error.message);
-    }       
-    
+    if (!result) {
+      return res.status(404).json({ error: "No data found." });
+    }
+    res.json(result);
+  } catch (error: any) {
+    return res.status(500).json(error.message);
+  }
 }
 
-export async function getMonthlyExpenseTrend(req: Request, res: Response){
-    try {
-        const userId = (req.user as any).id;
+export async function getMonthlyExpenseTrend(req: Request, res: Response) {
+  try {
+    const userId = (req.user as any).id;
 
-        const data = await reportService.getMonthlyExpenseTrend(userId);
+    const data = await reportService.getMonthlyExpenseTrend(userId);
 
-        res.json(data);
-    } catch (error: any) {
-        console.error(error);
-        res.status(500).json({ error: error.message});
-    }
+    res.json(data);
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
 }

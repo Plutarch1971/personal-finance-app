@@ -5,7 +5,9 @@ import { useAuth } from "../context/useAuth";
 import SummaryCards from "../components/SummaryCards";
 import { useNavigate } from "react-router-dom";
 
-const IncomePieChart = lazy(() => import("../components/IncomePieChart"));
+const IncomeByCategory30 = lazy(
+  () => import("../components/IncomeByCategory30"),
+);
 const ExpenseTrendChart = lazy(() => import("../components/ExpenseTrendChart"));
 const ExpenseByThirtyCard = lazy(
   () => import("../components/ExpenseByThirtyCard"),
@@ -235,7 +237,7 @@ export default function Dashboard() {
                     </h2>
                     <p className="small">Last 30 Days</p>
                     <p className="card-text">For last 30 days.</p>
-                    {/* <IncomePieChart /> */}
+                    <IncomeByCategory30 />
                   </div>
                 </div>
               </div>

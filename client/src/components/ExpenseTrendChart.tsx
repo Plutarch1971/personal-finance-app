@@ -1,57 +1,58 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    Tooltip,
-    CartesianGrid,
-    ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
 } from "recharts";
 
 interface DataPoint {
-    month: string;
-    total: number;
+  month: string;
+  total: number;
+}
+
+interface ExpenseTrendItem {
+  month: string;
+  total: number | string;
 }
 
 export default function ExpenseTrendChart() {
-    const [data, setData] = useState<DataPoint[]>([]);
+  const [data, setData] = useState<DataPoint[]>([]);
 
-    useEffect(() => {
-        async function load() {
-          const res = await api.get("/reports/expense-trend");
+  useEffect(() => {
+    async function load() {
+      const res = await api.get("/reports/expense-trend");
 
-          const formatted = res.data.map((item: any) => ({
-            month: item.month,
-            total: Number(item.total),
-          }));
+      const formatted = res.data.map((item: ExpenseTrendItem) => ({
+        month: item.month,
+        total: Number(item.total),
+      }));
 
-          setData(formatted);
-        }
+      setData(formatted);
+    }
 
-        load();
-    }, []);
+    load();
+  }, []);
 
-    return (
-        <div style={{width: "100%", height: 300}}>
-         <ResponsiveContainer>
-            <LineChart data={data}>
-             <CartesianGrid strokeDasharray="3 3"/>
+  return (
+    <div style={{ width: "100%", height: 300 }}>
+      <ResponsiveContainer>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
 
-             <XAxis dataKey="month" />
+          <XAxis dataKey="month" />
 
-             <YAxis />
+          <YAxis />
 
-             <Tooltip />
+          <Tooltip />
 
-             <Line
-                type="monotone"
-                dataKey="total"
-                strokeWidth={3}
-            />
-            </LineChart>
-         </ResponsiveContainer>
-        </div>
-    );
+          <Line type="monotone" dataKey="total" strokeWidth={3} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
 }

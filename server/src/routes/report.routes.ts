@@ -30,6 +30,13 @@ router.get(
   verifySubscription,
   controller.getIncomeByCategory,
 );
+
+router.get(
+  "/income-by-category-30",
+  authenticateToken,
+  verifySubscription,
+  controller.getIncomeByCategory30,
+);
 router.get(
   "/account-balance",
   authenticateToken,
