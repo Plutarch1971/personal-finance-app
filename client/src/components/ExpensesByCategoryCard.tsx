@@ -39,12 +39,14 @@ export default function ExpensesByCategoryCard({ onClose }: Props) {
           totalExpense: Number(item.value),
         }))
         .filter(
-          (row: any) => row.categoryName && Number.isFinite(row.totalExpense),
+          (row: ExpenseCategory) =>
+            row.categoryName && Number.isFinite(row.totalExpense),
         );
 
       setExpenseByCategory(data);
       setError("");
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error(error);
       setError("Error fetching expenses by category");
     } finally {
       setLoading(false);

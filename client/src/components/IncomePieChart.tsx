@@ -24,10 +24,14 @@ type Props = {
   onClose?: () => void;
 };
 
+interface CharData {
+  name: string;
+  value: string | number;
+}
 export default function IncomePieChart({ onClose }: Props) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<CharData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -92,7 +96,7 @@ export default function IncomePieChart({ onClose }: Props) {
   };
 
   return (
-    <div className="card rounded-4 p-3">
+    <div className="card rounded-4 p-3" style={{ width: "50%" }}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h4 className="mb-0 text-dark">Income by Category</h4>
         {onClose && (
@@ -105,7 +109,7 @@ export default function IncomePieChart({ onClose }: Props) {
         )}
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3" style={{ width: "50%" }}>
         <label className="form-label">Start date</label>
         <input
           type="date"
@@ -133,42 +137,62 @@ export default function IncomePieChart({ onClose }: Props) {
 
       {error && <div className="alert alert-danger">{error}</div>}
 
-      {!data.length && !loading && !error ? (
-        <div>No income data available for this date range</div>
-      ) : (
-        <div style={{ width: "100%", height: 320, minWidth: 0 }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={data}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                innerRadius={45}
-                paddingAngle={2}
-                labelLine={false}
-                label={renderPercentInside}
-              >
-                {data.map((_, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value, name) => [value ?? 0, name ?? ""]} />
-              <Legend
-                verticalAlign="bottom"
-                align="center"
-                formatter={(value) => (
-                  <span style={{ color: "#1f2937" }}>{value}</span>
-                )}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
+      {/* {!data.length && !loading && !error ? ( */}
+      {data.length > 0 && (
+        <>
+          <div style={{ width: "100%", height: 420, minWidth: 0 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={data}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={150}
+                  innerRadius={65}
+                  paddingAngle={2}
+                  labelLine={false}
+                  label={renderPercentInside}
+                >
+                  {data.map((_, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip
+                  formatter={(value, name) => [value ?? 0, name ?? ""]}
+                />
+                <Legend
+                  verticalAlign="bottom"
+                  align="center"
+                  formatter={(value) => (
+                    <span style={{ color: "#1f2937" }}>{value}</span>
+                  )}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          <table className="table table-bordered mt-3">
+            <thead>
+              <tr>
+                <th>Income Source</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item, index) => (
+                <tr key={`${item.name}-${index}`}>
+                  <td>{item.name}</td>
+                  <td>${Number(item.value).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )}
     </div>
   );
