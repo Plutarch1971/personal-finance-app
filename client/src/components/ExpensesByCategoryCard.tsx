@@ -52,23 +52,27 @@ export default function ExpensesByCategoryCard({ onClose }: Props) {
       setLoading(false);
     }
   };
-  const buildingProjectCategories = [
-    "Building Electrical Expense",
-    "Building Engineer's Payment",
-    "Building Materials",
-    "Building Transportation",
-    "Carpenter's Payment",
-    "Contractor's Payment",
-    "Misc",
-    "Personal Expense- Building Supervisors",
-    "Snacks for workers",
-    "Workers' Payment",
-  ];
+  // const buildingProjectCategories = [
+  //   "Building Electrical Expense",
+  //   "Building Engineer's Payment",
+  //   "Building Materials",
+  //   "Building Transportation",
+  //   "Carpenter's Payment",
+  //   "Contractor's Payment",
+  //   "Misc",
+  //   "Personal Expense- Building Supervisors",
+  //   "Snacks for workers",
+  //   "Workers' Payment",
+  // ];
 
-  const buildingProjectTotal = expenseByCategory
-    .filter((item) => buildingProjectCategories.includes(item.categoryName))
-    .reduce((sum, item) => sum + item.totalExpense, 0);
+  // const buildingProjectTotal = expenseByCategory
+  //   .filter((item) => buildingProjectCategories.includes(item.categoryName))
+  //   .reduce((sum, item) => sum + item.totalExpense, 0);
 
+  const buildingProjectTotal = expenseByCategory.reduce(
+    (sum, item) => sum + item.totalExpense,
+    0,
+  );
   return (
     <>
       <div className="col-10 mt-3">
