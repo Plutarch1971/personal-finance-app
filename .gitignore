@@ -5,6 +5,7 @@ dist/
 *.log
 structure.txt
 client/dev-dist/sw.js
+ client/dev-dist/
 
 # temp files
 /temp
