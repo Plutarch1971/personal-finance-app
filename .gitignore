@@ -4,7 +4,7 @@ dist/
 .DS_Store
 *.log
 structure.txt
-
+client/dev-dist/sw.js
 
 # temp files
 /temp
