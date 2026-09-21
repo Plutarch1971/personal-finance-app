@@ -4,10 +4,8 @@ dist/
 .DS_Store
 *.log
 structure.txt
-client/dev-dist/sw.js
- client/dev-dist/
+client/dev-dist/**
 
 # temp files
 /temp
-
 /.junie/mcp/mcp.json
