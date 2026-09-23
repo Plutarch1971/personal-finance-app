@@ -65,6 +65,8 @@ export async function getMonthlySummary(req: Request, res: Response) {
 }
 
 export async function getIncomeByCategory(req: Request, res: Response) {
+  console.log("===== getIncomeByCategory CONTROLLER HIT =====");
+  
   try {
     const userId = req.user!.id;
     const startDate = req.query.startDate as string;

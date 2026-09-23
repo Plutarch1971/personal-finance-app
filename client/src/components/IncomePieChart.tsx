@@ -48,11 +48,12 @@ export default function IncomePieChart({ onClose }: Props) {
         params: { startDate, endDate },
       });
       const formatted = (res.data ?? []).map(
-        (row: { "category.name"?: string; total?: string | number }) => ({
-          name: row["category.name"] ?? "Unknown",
+        (row: { name?: string; total?: string | number }) => ({
+          name: row.name ?? "Unknown",
           value: Number(row.total ?? 0),
         }),
       );
+
       setData(formatted);
     } catch (error: unknown) {
       console.error(error);
@@ -94,6 +95,10 @@ export default function IncomePieChart({ onClose }: Props) {
       </text>
     );
   };
+  const buildingFundTotal = data.reduce(
+    (sum, item) => sum + Number(item.value),
+    0,
+  );
 
   return (
     <div className="card rounded-4 p-3" style={{ width: "50%" }}>
@@ -140,40 +145,46 @@ export default function IncomePieChart({ onClose }: Props) {
       {/* {!data.length && !loading && !error ? ( */}
       {data.length > 0 && (
         <>
-          <div style={{ width: "100%", height: 420, minWidth: 0 }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={data}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={150}
-                  innerRadius={65}
-                  paddingAngle={2}
-                  labelLine={false}
-                  label={renderPercentInside}
-                >
-                  {data.map((_, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip
-                  formatter={(value, name) => [value ?? 0, name ?? ""]}
-                />
-                <Legend
-                  verticalAlign="bottom"
-                  align="center"
-                  formatter={(value) => (
-                    <span style={{ color: "#1f2937" }}>{value}</span>
-                  )}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+          {/* <div style={{ width: "100%", height: 420, minWidth: 0 }}> */}
+          <div
+            className="card rounded-4 p-3"
+            style={{ width: "100%", height: 320, margin: "0 auto" }}
+          >
+            <div style={{ width: "100%", height: 280, minWidth: 0 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+                  <Pie
+                    data={data}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={90}
+                    innerRadius={38}
+                    paddingAngle={2}
+                    labelLine={false}
+                    label={renderPercentInside}
+                  >
+                    {data.map((_, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    formatter={(value, name) => [value ?? 0, name ?? ""]}
+                  />
+                  <Legend
+                    verticalAlign="bottom"
+                    align="center"
+                    formatter={(value) => (
+                      <span style={{ color: "#1f2937" }}>{value}</span>
+                    )}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
           <table className="table table-bordered mt-3">
@@ -184,6 +195,16 @@ export default function IncomePieChart({ onClose }: Props) {
               </tr>
             </thead>
             <tbody>
+              <tr
+                style={{
+                  backgroundColor: "#d9edf7",
+                  fontWeight: "bold",
+                }}
+              >
+                <td>Building Fund (Total)</td>
+                <td>${buildingFundTotal.toLocaleString()}</td>
+              </tr>
+
               {data.map((item, index) => (
                 <tr key={`${item.name}-${index}`}>
                   <td>{item.name}</td>
