@@ -149,44 +149,8 @@ export async function getIncomeByCategory(
 
   return results;
 }
-// export async function getIncomeByCategory(
-//   userId: string,
-//   startDate: string,
-//   endDate: string,
-// ) {
-//   const results = await sequelize.query(
-//     `SELECT
-//         CASE
-//             WHEN parent.name = 'Building Project'
-//             THEN child.name
-//             ELSE COALESCE(parent.name, child.name)
-//         END AS name,
-//         SUM(t.amount) AS total
-//       FROM "Transactions" t
-//       JOIN "Categories" child
-//         ON t."categoryId" = child.id
-//       LEFT JOIN "Categories" parent
-//         ON child."parentId" = parent.id
-//       WHERE t.type = 'income'
-//         AND t.amount > 0
-//         AND t."userId" = :userId
-//         AND t."transactionDate" BETWEEN :startDate AND :endDate
-//       GROUP BY
-//         CASE
-//             WHEN parent.name = 'Building Project'
-//             THEN child.name
-//             ELSE COALESCE(parent.name, child.name)
-//         END
-//       ORDER BY total DESC`,
-//     {
-//       replacements: { userId, startDate, endDate },
-//       type: QueryTypes.SELECT,
-//     },
-//   );
 
-//   return results;
-// }
-//To show income of las thirty days in piechart in Dashboard
+//To show income of last thirty days in piechart in Dashboard
 export async function getIncomeByCategory30(userId: string) {
   const end = new Date(); //today
   const start = new Date(end);
@@ -196,29 +160,21 @@ export async function getIncomeByCategory30(userId: string) {
   const endDate = end.toISOString().slice(0, 10);
 
   const results = await sequelize.query(
-    `SELECT
-        CASE
-            WHEN parent.name = 'Building Project'
-            THEN child.name
-            ELSE COALESCE(parent.name, child.name)
-        END AS name,
+    `
+      SELECT
+        child.name AS name,
         SUM(t.amount) AS total
       FROM "Transactions" t
       JOIN "Categories" child
         ON t."categoryId" = child.id
-      LEFT JOIN "Categories" parent
-        ON child."parentId" = parent.id
       WHERE t.type = 'income'
         AND t.amount > 0
         AND t."userId" = :userId
         AND t."transactionDate" BETWEEN :startDate AND :endDate
-      GROUP BY
-        CASE
-            WHEN parent.name = 'Building Project'
-            THEN child.name
-            ELSE COALESCE(parent.name, child.name)
-        END
-      ORDER BY total DESC`,
+      GROUP BY child.name
+      ORDER BY total DESC
+    `,
+
     {
       replacements: { userId, startDate, endDate },
       type: QueryTypes.SELECT,

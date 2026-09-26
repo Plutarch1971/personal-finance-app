@@ -9,7 +9,14 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF", "#FF4560"];
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#AF19FF",
+  "#FF4560",
+];
 
 export default function IncomePieChart() {
   const [data, setData] = useState<any[]>([]);
@@ -28,11 +35,12 @@ export default function IncomePieChart() {
         const res = await api.get("/reports/income-by-category-30", {
           params: { startDate, endDate },
         });
-
-        const formatted = (res.data ?? []).map((row: any) => ({
-          name: row["category.name"],
-          value: Number(row.total),
-        }));
+        const formatted = (res.data ?? []).map(
+          (row: { name?: string; total?: string | number }) => ({
+            name: row.name ?? "Unknown",
+            value: Number(row.total ?? 0),
+          }),
+        );
 
         setData(formatted);
       } catch (error) {
