@@ -33,17 +33,29 @@ export default function ExpenseByThirtyCard() {
   useEffect(() => {
     const end = new Date();
     const start = new Date(end);
-    start.setDate(end.getDate() - 30);
+    start.setDate(end.getDate() - 31);
 
-    const startDate = start.toISOString().slice(0, 10);
-    const endDate = end.toISOString().slice(0, 10);
+    // const startDate = start.toISOString().slice(0, 10);
+    // const endDate = end.toISOString().slice(0, 10);
+    function formatLocalDate(date: Date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
 
+      return `${year}-${month}-${day}`;
+    }
+
+    const startDate = formatLocalDate(start);
+    const endDate = formatLocalDate(end);
+
+    console.log("Frontend startDate:", startDate);
+    console.log("Frontend endDate:", endDate);
     async function load() {
       try {
         const res = await api.get("/reports/monthly-expenses", {
           params: { startDate, endDate },
         });
-        console.log(res.data);
+        console.log("MONTHLY EXPENSE API:", JSON.stringify(res.data, null, 2));
 
         const formatted: CharData[] = (res.data ?? [])
           .map((row: { name: string; value: string | number }) => ({

@@ -249,9 +249,6 @@ export default function Dashboard() {
                       Expense by Parent Category:
                     </h5>
                     <p className="small">Last 30 Days</p>
-                    {/* <p className="card-text">
-                    For last 30 days.
-                  </p> */}
                     <ExpenseByThirtyCard />
                   </div>
                 </div>

@@ -10,7 +10,7 @@ router.get(
   "/monthly-expenses",
   authenticateToken,
   verifySubscription,
-  controller.getMonthlyExpensesByCategory,
+  controller.getExpenseByThirty,
 );
 router.get(
   "/monthly-summary",
@@ -43,12 +43,12 @@ router.get(
   verifySubscription,
   controller.getAccountBalances,
 );
-router.get(
-  "/expense-by-thirty",
-  authenticateToken,
-  verifySubscription,
-  controller.getExpenseThirty,
-);
+// router.get(
+//   "/expense-by-thirty",
+//   authenticateToken,
+//   verifySubscription,
+//   controller.getExpenseThirty,
+// );
 router.get(
   "/expense-trend",
   authenticateToken,

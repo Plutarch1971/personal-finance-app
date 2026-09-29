@@ -66,7 +66,7 @@ export async function getMonthlySummary(req: Request, res: Response) {
 
 export async function getIncomeByCategory(req: Request, res: Response) {
   console.log("===== getIncomeByCategory CONTROLLER HIT =====");
-  
+
   try {
     const userId = req.user!.id;
     const startDate = req.query.startDate as string;
@@ -114,10 +114,10 @@ export async function getAccountBalances(req: Request, res: Response) {
   }
 }
 
-export async function getExpenseThirty(req: Request, res: Response) {
+export async function getExpenseByThirty(req: Request, res: Response) {
   try {
     const userId = req.user!.id;
-    const result = await reportService.getExpenseThirty(userId);
+    const result = await reportService.getExpenseByThirty(userId);
 
     if (!result) {
       return res.status(404).json({ error: "No data found." });

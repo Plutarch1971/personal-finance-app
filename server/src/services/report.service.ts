@@ -43,6 +43,7 @@ export async function getExpensesByCategory(
       type: QueryTypes.SELECT,
     },
   );
+  console.log("MONTHLY EXPENSE RESULT:", JSON.stringify(results, null, 2));
   return results;
 }
 
@@ -192,34 +193,72 @@ export async function getAccountBalances(userId: string) {
   });
 }
 
-export async function getExpenseThirty(userId: string) {
+export async function getExpenseByThirty(userId: string) {
   const end = new Date();
   const start = new Date(end);
-  start.setDate(end.getDate() - 30);
+  start.setDate(end.getDate() - 31);
 
-  const startDate = start.toISOString().slice(0, 10);
-  const endDate = end.toISOString().slice(0, 10);
+  // const startDate = start.toISOString().slice(0, 10);
+  // const endDate = end.toISOString().slice(0, 10);
+  function formatLocalDate(date: Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
 
-  const result = await Transaction.findAll({
-    where: {
-      userId,
-      amount: { [Op.lt]: 0 },
-      transactionDate: {
-        [Op.between]: [startDate, endDate],
+    return `${year}-${month}-${day}`;
+  }
+
+  const startDate = formatLocalDate(start);
+  const endDate = formatLocalDate(end);
+
+  console.log("Backend startDate:", startDate);
+  console.log("Backend endDate:", endDate);
+
+  const results = await sequelize.query(
+    `
+    SELECT
+      CASE
+        WHEN parent.name = 'Building Project'
+        THEN child.name
+        ELSE COALESCE(parent.name, child.name)
+      END AS name,
+
+      SUM(ABS(t.amount)) AS value
+
+    FROM "Transactions" t
+
+    JOIN "Categories" child
+      ON t."categoryId" = child.id
+
+    LEFT JOIN "Categories" parent
+      ON child."parentId" = parent.id
+    WHERE t."userId" = :userId
+      AND t.amount < 0
+      AND t."transactionDate" 
+          BETWEEN :startDate AND :endDate
+
+    GROUP BY
+      CASE
+        WHEN parent.name = 'Building Project'
+        THEN child.name
+        ELSE COALESCE(parent.name, child.name)
+      END
+
+    ORDER BY value DESC
+    `,
+    {
+      replacements: {
+        userId,
+        startDate,
+        endDate,
       },
+      type: QueryTypes.SELECT,
     },
-    include: [
-      {
-        model: Category,
-        as: "category",
-        attributes: ["id", "name"],
-      },
-    ],
-    attributes: [[fn("SUM", fn("ABS", col("amount"))), "total"]],
-    group: ["category.id", "category.name"],
-    order: [[fn("SUM", fn("ABS", col("amount"))), "DESC"]],
-  });
-  return result;
+  );
+  console.log("result:", JSON.stringify(results, null, 2));
+  console.log("startDate:", startDate);
+  console.log("endDate:", endDate);
+  return results;
 }
 
 export async function getMonthlyExpenseTrend(userId: string) {
