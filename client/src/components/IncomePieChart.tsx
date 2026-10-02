@@ -95,13 +95,10 @@ export default function IncomePieChart({ onClose }: Props) {
       </text>
     );
   };
-  // const buildingFundTotal = data.reduce(
-  //   (sum, item) => sum + Number(item.value),
-  //   0,
-  // );
+  const totalIncome = data.reduce((sum, item) => sum + Number(item.value), 0);
 
   return (
-    <div className="card rounded-4 p-3" style={{ width: "50%" }}>
+    <div className="card rounded-4 p-3" style={{ width: "90%" }}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h4 className="mb-0 text-dark">Income by Category</h4>
         {onClose && (
@@ -114,9 +111,10 @@ export default function IncomePieChart({ onClose }: Props) {
         )}
       </div>
 
-      <div className="mb-3" style={{ width: "50%" }}>
+      <div className="mb-3" style={{ width: "90%" }}>
         <label className="form-label">Start date</label>
         <input
+          style={{ maxWidth: "60%" }}
           type="date"
           className="form-control"
           value={startDate}
@@ -125,6 +123,7 @@ export default function IncomePieChart({ onClose }: Props) {
 
         <label className="form-label mt-2">End date</label>
         <input
+          style={{ maxWidth: "60%" }}
           type="date"
           className="form-control"
           value={endDate}
@@ -186,8 +185,14 @@ export default function IncomePieChart({ onClose }: Props) {
               </ResponsiveContainer>
             </div>
           </div>
-
+          <div className="d-flex justify-content-center gap-2 text-center fs-3 fw-2 p-4 mt-4 bg-info text-dark">
+            <h3 className="fs-3">Gross Income</h3>
+                <p>${totalIncome.toLocaleString()}</p>
+            
+          </div>
           <table className="table table-bordered mt-3">
+            
+              
             <thead>
               <tr>
                 <th>Income Source</th>
@@ -201,8 +206,8 @@ export default function IncomePieChart({ onClose }: Props) {
                   fontWeight: "bold",
                 }}
               >
-                {/* <td>Building Fund (Total)</td>
-                <td>${buildingFundTotal.toLocaleString()}</td> */}
+                {/* <td>Gross Income</td>
+                <td>${totalIncome.toLocaleString()}</td> */}
               </tr>
 
               {data.map((item, index) => (
