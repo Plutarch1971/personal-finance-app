@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import type {  PieLabelRenderProps } from "recharts";
 import {
   PieChart,
   Pie,
@@ -18,9 +19,48 @@ const COLORS = [
   "#FF4560",
 ];
 
+interface CharData {
+  name: string;
+  value: string | number;
+}
 export default function IncomePieChart() {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<CharData[]>([]);
   const [loading, setLoading] = useState(true);
+// Render percentage
+ const RADIAN = Math.PI / 180;
+
+const renderPercentInside = ({
+    cx = 0,
+    cy = 0,
+    midAngle = 0,
+    innerRadius = 0,
+    outerRadius = 0,
+    percent = 0,
+  }: PieLabelRenderProps) => {
+    // Skip tiny slices to avoid overlapping/clipping
+    if (!percent || percent < 0.06) return null;
+  
+    const r = innerRadius + (outerRadius - innerRadius) * 0.55;
+    const x = cx + r * Math.cos(-midAngle * RADIAN);
+    const y = cy + r * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="#fff"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={12}
+        fontWeight={600}
+        pointerEvents="none"
+      >
+        {`${Math.round(percent * 100)}%`}
+      </text>
+    );
+  };
+  
+// /end of percentage rendering
 
   useEffect(() => {
     async function load() {
@@ -68,6 +108,9 @@ export default function IncomePieChart() {
             cy="50%"
             outerRadius={100}
             innerRadius={45}
+            paddingAngle={2}
+            labelLine={false}
+            label={renderPercentInside}
           >
             {data.map((entry, index) => (
               <Cell

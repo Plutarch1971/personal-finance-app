@@ -5,11 +5,7 @@ import { Transaction, Category, Account } from "../models";
 import sequelize from "../config/connection";
 import { QueryTypes } from "sequelize";
 
-/** Monthly income / expense summary
- *
- */
 
-//
 export async function getExpensesByCategory(
   userId: string,
   startDate: string,
@@ -43,7 +39,6 @@ export async function getExpensesByCategory(
       type: QueryTypes.SELECT,
     },
   );
-  console.log("MONTHLY EXPENSE RESULT:", JSON.stringify(results, null, 2));
   return results;
 }
 
@@ -146,7 +141,6 @@ export async function getIncomeByCategory(
       type: QueryTypes.SELECT,
     },
   );
-  console.log("INCOME BY CATEGORY RESULT:", JSON.stringify(results, null, 2));
 
   return results;
 }
@@ -198,8 +192,6 @@ export async function getExpenseByThirty(userId: string) {
   const start = new Date(end);
   start.setDate(end.getDate() - 31);
 
-  // const startDate = start.toISOString().slice(0, 10);
-  // const endDate = end.toISOString().slice(0, 10);
   function formatLocalDate(date: Date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -255,9 +247,6 @@ export async function getExpenseByThirty(userId: string) {
       type: QueryTypes.SELECT,
     },
   );
-  console.log("result:", JSON.stringify(results, null, 2));
-  console.log("startDate:", startDate);
-  console.log("endDate:", endDate);
   return results;
 }
 

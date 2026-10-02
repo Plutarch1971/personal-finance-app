@@ -235,7 +235,6 @@ export default function Dashboard() {
                     <h2 className="card-title pt-2 fs-5">
                       Income by Category:
                     </h2>
-                    <p className="small">Last 30 Days</p>
                     <p className="card-text">For last 30 days.</p>
                     <IncomeByCategory30 />
                   </div>

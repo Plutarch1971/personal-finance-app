@@ -95,10 +95,10 @@ export default function IncomePieChart({ onClose }: Props) {
       </text>
     );
   };
-  const buildingFundTotal = data.reduce(
-    (sum, item) => sum + Number(item.value),
-    0,
-  );
+  // const buildingFundTotal = data.reduce(
+  //   (sum, item) => sum + Number(item.value),
+  //   0,
+  // );
 
   return (
     <div className="card rounded-4 p-3" style={{ width: "50%" }}>
@@ -201,8 +201,8 @@ export default function IncomePieChart({ onClose }: Props) {
                   fontWeight: "bold",
                 }}
               >
-                <td>Building Fund (Total)</td>
-                <td>${buildingFundTotal.toLocaleString()}</td>
+                {/* <td>Building Fund (Total)</td>
+                <td>${buildingFundTotal.toLocaleString()}</td> */}
               </tr>
 
               {data.map((item, index) => (
