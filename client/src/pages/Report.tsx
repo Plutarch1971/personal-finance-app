@@ -19,7 +19,6 @@ export default function Report() {
 
   return (
     <div className="container-fluid report-background w-100 pt-4">
-      
       {/* {error && <div className="alert alert-danger">{error}</div>}  */}
       <div className="row">
         <div className="col-12 col-lg-2 p-3 mt-2">
@@ -30,6 +29,13 @@ export default function Report() {
               onClick={logout}
             >
               Logout
+            </button>
+
+            <button
+              className="btn btn-outline-light"
+              onClick={() => navigate("/transactions/new")}
+            >
+              Transaction Page
             </button>
 
             <button

@@ -42,6 +42,12 @@ export default function AddTransaction() {
           >
             Dashboard
           </button>
+          <button
+            className="btn btn-outline-light"
+            onClick={() => navigate("/report")}
+          >
+            View Report
+          </button>
           <button className="btn btn-outline-light" onClick={logout}>
             Logout
           </button>
