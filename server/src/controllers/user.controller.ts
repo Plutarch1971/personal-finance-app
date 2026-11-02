@@ -70,11 +70,7 @@ export async function getCurrentUser(req: Request, res: Response) {
 }
 //------------------------- FORGOT PASSWORD CONTROLLER ---------------------//
 export const forgotPassword = async (req: Request, res: Response) => {
-  console.log("Forgot password route hit");
   try {
-    // console.log('Forgot password route hit');
-    console.log("Email:", req.body.email);
-
     const { email } = req.body;
 
     await userService.forgotPassword(email);
@@ -93,7 +89,6 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
 //---------------------- RESET PASSWORD CONTROLLER--------------------------//
 export const resetPassword = async (req: Request, res: Response) => {
-  console.log("req.params.token:", req.params.token);
   try {
     const { token } = req.params;
     const { password } = req.body;
